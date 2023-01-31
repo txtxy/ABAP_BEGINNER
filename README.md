@@ -10,7 +10,7 @@ SAP GUI 750 압축해제 후
 1. 이후 OPTION.비쥬얼 디자인에서 SAP SIGNITURE THEMA로 변경
 2. CORBU,BELIZE 옵션 해제
 
-![server_접속](./class_note/screenShot/week1/SPA_GUI_SERVER.png)
+![server_접속](./Class_note/screenShot/week1/SPA_GUI_SERVER.png))
 
 ## SAP SERVER 접속시
     ###SAP SERVER IP : 
