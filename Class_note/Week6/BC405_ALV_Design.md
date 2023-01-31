@@ -247,7 +247,6 @@ LAYOUT 스트럭쳐의 ctab_fname에 위의 lvc_T_scol 타입을 사용하는 �
 
 ### STANDARD FUNCTION을 숨기기
 
-![](../screenShot/Week6/GUI_ALV_GRID_UI_FUNCTION_attribute.png)
 
 UI 관련 속성은 CL_ALV_GIRD안에 **MC_FC_** 혹은 **MC_MB**로 시작한다
 

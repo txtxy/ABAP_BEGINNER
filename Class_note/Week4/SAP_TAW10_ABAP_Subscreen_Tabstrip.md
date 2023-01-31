@@ -15,7 +15,6 @@
     - Screen 레이아웃에서 기본 생성
     - Tab이름과 Tab 개수 선언.
     - 다른 Screen Elements와 마찬가지로 이름을 통해 Identification
-     ![TAB_quantity_Setting](../screenShot/Week4/TAB_quantity_Setting.png)
 
 
 2. #### **Tabstrip Setting** 

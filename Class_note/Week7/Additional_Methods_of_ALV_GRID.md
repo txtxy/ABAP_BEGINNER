@@ -18,7 +18,6 @@ SE-24 Class Builder 에서 가능한 Method를 확인할 수 있다.
 
 ## CONTEXT MENU CREATION
 1. CREATE-GUI STATUS-context_menu
-    - ![create Context menu1](../screenShot/Week7/CONTEXT_MENU.png)
     1. cl_ctmenu 클래스의 load_gui_status 메쏘드 호출
         - Status 파라미터에 생성한 context_menu 이름을 활용.
         - menu 파라미터에 e_object

@@ -1,5 +1,4 @@
 # ALV Events And Methods
-![Architecture](../screenShot/Week6/ALV_Control_archtecture.jpg)
 
 ## Handling Events
 &nbsp;&nbsp;&nbsp;&nbsp;**B.BC405P.203**   
