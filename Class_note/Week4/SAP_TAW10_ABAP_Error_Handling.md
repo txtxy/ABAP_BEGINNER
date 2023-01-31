@@ -138,9 +138,6 @@ Chained Field에 변화가 발생했을 때 시행한다는 조건.
 &nbsp;&nbsp;&nbsp;&nbsp;**B4.P467**  
 
 
-![네비게이션](..\screenShot\Week4\Navigator_image.jpg)
-
-
 
 |구분|BACK<br>CHANGE SESSION|EXIT|CANCEL|
 |---|:---:|:---:|:---:|

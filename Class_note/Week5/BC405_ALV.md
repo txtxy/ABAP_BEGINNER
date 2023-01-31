@@ -38,7 +38,7 @@ END-USER가 정보를 얻기 위해 사용하는 방식
 |LEFT-JUSTIFIED|좌로 정렬|
 |CENTER|가운데 정렬|
 |RIGHT-JUSTIFIED| 우로 정렬|
-|USING EDIT MASK *\<mask\>* | 해당 문자열을 mask CHARCTER로 마스킹<BR> EX)주민등록번호<br>`WRITE :/ gv_regno USING EDIT MASK '______-_******'.`<br>`WRITE :/ gv_telno USING EDIT MASK '(___)____-____'.`<br>![MASKING_Used](../screenShot/Week5/Using_Edit_mask.png)|
+|USING EDIT MASK *\<mask\>* | 해당 문자열을 mask CHARCTER로 마스킹<BR> EX)주민등록번호<br>`WRITE :/ gv_regno USING EDIT MASK '______-_******'.`<br>`WRITE :/ gv_telno USING EDIT MASK '(___)____-____'.`<br>![MASKING_Used](../screenShot//Using_Edit_mask.png)|
 
 
 
@@ -96,7 +96,6 @@ Mtype 과 마찬가지로 sscrfields 테이블에서 LOOP를 돌면서
 
 그룹 지정은 `MODIF ID <GROUP>` Additional Keyword를 통해 부여한다.
 
-![Repot Prg에서 SCREEN 보는 법](../screenShot/Week5/Report_Prg_SCREEN_.png)
 
 ```ABAP
       SELECTION-SCREEN PUSHBUTTON /pos_low(20) gv_btn USER-COMMAND btn.
@@ -140,7 +139,6 @@ Mtype 과 마찬가지로 sscrfields 테이블에서 LOOP를 돌면서
         endif.
       ENDLOOP.
 ```
-![CS를 써야하는 이유](../screenShot/Week5/Reason_to_USING_CS.png)
 
 CS는 해당하는 문자가 포함되어있다면이라는 논리연산자!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -171,7 +169,6 @@ CS는 해당하는 문자가 포함되어있다면이라는 논리연산자!!!!!
 
 ### Container의 구성요소 (UI)
 
-![ALV_DISPLAY_SMPLE](../screenShot/Week6/ALV_grid_display.png)
 1. Application Tool bar
     - Optional로 Selection 가능
 2. List Heeader(Optional)
@@ -314,7 +311,6 @@ ALV를 사용하기 위해서는
 
 ## ALV-GRID의 SYS 변수
 
-![ALV_SYS_VAL](../screenShot/Week6/ALV_grid_SYS_Val.jpg)
 
 |-|Group|변수명|형식|설명|
 |:---:|:---:|:---:|:---:|---|
