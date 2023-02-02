@@ -1,0 +1,303 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZQUIZ_E01_07</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZQUIZ_E01_07</h2>
+<h3> Description: Airline seat</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZQUIZ_E01_07<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zquiz_e01_07.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;####&nbsp;DB###&nbsp;###&nbsp;##&nbsp;###&nbsp;#####&nbsp;##&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;1#&nbsp;####&nbsp;##&nbsp;##&nbsp;#.<br />
+*&nbsp;REad&nbsp;internal&nbsp;table&nbsp;###&nbsp;#####<br />
+*&nbsp;Modify&nbsp;internal&nbsp;table&nbsp;###&nbsp;####&nbsp;####&nbsp;####<br />
+*&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;#####&nbsp;###<br />
+*&nbsp;DB###&nbsp;######&nbsp;###&nbsp;###&nbsp;####.<br />
+<br />
+<br />
+*--------------------------------------------------------------------------------<br />
+<br />
+*&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+TYPES: BEGIN OF ts_answer,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;carrid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sflight-carrid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;carrname&nbsp;&nbsp;&nbsp;TYPE&nbsp;scarr-carrname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sflight-connid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sflight-fldate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seatsmax&nbsp;&nbsp;&nbsp;TYPE&nbsp;sflight-seatsmax,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seatsmax_b&nbsp;TYPE&nbsp;sflight-seatsmax_b,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seatsmax_f&nbsp;TYPE&nbsp;sflight-seatsmax_f,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seatsocc&nbsp;&nbsp;&nbsp;TYPE&nbsp;sflight-seatsocc,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seatsocc_b&nbsp;TYPE&nbsp;sflight-seatsocc_b,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seatsocc_f&nbsp;TYPE&nbsp;sflight-seatsocc_f,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seatsdif&nbsp;&nbsp;&nbsp;TYPE&nbsp;sflight-seatsmax,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;private&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;business&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ts_answer.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+DATA :<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gt_sflight&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;sflight,&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#####<br />
+*&nbsp;&nbsp;gt_scarr&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;scarr,&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;lt_answer&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ts_answer<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;NON-UNIQUE&nbsp;KEY&nbsp;carrid&nbsp;connid.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**##&nbsp;value&nbsp;##<br />
+*DATA&nbsp;:<br />
+*&nbsp;&nbsp;lv_private&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;lv_business&nbsp;TYPE&nbsp;i.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
+<br />
+*&nbsp;Structure&nbsp;value&nbsp;##&nbsp;.<br />
+   </div>
+   <div class="code">
+DATA :<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_sflights&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_sflight,&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#####<br />
+*&nbsp;&nbsp;gs_scarr&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_scarr,&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#####<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_answer&nbsp;&nbsp;&nbsp;TYPE&nbsp;ts_answer.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;####&nbsp;##&nbsp;##&nbsp;##.<br />
+   </div>
+   <div class="code">
+PARAMETERS: pa_carid LIKE scarr-carrid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_conid&nbsp;LIKE&nbsp;sflight-connid.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Main&nbsp;code&nbsp;##<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;##&nbsp;###&nbsp;JOIN&nbsp;#&nbsp;Parameter&nbsp;###&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;f~carrid&nbsp;c~carrname&nbsp;f~connid&nbsp;f~fldate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f~seatsmax&nbsp;f~seatsmax_b&nbsp;f~seatsmax_f<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f~seatsocc&nbsp;f~seatsocc_b&nbsp;f~seatsocc_f<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_answer<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sflight&nbsp;AS&nbsp;f&nbsp;JOIN&nbsp;scarr&nbsp;AS&nbsp;c&nbsp;ON&nbsp;f~carrid&nbsp;=&nbsp;c~carrid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;f~carrid&nbsp;=&nbsp;pa_carid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f~connid&nbsp;=&nbsp;pa_conid.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------------------<br />
+**&nbsp;##&nbsp;##&nbsp;###&nbsp;JOIN&nbsp;#&nbsp;##&nbsp;###&nbsp;##<br />
+**&nbsp;####&nbsp;###&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;#&nbsp;##<br />
+*&nbsp;&nbsp;SELECT&nbsp;f~carrid&nbsp;c~carrname&nbsp;f~connid&nbsp;f~fldate<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f~seatsmax&nbsp;f~seatsmax_b&nbsp;f~seatsmax_f<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f~seatsocc&nbsp;f~seatsocc_b&nbsp;f~seatsocc_f<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_answer<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sflight&nbsp;AS&nbsp;f&nbsp;JOIN&nbsp;scarr&nbsp;AS&nbsp;c&nbsp;ON&nbsp;f~carrid&nbsp;=&nbsp;c~carrid.<br />
+<br />
+*--------------------------------------------------------------------------------<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#####&nbsp;#&nbsp;###&nbsp;##&nbsp;###<br />
+**&nbsp;##&nbsp;##&nbsp;COUNT#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(&nbsp;*&nbsp;)&nbsp;as&nbsp;private&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPENDING&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_answer<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;=&nbsp;ls_answer-connid&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;=&nbsp;ls_answer-fldate&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custtype&nbsp;=&nbsp;'P'.<br />
+**&nbsp;##&nbsp;##&nbsp;COUNT#&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(&nbsp;*&nbsp;)&nbsp;as&nbsp;business&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Business&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPENDING&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_answer<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;=&nbsp;ls_answer-connid&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;=&nbsp;ls_answer-fldate&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custtype&nbsp;=&nbsp;'B'.<br />
+*--------------------------------------------------------------------------------<br />
+<br />
+*&nbsp;##&nbsp;###&nbsp;##&nbsp;ORDERing<br />
+*&nbsp;SORT&nbsp;lt_answer&nbsp;by&nbsp;fldate&nbsp;ASCENDING&nbsp;.<br />
+<br />
+*&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ls_answer-carrid&nbsp;&lt;&gt;&nbsp;pa_carid&nbsp;AND&nbsp;ls_answer-connid&nbsp;&lt;&gt;&nbsp;pa_conid.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+*##&nbsp;LOOP&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_answer&nbsp;INTO&nbsp;ls_answer&nbsp;.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-seatsmax&nbsp;=&nbsp;ls_answer-seatsmax&nbsp;+&nbsp;ls_answer-seatsmax_b&nbsp;+&nbsp;ls_answer-seatsmax_f.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-seatsocc&nbsp;=&nbsp;ls_answer-seatsocc&nbsp;+&nbsp;ls_answer-seatsocc_b&nbsp;+&nbsp;ls_answer-seatsocc_f.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-seatsdif&nbsp;=&nbsp;&nbsp;ls_answer-seatsmax&nbsp;&nbsp;-&nbsp;(&nbsp;ls_answer-seatsocc&nbsp;).<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------------------<br />
+*&nbsp;##&nbsp;#&nbsp;#####&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;b~connid&nbsp;b~fldate&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_cal<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook&nbsp;AS&nbsp;a<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;sflight&nbsp;AS&nbsp;b<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~connid&nbsp;=&nbsp;b~connid<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~connid&nbsp;=&nbsp;ls_answer-connid&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~fldate&nbsp;=&nbsp;ls_answer-fldate&nbsp;AND<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~custtype&nbsp;=&nbsp;'P'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GROUP&nbsp;BY&nbsp;b~connid&nbsp;b~fldate<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDSELECT.<br />
+*--------------------------------------------------------------------------------<br />
+*&nbsp;##&nbsp;##&nbsp;COUNT#&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_answer-private<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;=&nbsp;ls_answer-connid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;=&nbsp;ls_answer-fldate&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custtype&nbsp;=&nbsp;'P'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;##&nbsp;COUNT#&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;business&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_answer-business<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;=&nbsp;ls_answer-connid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;=&nbsp;ls_answer-fldate&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custtype&nbsp;=&nbsp;'B'.<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;read&nbsp;TABLE&nbsp;lt_answer&nbsp;into&nbsp;ls_answer&nbsp;WITH&nbsp;KEY&nbsp;ls_answer-private.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;read&nbsp;TABLE&nbsp;lt_answer&nbsp;into&nbsp;ls_answer&nbsp;WITH&nbsp;KEY&nbsp;ls_answer-business.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;ls_answer-carrid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-carrname,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-connid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-fldate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-seatsmax&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-seatsocc,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-seatsdif,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-private,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_answer-business.<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*ENDIF.<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;PA_CARID&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;PA_CONID&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

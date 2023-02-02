@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZABAP_E01_034</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_034</h2>
+<h3> Description: TabStips Selction screens Control</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP_E01_034<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabap_e01_034.<br />
+<br />
+DATA: gs_data TYPE sbook.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1100 AS SUBSCREEN.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;so_car&nbsp;FOR&nbsp;gs_data-carrid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so_con&nbsp;FOR&nbsp;&nbsp;gs_data-connid.<br />
+SELECTION-SCREEN END OF SCREEN 1100.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1200 AS SUBSCREEN.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;pa_id&nbsp;TYPE&nbsp;sbook-customid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_nm&nbsp;TYPE&nbsp;scustom-name.<br />
+SELECTION-SCREEN END OF SCREEN 1200.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1300 AS SUBSCREEN.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;pa_all&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_can&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_val&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1&nbsp;DEFAULT&nbsp;'X'.<br />
+SELECTION-SCREEN END OF SCREEN 1300.<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF TABBED BLOCK tab_str FOR 5 LINES.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;TAB&nbsp;(20)&nbsp;tab1&nbsp;USER-COMMAND&nbsp;comm1&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1100.<br />
+&nbsp;&nbsp;"&nbsp;TAB&nbsp;(20)&nbsp;####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;TAB&nbsp;(20)&nbsp;tab2&nbsp;USER-COMMAND&nbsp;comm2&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1200.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;TAB&nbsp;(20)&nbsp;tab3&nbsp;USER-COMMAND&nbsp;comm3&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1300.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK tab_str.<br />
+<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;tab1&nbsp;='Connection'(001).<br />
+&nbsp;&nbsp;tab2&nbsp;='Flight'(002).<br />
+&nbsp;&nbsp;tab3&nbsp;='Booking'(003).<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;####&nbsp;###&nbsp;##&nbsp;Display#.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;tab_str-activetab&nbsp;=&nbsp;'COMM3'.<br />
+&nbsp;&nbsp;tab_str-dynnr&nbsp;=&nbsp;1300.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;001&nbsp;Connection<br />
+*&nbsp;002&nbsp;Flight<br />
+*&nbsp;003&nbsp;Booking<br />
+<br />
+<br />
+*Selection&nbsp;texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;PA_ID&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;PA_NM&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;SO_CAR&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;SO_CON&nbsp;D&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

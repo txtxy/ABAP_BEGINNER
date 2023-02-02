@@ -1,0 +1,192 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZABAP_E01_032</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_032</h2>
+<h3> Description: Paramters Statement</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP_E01_032<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabap_e01_032.<br />
+<br />
+CONSTANTS : gc_mark TYPE char1 VALUE 'X'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;OBLIGATORY&nbsp;:&nbsp;##&nbsp;##&nbsp;##&nbsp;####&nbsp;#.<br />
+*&nbsp;LOWER&nbsp;CASE&nbsp;:&nbsp;#####&nbsp;####&nbsp;###&nbsp;#&nbsp;###.<br />
+*&nbsp;MEMORY&nbsp;ID&nbsp;&lt;&gt;&nbsp;:&nbsp;SAP&nbsp;Memory#&nbsp;####&nbsp;##&nbsp;#&nbsp;###.<br />
+*&nbsp;DEFAULT&nbsp;&lt;&gt;&nbsp;:&nbsp;####&nbsp;###&nbsp;##&nbsp;#####&nbsp;###.<br />
+   </div>
+   <div class="code">
+PARAMETERS: pa_car TYPE scarr-carrid OBLIGATORY LOWER CASE<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MEMORY&nbsp;ID&nbsp;car&nbsp;."DEFAULT&nbsp;'DL'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*CHECJ&nbsp;BOX&nbsp;##<br />
+*&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;'X'##&nbsp;###.<br />
+   </div>
+   <div class="code">
+PARAMETERS : pa_chk1 as CHECKBOX DEFAULT 'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_chk2&nbsp;as&nbsp;CHECKBOX&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_chk3&nbsp;as&nbsp;CHECKBOX&nbsp;DEFAULT&nbsp;'X'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*RADIO&nbsp;BUTTON&nbsp;##<br />
+*###&nbsp;###&nbsp;##&nbsp;###.<br />
+   </div>
+   <div class="code">
+PARAMETERS : pa_rb1 RADIOBUTTON GROUP rbg ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_rb2&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rbg&nbsp;DEFAULT&nbsp;'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_rb3&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rbg.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;pa_chk1#&nbsp;#####&nbsp;####<br />
+   </div>
+   <div class="code">
+IF pa_chk1 = gc_mark.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;pa_chk1#&nbsp;##&nbsp;###&nbsp;##&nbsp;####<br />
+   </div>
+   <div class="code">
+&nbsp;else.<br />
+ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;pa_chk2#&nbsp;#####&nbsp;####<br />
+   </div>
+   <div class="code">
+IF pa_chk2 = gc_mark.<br />
+ENDIF.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;pa_chk3#&nbsp;##&nbsp;####.<br />
+   </div>
+   <div class="code">
+IF pa_chk3 = ''.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;###&nbsp;##&nbsp;####<br />
+   </div>
+   <div class="code">
+IF pa_chk3 is INITIAL.<br />
+<br />
+<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;##&nbsp;###&nbsp;###&nbsp;######&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+IF pa_chk1 = gc_mark.<br />
+ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;###&nbsp;####&nbsp;1##&nbsp;###&nbsp;#&nbsp;##.<br />
+   </div>
+   <div class="code">
+CASE gc_mark. " ##### 'X'# # ## ##.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;1#&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;WHEN&nbsp;pa_rb1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;2#&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;WHEN&nbsp;pa_rb2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;3#&nbsp;###&nbsp;##&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;WHEN&nbsp;pa_rb3.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*####&nbsp;##&nbsp;###&nbsp;#<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+<br />
+ENDCASE.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

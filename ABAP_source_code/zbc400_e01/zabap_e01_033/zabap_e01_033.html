@@ -1,0 +1,198 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZABAP_E01_033</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_033</h2>
+<h3> Description: select option program</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP_E01_033<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabap_e01_033.<br />
+<br />
+TABLES sscrfields.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;elementry&nbsp;###&nbsp;####<br />
+   </div>
+   <div class="code">
+DATA : gv_carrid TYPE scarr-carrid.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Structure&nbsp;###&nbsp;####.<br />
+   </div>
+   <div class="code">
+DATA : gs_flight TYPE sflight,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_mod&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**&nbsp;S-O&nbsp;##&nbsp;##&nbsp;##.<br />
+*SELECT-OPTIONS:&nbsp;so_car&nbsp;FOR&nbsp;gv_carrid<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#######&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY,<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;##&nbsp;#########.<br />
+**&nbsp;####&nbsp;###&nbsp;######&nbsp;##&nbsp;###&nbsp;##<br />
+*so_con&nbsp;FOR&nbsp;gs_flight-connid&nbsp;no-EXTENSION,<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;####&nbsp;###.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;###&nbsp;####&nbsp;####&nbsp;###,<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;###&nbsp;#&nbsp;###&nbsp;####&nbsp;##&nbsp;###<br />
+*so_fdt&nbsp;FOR&nbsp;gs_flight-fldate&nbsp;no&nbsp;INTERVALS&nbsp;no-EXTENSION.<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK blk1 WITH FRAME TITLE TEXT-001.<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;so_car&nbsp;FOR&nbsp;gv_carrid&nbsp;OBLIGATORY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so_con&nbsp;FOR&nbsp;gs_flight-connid&nbsp;NO-EXTENSION&nbsp;MODIF&nbsp;ID&nbsp;mod,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so_fdt&nbsp;FOR&nbsp;gs_flight-fldate&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK blk1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK blk2 WITH FRAME.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;1(20)&nbsp;TEXT-c01.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;pos_low#&nbsp;#&nbsp;####&nbsp;#&nbsp;#&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;#####.<br />
+*&nbsp;POS_LOW#&nbsp;POS_HIGH#&nbsp;##&nbsp;#####&nbsp;###&nbsp;#&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;#####&nbsp;###.<br />
+*&nbsp;FOR&nbsp;Field#&nbsp;####&nbsp;##&nbsp;###&nbsp;#####&nbsp;##<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;pos_low(14)&nbsp;TEXT-c02&nbsp;FOR&nbsp;FIELD&nbsp;pa_eco.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS:&nbsp;pa_eco&nbsp;AS&nbsp;CHECKBOX.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;FOR&nbsp;Field#&nbsp;####&nbsp;######&nbsp;Display&nbsp;Sccreen##&nbsp;####&nbsp;#####&nbsp;#####&nbsp;###.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;pos_high(14)&nbsp;TEXT-c03.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;pa_biz&nbsp;AS&nbsp;CHECKBOX.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;PUSHBUTTON&nbsp;/pos_low(20)&nbsp;gv_btn&nbsp;USER-COMMAND&nbsp;btn.<br />
+<br />
+<br />
+SELECTION-SCREEN END OF BLOCK blk2.<br />
+<br />
+<br />
+INITIALIZATION.<br />
+<br />
+&nbsp;&nbsp;so_car-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;so_car-option&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;so_car-low&nbsp;=&nbsp;'UA'.<br />
+&nbsp;&nbsp;APPEND&nbsp;so_car.<br />
+<br />
+&nbsp;&nbsp;gv_btn&nbsp;=&nbsp;'Diplay/Change'.<br />
+<br />
+<br />
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;CASE&nbsp;sscrfields-ucomm.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'BTN'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_mod&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_mod&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_mod&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+AT SELECTION-SCREEN OUTPUT.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'MOD'.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;####<br />
+<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;gv_mod.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#####&nbsp;#####&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_mod.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;####&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;&nbsp;screen-name&nbsp;cs&nbsp;'so_con'.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####&nbsp;#&nbsp;CS#&nbsp;######.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_mod&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Text&nbsp;elements<br />
+*----------------------------------------------------------<br />
+*&nbsp;001&nbsp;######<br />
+*&nbsp;C01&nbsp;Flight&nbsp;CLASS(Seats)<br />
+*&nbsp;C02&nbsp;Economy&nbsp;CLASS<br />
+*&nbsp;C03&nbsp;Buisiness&nbsp;CLASS<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

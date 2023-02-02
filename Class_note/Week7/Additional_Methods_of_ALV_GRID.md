@@ -17,14 +17,14 @@ SE-24 Class Builder 에서 가능한 Method를 확인할 수 있다.
 5. USER_COMMAND에서 해당 메뉴 실행
 
 ## CONTEXT MENU CREATION
-1. CREATE-GUI STATUS-context_menu
+- CREATE-GUI STATUS-context_menu
     1. cl_ctmenu 클래스의 load_gui_status 메쏘드 호출
         - Status 파라미터에 생성한 context_menu 이름을 활용.
         - menu 파라미터에 e_object
     2. CL_CTMENU 클래스의 add_function 메쏘드를 호출
         - 펑션 코드와 텍스트를 추가할 수 있음.
         - 즉 CONTEXT MENU를 동적으로 구현할 수 있음.
-2. 
+
 
 
 

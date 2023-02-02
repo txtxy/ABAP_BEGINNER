@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<title>ZABAP_E01_040</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_040</h2>
+<h3> Description: DB TABLE UPDATE</h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP_E01_040<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabap_e01_040.<br />
+<br />
+DATA : gt_carrier TYPE TABLE OF ztscarr_e01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_carrier&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_carrier.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;###&nbsp;##<br />
+<br />
+*SELECT&nbsp;*<br />
+*&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_carrier<br />
+*&nbsp;&nbsp;FROM&nbsp;ztscarr_e01<br />
+*&nbsp;&nbsp;WHERE&nbsp;currcode&nbsp;=&nbsp;'USD'.<br />
+*<br />
+*LOOP&nbsp;AT&nbsp;gt_carrier&nbsp;INTO&nbsp;gs_carrier.<br />
+*&nbsp;&nbsp;gs_carrier-currcode&nbsp;=&nbsp;'KRW'.<br />
+*&nbsp;&nbsp;MODIFY&nbsp;gt_carrier&nbsp;FROM&nbsp;gs_carrier.<br />
+*&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_carrier.<br />
+*ENDLOOP.<br />
+*<br />
+*UPDATE&nbsp;ztscarr_e01&nbsp;FROM&nbsp;TABLE&nbsp;gt_carrier.<br />
+<br />
+*&nbsp;###&nbsp;##<br />
+<br />
+   </div>
+   <div class="code">
+UPDATE ztscarr_e01 set currcode ='EUR'<br />
+WHERE Carrid BETWEEN 'AA' and 'DL'.<br />
+<br />
+<br />
+<br />
+IF sy-subrc = 0.<br />
+&nbsp;&nbsp;MESSAGE'Success.&nbsp;data&nbsp;Saved!'&nbsp;TYPE&nbsp;'S'.<br />
+<br />
+ELSE.<br />
+&nbsp;&nbsp;MESSAGE'Error.&nbsp;data&nbsp;Denied!'&nbsp;TYPE&nbsp;'W'.<br />
+<br />
+ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;Success.&nbsp;data&nbsp;Saved!<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>
