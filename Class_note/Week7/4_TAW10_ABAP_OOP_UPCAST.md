@@ -7,7 +7,7 @@ SUBCLASS에서 생성한 Attribute를 SUPERCLASS에게 전달하는것.
 
 SUBCLASS의 Object를 SUPERCLASS의 Object에 할당하는것을 UPCAST라고 하고
 
-UPCAST가 되면 SUPERCLASS의 레퍼런스 벨류는 자식클래스가 상속받은 컴포넌트에 엑세스 됨.
+UPCAST가 되면 SUPERCLASS의 Referance Value는 자식클래스가 상속받은 Component에 Access됨.
 
 ---
 
@@ -20,7 +20,8 @@ UPCAST가 되면 SUPERCLASS의 레퍼런스 벨류는 자식클래스가 상속�
 부모 클래스로부터 상속 받은 자식 오브젝트가 존재한다면,
 
 자식 클래스를 부모 테이블에 입력할때
-상속받은 내용과 더불어 Redefinition한 부분까지 부모 클래스에 입력될 수 있다.????????????????????
+
+상속받은 내용과 더불어 Redefinition한 부분까지 부모 클래스의 테이블에 입력될 수 있다.
 
 
 

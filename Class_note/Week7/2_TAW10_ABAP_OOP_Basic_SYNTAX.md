@@ -1,3 +1,5 @@
+
+
 # Local class   
 ## Local class 정의  
   
@@ -185,24 +187,24 @@ METHOD를 호출하고서는 RECEVING 으로 값을 받는다!!!!
 ```abap  
     * 기본 호출 문법  
     CALL METHOD <ref>-><method_name>  
-        exporting iv_par = val_ex ...  
-        imporitn ev_par = val_im ...  
-        changing dv_par = val_chg ...  
+        EXPORTING iv_par = val_ex ...  
+        IMPORTING ev_par = val_im ...  
+        CHANGING dv_par = val_chg ...  
         RECEIVING rv_par = val_res ...  
         EXCEPTIONS exception = val_rc ... .  
   
     * METHOD 압축 문법  
     <ref>-><method_name>(  
-        exporting iv_par = val_ex ...  
-        imporitn ev_par = val_im ...  
-        changing dv_par = val_chg ...  
+        EXPORTING iv_par = val_ex ...  
+        IMPORITN ev_par = val_im ...  
+        CHANGING dv_par = val_chg ...  
         RECEIVING rv_par = val_res ...  
         EXCEPTIONS exception = val_rc ...  
     ).  
   
 ```  
   
-오브젝트를 생성 한 이후에 Method를 호출 할 수 있따!!!!!!!!!!!!!!!!!!  
+오브젝트를 생성 한 이후에 Method를 호출 할 수 있다!!!!!!!!!!!!!!!!!!  
   
 ## STATIC METHOD  
   
@@ -220,10 +222,11 @@ RETURN은 오직 1개만 할 수 있다.
 2. 논리 조건문(if,while,wait until)  
 3. 연산문 (Compute)   
 구문을 사용하여 묵시적으로 받을 수있다.  
-  
-Returning Signiture는 1개만 존재할 수 있으니까 이렇게 받ㅇ르 수도 있다.  
+
+- RETURN 값에 따라 다르지만 한개 변수(Varuable)로 간주하는 것이라고 볼 수있나?
+
+Returning Signiture는 1개만 존재할 수 있으니까 이렇게 받을 수도 있다.  
 ```  
-    result =   
     result = class_name=>func_method_name (iv_par1 = val_ex1 ...).  
   
 ```  
@@ -248,7 +251,7 @@ Returning Signiture는 1개만 존재할 수 있으니까 이렇게 받ㅇ르 �
 
 - 오브젝트를 생성하는 특별한 Method를 Constructor 라고 한다.  
 - 일반적으로 명시적 호출이 불가능하다.
-- 딱, 1가지 예외를 제외하고서.
+- 딱, 1가지 예외를 제외하고서 ->  SUBCLASS의 Constructor를 선언할때!!!
 
 - Constructor를 설정해놓았다면.  
     1. 오브젝트가 생성될때 자동적으로 Constructor가 실행되고,
@@ -292,22 +295,19 @@ Returning Signiture는 1개만 존재할 수 있으니까 이렇게 받ㅇ르 �
   
 # IMPLEMENT CLASS CONSTRUCTOR = Static Constructor  
 &nbsp;&nbsp;&nbsp;&nbsp;P.96
-이름은 무조건 
 
+Static Constructor의 자동 호출은
 
 1. 오브젝트가 생성될 때 
 2. 스태틱 어트리뷰트에 접근할 때
 3. 스태틱 메쏘드가 호출됐을 떄
 4. 이벤트 헨들러가 등록 됐을 때
 
-의 상황중 한가지만이라도 발생하면  
-오직 한번만 호출된다.  
-바로 클래스 컨스트럭터가 호출되고
-그런 다음 클래스 컨스트럭터는 다시는 호출 되지 않는다
+의 상황중 한가지만이라도 발생하면 프래그램 중 단 한 번만 실행된다.
 
-무조건 퍼블릭 세션에
-중복해서 선언 불가
-리터닝 익셉션 설치 불가
+- PUBLIC SECTION에 만 선언할 수 있다.
+- 클래스당 1번만 선언할 수 있다.
+- `RETURNING VALUE`, `EXCEPTION` 은 불가능하다.
 
 
 # Self-Reference
