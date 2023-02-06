@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_015</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -78,7 +78,7 @@ gs_flight-seatsocc = 120.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;ROW&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;마지막&nbsp;ROW&nbsp;뒤에&nbsp;레코드&nbsp;입력<br />
    </div>
    <div class="code">
 APPEND gs_flight TO gt_flight.<br />
@@ -91,7 +91,7 @@ gs_flight-seatsocc = 110.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;##&nbsp;Default&nbsp;###<br />
+*&nbsp;레코드&nbsp;입력&nbsp;Default&nbsp;마지막<br />
    </div>
    <div class="code">
 INSERT gs_flight INTO TABLE gt_flight.<br />
@@ -104,7 +104,7 @@ gs_flight-seatsocc = 220.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;rownum&nbsp;2##&nbsp;###&nbsp;##<br />
+*&nbsp;rownum&nbsp;2번에&nbsp;레코드&nbsp;입력<br />
    </div>
    <div class="code">
 INSERT gs_flight INTO gt_flight INDEX 2.<br />
@@ -118,7 +118,7 @@ gs_flight-seatsocc = 120.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;ROW&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;마지막&nbsp;ROW&nbsp;뒤에&nbsp;레코드&nbsp;입력<br />
    </div>
    <div class="code">
 APPEND gs_flight TO gt_flight.<br />
@@ -129,7 +129,7 @@ APPEND gs_flight TO gt_flight.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Internal&nbsp;table&nbsp;##&nbsp;###&nbsp;row&nbsp;##.<br />
+*&nbsp;Internal&nbsp;table&nbsp;특정&nbsp;조건의&nbsp;row&nbsp;조회.<br />
    </div>
    <div class="code">
 READ TABLE gt_flight INTO gs_flight INDEX 3.<br />
@@ -150,7 +150,7 @@ MODIFY gt_flight FROM gs_flight INDEX 2<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;percentage&nbsp;##&nbsp;##&nbsp;####.<br />
+*&nbsp;percentage&nbsp;컬럼&nbsp;값만&nbsp;변경한다.<br />
    </div>
    <div class="code">
 MODIFY gt_flight FROM gs_flight INDEX 3<br />
@@ -160,7 +160,7 @@ TRANSPORTING percentage.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Internal&nbsp;Tabel##&nbsp;##&nbsp;Row&nbsp;###&nbsp;###.<br />
+*&nbsp;Internal&nbsp;Tabel에서&nbsp;특정&nbsp;Row&nbsp;데이터&nbsp;읽어옴.<br />
 *READ&nbsp;TABLE&nbsp;GT_FLIGHT&nbsp;INTO&nbsp;GS_FLIGHT&nbsp;INDEX&nbsp;3.<br />
 *READ&nbsp;TABLE&nbsp;GT_FLIGHT&nbsp;INTO&nbsp;GS_FLIGHT<br />
 *&nbsp;&nbsp;WITH&nbsp;TABLE&nbsp;KEY&nbsp;CARRID&nbsp;=&nbsp;'AA'<br />
@@ -182,7 +182,7 @@ READ TABLE GT_FLIGHT INTO GS_FLIGHT<br />
 <br />
 *MODIFY&nbsp;TABLE&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;GS_FLIGHT.<br />
 <br />
-*###&nbsp;##&nbsp;##&nbsp;###&nbsp;###&nbsp;##<br />
+*반복문&nbsp;이용&nbsp;전체&nbsp;로우에&nbsp;레코드&nbsp;변경<br />
    </div>
    <div class="code">
 LOOP AT gt_flight INTO gs_flight.<br />
@@ -194,14 +194,14 @@ LOOP AT gt_flight INTO gs_flight.<br />
 ENDLOOP.<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;sort&nbsp;gt_flight.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;sort&nbsp;gt_flight&nbsp;by&nbsp;carrid.&nbsp;"Default&nbsp;##&nbsp;ASC<br />
+&nbsp;&nbsp;&nbsp;&nbsp;sort&nbsp;gt_flight&nbsp;by&nbsp;carrid.&nbsp;"Default&nbsp;값은&nbsp;ASC<br />
 &nbsp;&nbsp;&nbsp;&nbsp;sort&nbsp;gt_flight&nbsp;by&nbsp;fldate&nbsp;ASCENDING.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;sort&nbsp;gt_flight&nbsp;by&nbsp;carrid&nbsp;Descending<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;seatsocc&nbsp;Ascending.<br />
 <br />
 <br />
 <br />
-LOOP AT gt_flight INTO gs_flight. " ## Rownum# LOOP<br />
+LOOP AT gt_flight INTO gs_flight. " 해당 Rownum만 LOOP<br />
 &nbsp;&nbsp;WRITE:/&nbsp;sy-tabix,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-carrid,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-connid,<br />
@@ -215,7 +215,7 @@ ULINE.<br />
 LOOP AT gt_flight INTO gs_flight<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;3.&nbsp;"&nbsp;##&nbsp;Rownum#&nbsp;LOOP<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;3.&nbsp;"&nbsp;해당&nbsp;Rownum만&nbsp;LOOP<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;'AA'&nbsp;and&nbsp;connid&nbsp;=&nbsp;'0070'&nbsp;or&nbsp;connid&nbsp;=&nbsp;'000170'.<br />
@@ -232,7 +232,7 @@ ULINE.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Rownum&nbsp;2##&nbsp;##<br />
+*&nbsp;Rownum&nbsp;2번만&nbsp;조회<br />
    </div>
    <div class="code">
 READ TABLE gt_flight INTO gs_flight INDEX 2.<br />
@@ -248,7 +248,7 @@ READ TABLE gt_flight INTO gs_flight INDEX 2.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;READ&nbsp;###&nbsp;###&nbsp;####&nbsp;####&nbsp;######&nbsp;###&nbsp;###.<br />
+*&nbsp;READ&nbsp;문법은&nbsp;조건을&nbsp;만족하는&nbsp;레코드가&nbsp;여러건이라도&nbsp;한건만&nbsp;출력됨.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_flight&nbsp;INTO&nbsp;gs_flight<br />
@@ -266,10 +266,10 @@ READ TABLE gt_flight INTO gs_flight INDEX 2.<br />
 <br />
    </div>
    <div class="codeComment">
-*##&nbsp;##<br />
+*전체&nbsp;삭제<br />
 <br />
 <br />
-*&nbsp;Internal&nbsp;Table&nbsp;###&nbsp;##.<br />
+*&nbsp;Internal&nbsp;Table&nbsp;데이터&nbsp;변경.<br />
    </div>
    <div class="code">
 MODIFY GT_FLIGHT FROM GS_FLIGHT INDEX 3<br />
@@ -277,13 +277,13 @@ MODIFY GT_FLIGHT FROM GS_FLIGHT INDEX 3<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Internal&nbsp;table&nbsp;###&nbsp;##.<br />
+*&nbsp;Internal&nbsp;table&nbsp;데이터&nbsp;삭제.<br />
 *DELETE&nbsp;GT_FLIGHT&nbsp;INDEX&nbsp;2.<br />
 *DELETE&nbsp;GT_FLIGHT&nbsp;TO&nbsp;2.<br />
 *DELETE&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;2.<br />
 <br />
-*&nbsp;Internal&nbsp;table#&nbsp;###&nbsp;###&nbsp;###<br />
-*&nbsp;#####&nbsp;##.<br />
+*&nbsp;Internal&nbsp;table에&nbsp;할당된&nbsp;레코드&nbsp;한건씩<br />
+*&nbsp;반복적으로&nbsp;처리.<br />
    </div>
    <div class="code">
 LOOP AT GT_FLIGHT INTO GS_FLIGHT.<br />
@@ -292,7 +292,7 @@ LOOP AT GT_FLIGHT INTO GS_FLIGHT.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_FLIGHT-SEATSMAX&nbsp;*&nbsp;100.<br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;###&nbsp;Internal&nbsp;Table#&nbsp;##.<br />
+*&nbsp;변경한&nbsp;데이터&nbsp;Internal&nbsp;Table에&nbsp;수정.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;MODIFY&nbsp;GT_FLIGHT&nbsp;FROM&nbsp;GS_FLIGHT.<br />
@@ -301,7 +301,7 @@ ENDLOOP.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;##.<br />
+*&nbsp;데이터&nbsp;정렬.<br />
 *SORT&nbsp;GT_FLIGHT.<br />
    </div>
    <div class="code">

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_012</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -63,7 +63,7 @@ REPORT zabap_e01_012.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;####&nbsp;##&nbsp;##<br />
+*&nbsp;로컬&nbsp;스트럭쳐&nbsp;타입&nbsp;생성<br />
    </div>
    <div class="code">
 TYPES: BEGIN OF ts_info,<br />
@@ -76,18 +76,18 @@ TYPES: BEGIN OF ts_info,<br />
 <br />
    </div>
    <div class="codeComment">
-*tructure&nbsp;Variable&nbsp;##.<br />
+*tructure&nbsp;Variable&nbsp;선언.<br />
    </div>
    <div class="code">
-DATA: gs_flight TYPE bc400_s_flight, " ### #### ## ##<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_info&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ts_info.&nbsp;"&nbsp;##&nbsp;####&nbsp;##&nbsp;##<br />
+DATA: gs_flight TYPE bc400_s_flight, " 글로벌 스트럭쳐 타입 이용<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_info&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ts_info.&nbsp;"&nbsp;로컬&nbsp;스트럭쳐&nbsp;사용&nbsp;선언<br />
 <br />
-gs_flight-carrid = 'LH'. " String ##<br />
-gs_flight-connid = '0017'. " String Number ##<br />
-gs_flight-fldate = sy-datum. " system ## ##<br />
-gs_flight-seatsmax = 300. " Number ##<br />
+gs_flight-carrid = 'LH'. " String 입력<br />
+gs_flight-connid = '0017'. " String Number 입력<br />
+gs_flight-fldate = sy-datum. " system 변수 입력<br />
+gs_flight-seatsmax = 300. " Number 입력<br />
 gs_flight-seatsocc = 125.<br />
-gs_flight-percentage = gs_flight-seatsocc / gs_flight-seatsmax * 100. " ## ##<br />
+gs_flight-percentage = gs_flight-seatsocc / gs_flight-seatsmax * 100. " 연산 입력<br />
 <br />
 WRITE :/ gs_flight-carrid,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_flight-connid,<br />

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_043</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -68,7 +68,7 @@ DATA : gt_carrier TYPE TABLE OF ztscarr_e01,<br />
    </div>
    <div class="codeComment">
 *--------------------------------------------------------------------*<br />
-**1###<br />
+**1번방법<br />
 *<br />
 *SELECT&nbsp;*<br />
 *&nbsp;&nbsp;INTO&nbsp;&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_carrier<br />
@@ -79,12 +79,12 @@ DATA : gt_carrier TYPE TABLE OF ztscarr_e01,<br />
 *<br />
 *<br />
 **--------------------------------------------------------------------*<br />
-**2#&nbsp;##<br />
+**2번&nbsp;방법<br />
 *DELETE&nbsp;FROM&nbsp;ztscarr_e01&nbsp;WHERE&nbsp;currcode&nbsp;=&nbsp;'EUR'&nbsp;.<br />
 *<br />
 <br />
 *--------------------------------------------------------------------*<br />
-*&nbsp;###&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;테이블&nbsp;전체&nbsp;데이터&nbsp;삭제<br />
    </div>
    <div class="code">
 DELETE FROM ztscarr_e01.<br />

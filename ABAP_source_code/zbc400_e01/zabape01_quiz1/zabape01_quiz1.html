@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAPE01_QUIZ1</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -84,14 +84,14 @@ START-OF-SELECTION.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;parameter&nbsp;###&nbsp;##&nbsp;case&nbsp;###.<br />
+*&nbsp;parameter&nbsp;선택에&nbsp;따른&nbsp;case&nbsp;조건문.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;IF&nbsp;pa_con&nbsp;=&nbsp;'OLD'.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;###&nbsp;##&nbsp;##&nbsp;#<br />
+*&nbsp;제일&nbsp;오래된&nbsp;값을&nbsp;원할&nbsp;때<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;&nbsp;*&nbsp;FROM&nbsp;ztanimal_ins_e01<br />
@@ -103,7 +103,7 @@ PERFORM writing.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;##&nbsp;##&nbsp;##&nbsp;#<br />
+*&nbsp;제일&nbsp;최신&nbsp;값을&nbsp;원할&nbsp;때<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ELSEIF&nbsp;pa_con&nbsp;=&nbsp;'NEW'.<br />
@@ -149,14 +149,14 @@ ENDFORM.<br />
    <div class="codeComment">
 *Text&nbsp;elements<br />
 *----------------------------------------------------------<br />
-*&nbsp;001&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;######<br />
-*&nbsp;002&nbsp;###&nbsp;#####.<br />
+*&nbsp;001&nbsp;입소한&nbsp;동물의&nbsp;이름과&nbsp;종류를&nbsp;다음&nbsp;기준으로&nbsp;출력해주세요<br />
+*&nbsp;002&nbsp;입력값&nbsp;오류입니다.<br />
 <br />
 <br />
 *Selection&nbsp;texts<br />
 *----------------------------------------------------------<br />
-*&nbsp;PA_CON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;####&nbsp;#####?<br />
-*&nbsp;SO_AT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;#####?<br />
+*&nbsp;PA_CON&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어느&nbsp;기준으로&nbsp;찾으시나요?<br />
+*&nbsp;SO_AT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어떤&nbsp;동물인가요?<br />
             </div>
           </td>
         </tr>

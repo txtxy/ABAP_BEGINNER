@@ -65,7 +65,7 @@ PROCESS BEFORE OUTPUT.
   MODULE clear_okcode.																																
   MODULE set_icon.																																
 																																
-module set_subscreen.   " ##### ## ### ## ##																																
+module set_subscreen.   " 서브스크린 동적 선택을 위한 모듈																																
 																																
 **--------------------------------------------------------------------*																																
 *call SUBSCREEN sub																																
@@ -80,9 +80,9 @@ call SUBSCREEN sub
 *--------------------------------------------------------------------*																																
 																																
 PROCESS AFTER INPUT.																																
-* #### ## ## ## ## #### ## ###.																																
-  MODULE exit AT EXIT-COMMAND. " at EXIT-COMMAND. ## ##### ##.																																
-* #### #### ##### ### INPUT check.																																
+* 오토메틱 인풋 체크 없이 바로 탈출하는 것을 설정함.																																
+  MODULE exit AT EXIT-COMMAND. " at EXIT-COMMAND. 이거 설정하는게 중요.																																
+* 필드들을 연결해서 변경사항이 있을때 INPUT check.																																
       CHAIN.																																
     FIELD : sdyn_conn-carrid,																																
             sdyn_conn-connid.																																

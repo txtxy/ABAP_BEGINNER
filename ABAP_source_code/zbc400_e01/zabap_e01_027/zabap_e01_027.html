@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_027</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -63,7 +63,7 @@ REPORT zabap_e01_027.<br />
 <br />
    </div>
    <div class="codeComment">
-*DEEP&nbsp;STRUCTURE&nbsp;##&nbsp;##<br />
+*DEEP&nbsp;STRUCTURE&nbsp;변수&nbsp;생성<br />
    </div>
    <div class="code">
 DATA :gs_pernr TYPE zspernr_e01.<br />
@@ -71,17 +71,17 @@ DATA :gs_pernr TYPE zspernr_e01.<br />
 <br />
    </div>
    <div class="codeComment">
-*#&nbsp;####&nbsp;##&nbsp;###&nbsp;###&nbsp;###&nbsp;####&nbsp;###&nbsp;#######&nbsp;###<br />
-*&nbsp;#&nbsp;####&nbsp;###&nbsp;###&nbsp;####&nbsp;####&nbsp;##&nbsp;######&nbsp;####&nbsp;##<br />
+*딥&nbsp;스트럭쳐&nbsp;내부&nbsp;인터널&nbsp;테이블&nbsp;타입을&nbsp;불러오기&nbsp;위해서&nbsp;워크에어리어를&nbsp;생성함<br />
+*&nbsp;딥&nbsp;스트럭쳐&nbsp;내부의&nbsp;인터널&nbsp;테이블에&nbsp;접근하기&nbsp;위한&nbsp;워크에어리어&nbsp;생성하는&nbsp;작업<br />
 <br />
-*DATA&nbsp;:&nbsp;gs_tel&nbsp;TYPE&nbsp;zstel_e01.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;1<br />
-*DATA&nbsp;:&nbsp;gs_tel&nbsp;TYPE&nbsp;LINE&nbsp;OF&nbsp;zytel_e01.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;2<br />
+*DATA&nbsp;:&nbsp;gs_tel&nbsp;TYPE&nbsp;zstel_e01.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;방법&nbsp;1<br />
+*DATA&nbsp;:&nbsp;gs_tel&nbsp;TYPE&nbsp;LINE&nbsp;OF&nbsp;zytel_e01.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;방법&nbsp;2<br />
    </div>
    <div class="code">
-DATA : gs_tel LIKE LINE OF gs_pernr-phone. " ## 3<br />
+DATA : gs_tel LIKE LINE OF gs_pernr-phone. " 방법 3<br />
 <br />
 <br />
-gs_pernr-ename = '###'.<br />
+gs_pernr-ename = '홍길동'.<br />
 gs_pernr-pernr = 1000.<br />
 gs_pernr-orgreh = 9000.<br />
 <br />
@@ -99,9 +99,9 @@ gs_pernr-ename,<br />
 gs_pernr-orgreh.<br />
 <br />
 LOOP AT gs_pernr-phone INTO gs_tel.<br />
-&nbsp;&nbsp;WRITE:AT&nbsp;/10&nbsp;gs_tel-type,&nbsp;&nbsp;&nbsp;"&nbsp;at&nbsp;/10&nbsp;#&nbsp;#&nbsp;###&nbsp;10##&nbsp;###&nbsp;#######&nbsp;###.<br />
+&nbsp;&nbsp;WRITE:AT&nbsp;/10&nbsp;gs_tel-type,&nbsp;&nbsp;&nbsp;"&nbsp;at&nbsp;/10&nbsp;을&nbsp;쓴&nbsp;방법은&nbsp;10번째&nbsp;컬럼에&nbsp;디스플레이하기&nbsp;위함임.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_tel-tel_no.<br />
-&nbsp;&nbsp;WRITE:/&nbsp;gs_tel-type,&nbsp;&nbsp;&nbsp;"&nbsp;at&nbsp;/10&nbsp;#&nbsp;#&nbsp;###&nbsp;10##&nbsp;###&nbsp;#######&nbsp;###.<br />
+&nbsp;&nbsp;WRITE:/&nbsp;gs_tel-type,&nbsp;&nbsp;&nbsp;"&nbsp;at&nbsp;/10&nbsp;을&nbsp;쓴&nbsp;방법은&nbsp;10번째&nbsp;컬럼에&nbsp;디스플레이하기&nbsp;위함임.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_tel-tel_no.<br />
 ENDLOOP.<br />
             </div>

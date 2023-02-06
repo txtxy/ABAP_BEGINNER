@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_034</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -84,7 +84,7 @@ SELECTION-SCREEN END OF SCREEN 1300.<br />
 SELECTION-SCREEN BEGIN OF TABBED BLOCK tab_str FOR 5 LINES.<br />
 <br />
 &nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;TAB&nbsp;(20)&nbsp;tab1&nbsp;USER-COMMAND&nbsp;comm1&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1100.<br />
-&nbsp;&nbsp;"&nbsp;TAB&nbsp;(20)&nbsp;####&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;"&nbsp;TAB&nbsp;(20)&nbsp;탭페이지&nbsp;타이틀의&nbsp;길이<br />
 &nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;TAB&nbsp;(20)&nbsp;tab2&nbsp;USER-COMMAND&nbsp;comm2&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1200.<br />
 &nbsp;&nbsp;SELECTION-SCREEN&nbsp;&nbsp;TAB&nbsp;(20)&nbsp;tab3&nbsp;USER-COMMAND&nbsp;comm3&nbsp;DEFAULT&nbsp;SCREEN&nbsp;1300.<br />
 <br />
@@ -96,7 +96,7 @@ INITIALIZATION.<br />
 &nbsp;&nbsp;tab3&nbsp;='Booking'(003).<br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;####&nbsp;###&nbsp;##&nbsp;Display#.<br />
+*&nbsp;기본&nbsp;적으로는&nbsp;첫번째&nbsp;탭이&nbsp;Display됨.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;tab_str-activetab&nbsp;=&nbsp;'COMM3'.<br />

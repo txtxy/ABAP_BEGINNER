@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_04</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -68,9 +68,9 @@ DATA: gv_looptime TYPE int4,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_base&nbsp;TYPE&nbsp;int1.<br />
 <br />
 IF pa_num &lt;= 1.<br />
-&nbsp;&nbsp;MESSAGE&nbsp;'2##&nbsp;####&nbsp;###.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'2이상&nbsp;입력하여&nbsp;주세요.'&nbsp;TYPE&nbsp;'I'.<br />
 elseif pa_num &gt;= 10.<br />
-&nbsp;&nbsp;MESSAGE&nbsp;'9###&nbsp;####&nbsp;###.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'9이하를&nbsp;입력하여&nbsp;주세요.'&nbsp;TYPE&nbsp;'I'.<br />
 else .<br />
 <br />
 &nbsp;&nbsp;gv_looptime&nbsp;=&nbsp;pa_num&nbsp;-&nbsp;1&nbsp;.<br />
@@ -95,7 +95,7 @@ else .<br />
 &nbsp;&nbsp;ENDWHILE.<br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;##<br />
+*&nbsp;강사님&nbsp;버전<br />
 *&nbsp;&nbsp;DO&nbsp;PA_NUM&nbsp;TIMES.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;gv_NUM&nbsp;=&nbsp;SY-INDEX.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gv_NUM&nbsp;=&nbsp;1.<br />
@@ -121,7 +121,7 @@ ENDIF.<br />
 *----------------------------------------------------------<br />
 *<br />
 *&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
-*&nbsp;&nbsp;&nbsp;2##&nbsp;####&nbsp;###.<br />
+*&nbsp;&nbsp;&nbsp;2이상&nbsp;입력하여&nbsp;주세요.<br />
             </div>
           </td>
         </tr>

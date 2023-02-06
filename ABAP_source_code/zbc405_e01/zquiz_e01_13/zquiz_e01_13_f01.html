@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_13_F01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -68,10 +68,10 @@
 FORM get_init_date .<br />
 &nbsp;&nbsp;so_fld-sign&nbsp;=&nbsp;'I'.<br />
 &nbsp;&nbsp;so_fld-option&nbsp;=&nbsp;'BT'.<br />
-&nbsp;&nbsp;so_fld-low&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;1#<br />
-&nbsp;&nbsp;so_fld-high&nbsp;=&nbsp;sy-datum(4)&nbsp;&&&nbsp;'1231'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;12#&nbsp;31#<br />
+&nbsp;&nbsp;so_fld-low&nbsp;=&nbsp;sy-datum(6)&nbsp;&&&nbsp;'01'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이번달&nbsp;1일<br />
+&nbsp;&nbsp;so_fld-high&nbsp;=&nbsp;sy-datum(4)&nbsp;&&&nbsp;'1231'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;올해의&nbsp;12월&nbsp;31일<br />
 <br />
-&nbsp;&nbsp;APPEND&nbsp;so_fld.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;APPEND&nbsp;so_fld.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;위&nbsp;값을&nbsp;입력<br />
 <br />
 ENDFORM.<br />
    </div>
@@ -87,7 +87,7 @@ FORM get_data.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;SBOOK&nbsp;###&nbsp;##<br />
+*&nbsp;기본&nbsp;SBOOK&nbsp;데이터&nbsp;호출<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;SELECT&nbsp;*<br />
@@ -99,37 +99,37 @@ FORM get_data.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;DAYs&nbsp;#&nbsp;##&nbsp;#&nbsp;EXCP&nbsp;##.<br />
+*&nbsp;DAYs&nbsp;값&nbsp;입력&nbsp;및&nbsp;EXCP&nbsp;적용.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_book&nbsp;INTO&nbsp;gs_book.<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;gs_book-days&nbsp;=&nbsp;(&nbsp;gs_book-fldate&nbsp;-&nbsp;gs_book-order_date&nbsp;).<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_book-days&nbsp;&lt;&nbsp;50.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;orderdate&nbsp;-&nbsp;fldate#&nbsp;50###&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_book-days&nbsp;&lt;&nbsp;50.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;orderdate&nbsp;-&nbsp;fldate가&nbsp;50미만일&nbsp;시<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'1'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'1'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;빨간색으로<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_book-days&nbsp;&gt;=&nbsp;50&nbsp;AND<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-days&nbsp;&lt;&nbsp;100.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;orderdate&nbsp;-&nbsp;fldate#&nbsp;50##&nbsp;100###&nbsp;#<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-days&nbsp;&lt;&nbsp;100.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;orderdate&nbsp;-&nbsp;fldate가&nbsp;50이상&nbsp;100미만일&nbsp;시<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'2'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'2'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;노란색으로<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'3'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'3'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이외&nbsp;값은&nbsp;초록색으로<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_book&nbsp;FROM&nbsp;gs_book.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_book&nbsp;FROM&nbsp;gs_book.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;계산&nbsp;값&nbsp;입력.<br />
 <br />
 &nbsp;&nbsp;ENDLOOP.<br />
    </div>
    <div class="codeComment">
 *<br />
 *--------------------------------------------------------------------*<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;LOOP&nbsp;##&nbsp;SELECT&nbsp;LOOP#&nbsp;##.<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;#&nbsp;##&nbsp;#?&nbsp;##&nbsp;859MS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;어차피&nbsp;LOOP&nbsp;돌거&nbsp;SELECT&nbsp;LOOP로&nbsp;한다.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;뭔가&nbsp;더&nbsp;느린&nbsp;듯?&nbsp;속도&nbsp;859MS<br />
 *&nbsp;&nbsp;SELECT&nbsp;*<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_book<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
@@ -139,18 +139,18 @@ FORM get_data.<br />
 *<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-days&nbsp;=&nbsp;(&nbsp;gs_book-fldate&nbsp;-&nbsp;gs_book-order_date&nbsp;).<br />
 *<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_book-days&nbsp;&lt;&nbsp;50.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;orderdate&nbsp;-&nbsp;fldate#&nbsp;50###&nbsp;#<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_book-days&nbsp;&lt;&nbsp;50.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;orderdate&nbsp;-&nbsp;fldate가&nbsp;50미만일&nbsp;시<br />
 *<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'1'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'1'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;빨간색으로<br />
 *<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_book-days&nbsp;&gt;=&nbsp;50&nbsp;AND<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-days&nbsp;&lt;&nbsp;100.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;orderdate&nbsp;-&nbsp;fldate#&nbsp;50##&nbsp;100###&nbsp;#<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-days&nbsp;&lt;&nbsp;100.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;orderdate&nbsp;-&nbsp;fldate가&nbsp;50이상&nbsp;100미만일&nbsp;시<br />
 *<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'2'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'2'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;노란색으로<br />
 *<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
 *<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'3'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;#####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_book-excp&nbsp;=&nbsp;'3'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이외&nbsp;값은&nbsp;초록색으로<br />
 *<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
 *&nbsp;&nbsp;APPEND&nbsp;gs_book&nbsp;to&nbsp;gt_book.<br />
@@ -174,7 +174,7 @@ ENDFORM.<br />
    <div class="code">
 FORM set_layout .<br />
 <br />
-&nbsp;&nbsp;gs_layout-excp_fname&nbsp;=&nbsp;'EXCP'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;###&nbsp;##&nbsp;EXCP&nbsp;##<br />
+&nbsp;&nbsp;gs_layout-excp_fname&nbsp;=&nbsp;'EXCP'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"아이콘&nbsp;생성을&nbsp;위해&nbsp;EXCP&nbsp;할당<br />
 &nbsp;&nbsp;gs_layout-cwidth_opt&nbsp;=&nbsp;'X'.<br />
 &nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.<br />
 <br />
@@ -193,12 +193,12 @@ ENDFORM.<br />
 *&---------------------------------------------------------------------*<br />
    </div>
    <div class="code">
-FORM get_init_carrid .              "carrid# INITIAL # ##<br />
+FORM get_init_carrid .              "carrid의 INITIAL 값 지정<br />
 <br />
-&nbsp;&nbsp;so_car-sign&nbsp;=&nbsp;'I'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;####<br />
-&nbsp;&nbsp;so_car-option&nbsp;=&nbsp;'EQ'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###<br />
-&nbsp;&nbsp;so_car-low&nbsp;=&nbsp;'LH'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LH###<br />
-&nbsp;&nbsp;APPEND&nbsp;so_car.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;##.<br />
+&nbsp;&nbsp;so_car-sign&nbsp;=&nbsp;'I'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;포함하는<br />
+&nbsp;&nbsp;so_car-option&nbsp;=&nbsp;'EQ'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;똑같은<br />
+&nbsp;&nbsp;so_car-low&nbsp;=&nbsp;'LH'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LH값으로<br />
+&nbsp;&nbsp;APPEND&nbsp;so_car.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이&nbsp;값을&nbsp;입력.<br />
 <br />
 ENDFORM.<br />
             </div>

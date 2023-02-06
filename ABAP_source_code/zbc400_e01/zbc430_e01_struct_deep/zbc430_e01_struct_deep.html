@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZBC430_E01_STRUCT_DEEP</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -64,8 +64,8 @@
    <div class="code">
 REPORT  zbc430_e01_struct_deep.<br />
 <br />
-DATA wa_person TYPE zperson_e01.   " DEEP STRUCTURE #### ## ##.<br />
-DATA wa_phone  TYPE str_phone.     " zperson_e01 ## phone ### #### ## WA##.<br />
+DATA wa_person TYPE zperson_e01.   " DEEP STRUCTURE 타입으로 변수 선언.<br />
+DATA wa_phone  TYPE str_phone.     " zperson_e01 내부 phone 인터널 테이블을 위한 WA선언.<br />
 <br />
 <br />
 START-OF-SELECTION.<br />
@@ -76,7 +76,7 @@ START-OF-SELECTION.<br />
 <br />
 <br />
 *---------------------------------------------------------------------------<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE###&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE타입의&nbsp;외부&nbsp;내용&nbsp;입력<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;wa_person-street&nbsp;=&nbsp;'Privet&nbsp;Drive'.<br />
@@ -87,26 +87,26 @@ START-OF-SELECTION.<br />
    </div>
    <div class="codeComment">
 *---------------------------------------------------------------------------<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE###&nbsp;##&nbsp;NAME&nbsp;STRUCTURE&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE타입의&nbsp;내부&nbsp;NAME&nbsp;STRUCTURE&nbsp;입력<br />
 <br />
-*&nbsp;&nbsp;wa_person-name-firstname&nbsp;=&nbsp;'Harry'.&nbsp;&nbsp;"&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE&nbsp;###&nbsp;NAME&nbsp;#####&nbsp;####&nbsp;##&nbsp;-##&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;wa_person-name-firstname&nbsp;=&nbsp;'Harry'.&nbsp;&nbsp;"&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE&nbsp;내부의&nbsp;NAME&nbsp;스트럭쳐에&nbsp;접근하기&nbsp;위해&nbsp;-으로&nbsp;이중&nbsp;연결<br />
 *&nbsp;&nbsp;wa_person-name-lastname&nbsp;=&nbsp;'potter'.<br />
    </div>
    <div class="code">
-&nbsp;&nbsp;wa_person-firstname&nbsp;=&nbsp;'Harry'.&nbsp;&nbsp;&nbsp;"&nbsp;NAME&nbsp;#####&nbsp;.include&nbsp;####&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;wa_person-firstname&nbsp;=&nbsp;'Harry'.&nbsp;&nbsp;&nbsp;"&nbsp;NAME&nbsp;스트럭쳐를&nbsp;.include&nbsp;방식으로&nbsp;변경하여&nbsp;쉽게&nbsp;호출<br />
 &nbsp;&nbsp;wa_person-lastname&nbsp;=&nbsp;'potter'.<br />
 <br />
    </div>
    <div class="codeComment">
 *---------------------------------------------------------------------------<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE###&nbsp;##&nbsp;Internal&nbsp;Table#&nbsp;####&nbsp;##,<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PHONE&nbsp;Internal&nbsp;Table#&nbsp;WA#&nbsp;wa_phone#&nbsp;###&nbsp;PHONE&nbsp;####&nbsp;Value&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE타입의&nbsp;내부&nbsp;Internal&nbsp;Table에&nbsp;접근하기&nbsp;위해,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PHONE&nbsp;Internal&nbsp;Table의&nbsp;WA인&nbsp;wa_phone을&nbsp;사용해&nbsp;PHONE&nbsp;테이블에&nbsp;Value&nbsp;입력<br />
 <br />
    </div>
    <div class="code">
-&nbsp;&nbsp;wa_phone-p_type&nbsp;=&nbsp;'P'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#####&nbsp;#&nbsp;##.<br />
-&nbsp;&nbsp;wa_phone-p_number&nbsp;=&nbsp;'+31-10-9938990'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#####&nbsp;#&nbsp;##.<br />
-&nbsp;&nbsp;INSERT&nbsp;wa_phone&nbsp;INTO&nbsp;TABLE&nbsp;wa_person-phone.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;####&nbsp;####.<br />
+&nbsp;&nbsp;wa_phone-p_type&nbsp;=&nbsp;'P'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;워크&nbsp;에어리어에&nbsp;값&nbsp;부여.<br />
+&nbsp;&nbsp;wa_phone-p_number&nbsp;=&nbsp;'+31-10-9938990'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;워크&nbsp;에어리어에&nbsp;값&nbsp;부여.<br />
+&nbsp;&nbsp;INSERT&nbsp;wa_phone&nbsp;INTO&nbsp;TABLE&nbsp;wa_person-phone.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;워크&nbsp;에어리어&nbsp;부여한&nbsp;값을&nbsp;인터널&nbsp;테이블에&nbsp;입력하기.<br />
 <br />
 &nbsp;&nbsp;wa_phone-p_type&nbsp;=&nbsp;'F'.<br />
 &nbsp;&nbsp;wa_phone-p_number&nbsp;=&nbsp;'+31-10-9938991'.<br />

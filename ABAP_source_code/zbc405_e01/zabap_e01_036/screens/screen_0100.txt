@@ -18,7 +18,7 @@ OK_CODE		CHAR	 20	80	10	00	00	00	255	  1	O	  0	  0	  0		  0					  0	  0								_
 PROCESS BEFORE OUTPUT.																																
   MODULE status_0100.																																
   MODULE clear_okcode.																																
-  MODULE init_ALV. " ALV ## #### ##.																																
+  MODULE init_ALV. " ALV 관련 오브젝트 생성.																																
 																																
 																																
 PROCESS AFTER INPUT.																																

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZBC430_E01_ITAB_SORTED</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -78,7 +78,7 @@ DATA wa_sflight TYPE sflight.<br />
 WRITE / 'Printout in tableorder of Database:'.<br />
 <br />
 SELECT * FROM sflight<br />
-&nbsp;INTO&nbsp;wa_sflight&nbsp;&nbsp;"DB###&nbsp;##&nbsp;##<br />
+&nbsp;INTO&nbsp;wa_sflight&nbsp;&nbsp;"DB테이블&nbsp;구조&nbsp;동일<br />
 &nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;'JL'.<br />
 &nbsp;&nbsp;WRITE:&nbsp;/&nbsp;wa_sflight-carrid,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_sflight-connid,<br />
@@ -91,7 +91,7 @@ ENDSELECT.<br />
 ULINE.<br />
 <br />
 SELECT * FROM sflight<br />
-&nbsp;INTO&nbsp;TABLE&nbsp;it_flight&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Sorted&nbsp;Table&nbsp;##&nbsp;##<br />
+&nbsp;INTO&nbsp;TABLE&nbsp;it_flight&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Sorted&nbsp;Table&nbsp;구조&nbsp;복사<br />
 &nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;'JL'.<br />
 WRITE / 'Printout in tableorder of sorted ITAB:'.<br />
 <br />
@@ -106,8 +106,8 @@ ENDLOOP.<br />
 <br />
    </div>
    <div class="codeComment">
-*Sorted&nbsp;table#&nbsp;##&nbsp;####&nbsp;##&nbsp;###,<br />
-*SORT(ABAP&nbsp;KEYWORD)#&nbsp;###&nbsp;#&nbsp;##.<br />
+*Sorted&nbsp;table은&nbsp;이미&nbsp;정렬되어&nbsp;있기&nbsp;떄문에,<br />
+*SORT(ABAP&nbsp;KEYWORD)는&nbsp;사용할&nbsp;수&nbsp;없다.<br />
             </div>
           </td>
         </tr>

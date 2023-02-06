@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_07_01_TVERSION</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -63,7 +63,7 @@ REPORT ZQUIZ_E01_07_01_TVERSION.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Output#&nbsp;##&nbsp;##&nbsp;Structure&nbsp;##.<br />
+*&nbsp;Output에&nbsp;대한&nbsp;필드&nbsp;Structure&nbsp;선언.<br />
    </div>
    <div class="code">
 DATA: BEGIN OF GS_OUTPUT,<br />
@@ -80,15 +80,15 @@ DATA: BEGIN OF GS_OUTPUT,<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Output#&nbsp;##&nbsp;##&nbsp;Internal&nbsp;Table&nbsp;##.<br />
+*&nbsp;Output에&nbsp;대한&nbsp;필드&nbsp;Internal&nbsp;Table&nbsp;선언.<br />
    </div>
    <div class="code">
 DATA: GT_OUTPUT LIKE TABLE OF GS_OUTPUT.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;#####&nbsp;###&nbsp;###&nbsp;###&nbsp;Internal&nbsp;Table&nbsp;##.<br />
-*&nbsp;Structure&nbsp;##.<br />
+*&nbsp;테이블에서&nbsp;데이터&nbsp;읽어서&nbsp;할당할&nbsp;Internal&nbsp;Table&nbsp;선언.<br />
+*&nbsp;Structure&nbsp;선언.<br />
    </div>
    <div class="code">
 DATA: GT_FLIGHT TYPE TABLE OF SFLIGHT,<br />
@@ -104,7 +104,7 @@ PARAMETERS: PA_CAR TYPE SFLIGHT-CARRID,<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;SFlight&nbsp;#####&nbsp;###&nbsp;###.<br />
+*&nbsp;SFlight&nbsp;테이블에서&nbsp;데이터&nbsp;읽어옴.<br />
    </div>
    <div class="code">
 SELECT * INTO TABLE GT_FLIGHT<br />

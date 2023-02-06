@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_07</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -63,16 +63,16 @@ REPORT zquiz_e01_07.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;####&nbsp;DB###&nbsp;###&nbsp;##&nbsp;###&nbsp;#####&nbsp;##&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;1#&nbsp;####&nbsp;##&nbsp;##&nbsp;#.<br />
-*&nbsp;REad&nbsp;internal&nbsp;table&nbsp;###&nbsp;#####<br />
-*&nbsp;Modify&nbsp;internal&nbsp;table&nbsp;###&nbsp;####&nbsp;####&nbsp;####<br />
-*&nbsp;###&nbsp;###&nbsp;###&nbsp;###&nbsp;#####&nbsp;###<br />
-*&nbsp;DB###&nbsp;######&nbsp;###&nbsp;###&nbsp;####.<br />
+*&nbsp;가능하면&nbsp;DB접근을&nbsp;최소화&nbsp;하기&nbsp;위해서&nbsp;중요정보를&nbsp;모두&nbsp;인터널&nbsp;테이블로&nbsp;옮기는&nbsp;작업을&nbsp;1회&nbsp;실행하는&nbsp;것이&nbsp;좋을&nbsp;듯.<br />
+*&nbsp;REad&nbsp;internal&nbsp;table&nbsp;구문을&nbsp;사용해보자<br />
+*&nbsp;Modify&nbsp;internal&nbsp;table&nbsp;구문을&nbsp;이용하요&nbsp;계산값을&nbsp;적용하자<br />
+*&nbsp;인터널&nbsp;테이블&nbsp;루프를&nbsp;여러번&nbsp;돌리는것이&nbsp;빠른지<br />
+*&nbsp;DB접근을&nbsp;여러번하는게&nbsp;빠른지&nbsp;확인이&nbsp;필요하다.<br />
 <br />
 <br />
 *--------------------------------------------------------------------------------<br />
 <br />
-*&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;출력을&nbsp;위한&nbsp;인터널&nbsp;테이블&nbsp;타입&nbsp;선언<br />
    </div>
    <div class="code">
 TYPES: BEGIN OF ts_answer,<br />
@@ -93,14 +93,14 @@ TYPES: BEGIN OF ts_answer,<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;###&nbsp;##<br />
+*&nbsp;인터널&nbsp;테이블&nbsp;선언<br />
    </div>
    <div class="code">
 DATA :<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;gt_sflight&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;sflight,&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#####<br />
-*&nbsp;&nbsp;gt_scarr&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;scarr,&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#####<br />
+*&nbsp;&nbsp;gt_sflight&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;sflight,&nbsp;"&nbsp;전역변수를&nbsp;사용하지&nbsp;않았어서&nbsp;선언이&nbsp;불필요했음<br />
+*&nbsp;&nbsp;gt_scarr&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;scarr,&nbsp;&nbsp;&nbsp;"&nbsp;전역변수를&nbsp;사용하지&nbsp;않았어서&nbsp;선언이&nbsp;불필요했음<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;lt_answer&nbsp;&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;ts_answer<br />
@@ -108,19 +108,19 @@ DATA :<br />
 <br />
    </div>
    <div class="codeComment">
-**##&nbsp;value&nbsp;##<br />
+**로컬&nbsp;value&nbsp;선언<br />
 *DATA&nbsp;:<br />
-*&nbsp;&nbsp;lv_private&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
-*&nbsp;&nbsp;lv_business&nbsp;TYPE&nbsp;i.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;###&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;lv_private&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;&nbsp;&nbsp;"&nbsp;개인고객&nbsp;카운트&nbsp;값을&nbsp;변수가&nbsp;아니라&nbsp;답안&nbsp;테이블에&nbsp;입력<br />
+*&nbsp;&nbsp;lv_business&nbsp;TYPE&nbsp;i.&nbsp;&nbsp;&nbsp;"&nbsp;기업고객&nbsp;카운트&nbsp;값을&nbsp;변수가&nbsp;아니라&nbsp;답안&nbsp;테이블에&nbsp;입력<br />
 <br />
-*&nbsp;Structure&nbsp;value&nbsp;##&nbsp;.<br />
+*&nbsp;Structure&nbsp;value&nbsp;선언&nbsp;.<br />
    </div>
    <div class="code">
 DATA :<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;gs_sflights&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_sflight,&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#####<br />
-*&nbsp;&nbsp;gs_scarr&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_scarr,&nbsp;&nbsp;&nbsp;"&nbsp;#####&nbsp;####&nbsp;####&nbsp;###&nbsp;#####<br />
+*&nbsp;&nbsp;gs_sflights&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_sflight,&nbsp;"&nbsp;전역변수를&nbsp;사용하지&nbsp;않았어서&nbsp;선언이&nbsp;불필요했음<br />
+*&nbsp;&nbsp;gs_scarr&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_scarr,&nbsp;&nbsp;&nbsp;"&nbsp;전역변수를&nbsp;사용하지&nbsp;않았어서&nbsp;선언이&nbsp;불필요했음<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ls_answer&nbsp;&nbsp;&nbsp;TYPE&nbsp;ts_answer.<br />
@@ -128,7 +128,7 @@ DATA :<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;####&nbsp;##&nbsp;##&nbsp;##.<br />
+*&nbsp;파라미터&nbsp;입력&nbsp;속성&nbsp;부여.<br />
    </div>
    <div class="code">
 PARAMETERS: pa_carid LIKE scarr-carrid,<br />
@@ -136,21 +136,21 @@ PARAMETERS: pa_carid LIKE scarr-carrid,<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###<br />
+*&nbsp;초기화<br />
    </div>
    <div class="code">
 INITIALIZATION.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Main&nbsp;code&nbsp;##<br />
+*&nbsp;Main&nbsp;code&nbsp;실행<br />
    </div>
    <div class="code">
 START-OF-SELECTION.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;##&nbsp;###&nbsp;JOIN&nbsp;#&nbsp;Parameter&nbsp;###&nbsp;##<br />
+*&nbsp;기본&nbsp;사용&nbsp;데이터&nbsp;JOIN&nbsp;및&nbsp;Parameter&nbsp;입력값&nbsp;적용<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;SELECT&nbsp;f~carrid&nbsp;c~carrname&nbsp;f~connid&nbsp;f~fldate<br />
@@ -164,8 +164,8 @@ START-OF-SELECTION.<br />
    </div>
    <div class="codeComment">
 *--------------------------------------------------------------------------------<br />
-**&nbsp;##&nbsp;##&nbsp;###&nbsp;JOIN&nbsp;#&nbsp;##&nbsp;###&nbsp;##<br />
-**&nbsp;####&nbsp;###&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;#&nbsp;##<br />
+**&nbsp;기본&nbsp;사용&nbsp;데이터&nbsp;JOIN&nbsp;및&nbsp;전체&nbsp;데이터&nbsp;조회<br />
+**&nbsp;파라미터&nbsp;입력이&nbsp;부족하면&nbsp;그값&nbsp;전체&nbsp;조회할&nbsp;수&nbsp;있음<br />
 *&nbsp;&nbsp;SELECT&nbsp;f~carrid&nbsp;c~carrname&nbsp;f~connid&nbsp;f~fldate<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f~seatsmax&nbsp;f~seatsmax_b&nbsp;f~seatsmax_f<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;f~seatsocc&nbsp;f~seatsocc_b&nbsp;f~seatsocc_f<br />
@@ -173,17 +173,17 @@ START-OF-SELECTION.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sflight&nbsp;AS&nbsp;f&nbsp;JOIN&nbsp;scarr&nbsp;AS&nbsp;c&nbsp;ON&nbsp;f~carrid&nbsp;=&nbsp;c~carrid.<br />
 <br />
 *--------------------------------------------------------------------------------<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#####&nbsp;#&nbsp;###&nbsp;##&nbsp;###<br />
-**&nbsp;##&nbsp;##&nbsp;COUNT#&nbsp;##<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(&nbsp;*&nbsp;)&nbsp;as&nbsp;private&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;루프외부로&nbsp;값&nbsp;옮기는&nbsp;방법&nbsp;도전중<br />
+**&nbsp;개인&nbsp;고객&nbsp;COUNT값&nbsp;부여<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(&nbsp;*&nbsp;)&nbsp;as&nbsp;private&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;합계<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPENDING&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_answer<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;=&nbsp;ls_answer-connid&nbsp;AND<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;=&nbsp;ls_answer-fldate&nbsp;AND<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custtype&nbsp;=&nbsp;'P'.<br />
-**&nbsp;##&nbsp;##&nbsp;COUNT#&nbsp;##<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(&nbsp;*&nbsp;)&nbsp;as&nbsp;business&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Business&nbsp;##<br />
+**&nbsp;기업&nbsp;고객&nbsp;COUNT값&nbsp;부여<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(&nbsp;*&nbsp;)&nbsp;as&nbsp;business&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Business&nbsp;합계<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPENDING&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_answer<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
@@ -192,15 +192,15 @@ START-OF-SELECTION.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custtype&nbsp;=&nbsp;'B'.<br />
 *--------------------------------------------------------------------------------<br />
 <br />
-*&nbsp;##&nbsp;###&nbsp;##&nbsp;ORDERing<br />
+*&nbsp;비행&nbsp;일정에&nbsp;따른&nbsp;ORDERing<br />
 *&nbsp;SORT&nbsp;lt_answer&nbsp;by&nbsp;fldate&nbsp;ASCENDING&nbsp;.<br />
 <br />
-*&nbsp;####&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;후방에서&nbsp;입력&nbsp;조건&nbsp;부여<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;ls_answer-carrid&nbsp;&lt;&gt;&nbsp;pa_carid&nbsp;AND&nbsp;ls_answer-connid&nbsp;&lt;&gt;&nbsp;pa_conid.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
 <br />
-*##&nbsp;LOOP&nbsp;##<br />
+*출력&nbsp;LOOP&nbsp;실행<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_answer&nbsp;INTO&nbsp;ls_answer&nbsp;.<br />
@@ -208,7 +208,7 @@ START-OF-SELECTION.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;좌석수&nbsp;옵션&nbsp;계산<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;ls_answer-seatsmax&nbsp;=&nbsp;ls_answer-seatsmax&nbsp;+&nbsp;ls_answer-seatsmax_b&nbsp;+&nbsp;ls_answer-seatsmax_f.<br />
@@ -218,8 +218,8 @@ START-OF-SELECTION.<br />
    </div>
    <div class="codeComment">
 *--------------------------------------------------------------------------------<br />
-*&nbsp;##&nbsp;#&nbsp;#####&nbsp;##<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;b~connid&nbsp;b~fldate&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;##<br />
+*&nbsp;내가&nbsp;짠&nbsp;비효율적인&nbsp;코드<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;b~connid&nbsp;b~fldate&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;합계<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_cal<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook&nbsp;AS&nbsp;a<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;sflight&nbsp;AS&nbsp;b<br />
@@ -232,10 +232,10 @@ START-OF-SELECTION.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;ENDSELECT.<br />
 *--------------------------------------------------------------------------------<br />
-*&nbsp;##&nbsp;##&nbsp;COUNT#&nbsp;##<br />
+*&nbsp;개인&nbsp;고객&nbsp;COUNT값&nbsp;부여<br />
    </div>
    <div class="code">
-&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;private&nbsp;합계<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_answer-private<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
@@ -244,10 +244,10 @@ START-OF-SELECTION.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custtype&nbsp;=&nbsp;'P'.<br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;##&nbsp;COUNT#&nbsp;##<br />
+*&nbsp;기업&nbsp;고객&nbsp;COUNT값&nbsp;부여<br />
    </div>
    <div class="code">
-&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;business&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(*)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;business&nbsp;합계<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;ls_answer-business<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sbook<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;ls_answer-carrid&nbsp;AND<br />
@@ -264,7 +264,7 @@ START-OF-SELECTION.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;##<br />
+*&nbsp;답안&nbsp;출력<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;WRITE:/&nbsp;ls_answer-carrid,<br />

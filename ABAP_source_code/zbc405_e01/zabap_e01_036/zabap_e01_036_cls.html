@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_036_CLS</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -86,7 +86,7 @@ CLASS lcl_event_handler DEFINITION.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toolbar&nbsp;Event&nbsp;Method&nbsp;-&nbsp;Grid&nbsp;toolbar&nbsp;button&nbsp;##.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toolbar&nbsp;Event&nbsp;Method&nbsp;-&nbsp;Grid&nbsp;toolbar&nbsp;button&nbsp;생성.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;on_toolbar<br />
@@ -115,7 +115,7 @@ CLASS lcl_event_handler IMPLEMENTATION.<br />
    <div class="codeComment">
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;:&nbsp;i016(bc405_408)&nbsp;WITH&nbsp;es_row_no-row_id&nbsp;e_column-fieldname.<br />
 <br />
-*&nbsp;##&nbsp;###&nbsp;###&nbsp;####&nbsp;MODAL&nbsp;dialog&nbsp;110screen##&nbsp;##<br />
+*&nbsp;더블&nbsp;클릭한&nbsp;데이터&nbsp;취득하여&nbsp;MODAL&nbsp;dialog&nbsp;110screen으로&nbsp;출력<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;e_column-fieldname&nbsp;=&nbsp;'CONNID'.<br />
@@ -153,7 +153,7 @@ CLASS lcl_event_handler IMPLEMENTATION.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_button&nbsp;TYPE&nbsp;stb_button.<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;###&nbsp;##.<br />
+*&nbsp;&nbsp;&nbsp;구분선&nbsp;추가.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;ls_button-butn_type&nbsp;=&nbsp;3.<br />
@@ -202,7 +202,7 @@ CLASS lcl_event_handler IMPLEMENTATION.<br />
 &nbsp;&nbsp;METHOD&nbsp;on_button_click.<br />
    </div>
    <div class="codeComment">
-*--------------------------------------------------------------------*#####.<br />
+*--------------------------------------------------------------------*작성해야함.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ENDMETHOD.<br />

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZSTUDY_E01_01_F01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -123,7 +123,7 @@ FORM set_layout .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;#&nbsp;##&nbsp;##&nbsp;##.<br />
+*&nbsp;&nbsp;열&nbsp;너비&nbsp;자동&nbsp;정렬.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;gs_layo-cwidth_opt&nbsp;='X'.<br />
@@ -147,7 +147,7 @@ FORM set_sort .<br />
 <br />
    </div>
    <div class="codeComment">
-**&nbsp;##&nbsp;1#&nbsp;CUSTOMID&nbsp;####<br />
+**&nbsp;기준&nbsp;1번&nbsp;CUSTOMID&nbsp;오름차순<br />
 *&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;.<br />
 *&nbsp;&nbsp;ls_sort-up&nbsp;=&nbsp;'X'.<br />
 *&nbsp;&nbsp;ls_sort-spos&nbsp;=&nbsp;1.<br />
@@ -174,16 +174,16 @@ FORM set_field_catalog .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;####&nbsp;##.<br />
+*&nbsp;필드&nbsp;카탈로그&nbsp;관리.<br />
 <br />
    </div>
    <div class="code">
-&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_fcat&nbsp;TYPE&nbsp;lvc_s_fcat.&nbsp;&nbsp;"&nbsp;WA&nbsp;##&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_fcat&nbsp;TYPE&nbsp;lvc_s_fcat.&nbsp;&nbsp;"&nbsp;WA&nbsp;지역&nbsp;변수로&nbsp;선언<br />
 <br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CLASS'&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CLASS&nbsp;TYPE&nbsp;TECH&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CLASS'&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CLASS&nbsp;TYPE&nbsp;TECH&nbsp;속성으로&nbsp;지정<br />
 *&nbsp;&nbsp;ls_fcat-tech&nbsp;=&nbsp;'X'.<br />
 *&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat&nbsp;.<br />
 *&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_fcat.<br />

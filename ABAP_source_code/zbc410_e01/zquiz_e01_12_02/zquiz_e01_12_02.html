@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_12_02</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -131,7 +131,7 @@ INITIALIZATION.<br />
    </div>
    <div class="codeComment">
 **--------------------------------------------------------------------*<br />
-**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;##<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;방법<br />
 *&nbsp;&nbsp;CONCATENATE&nbsp;sy-datum(06)'01'&nbsp;INTO&nbsp;lv_date.<br />
 *<br />
 *&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'MONTH_PLUS_DETERMINE'<br />
@@ -154,7 +154,7 @@ INITIALIZATION.<br />
 *&nbsp;&nbsp;APPEND&nbsp;so_fldt.<br />
 *<br />
 *--------------------------------------------------------------------*<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;간단한&nbsp;방법<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;so_fldt-sign&nbsp;=&nbsp;'I'.<br />
@@ -172,7 +172,7 @@ INITIALIZATION.<br />
    </div>
    <div class="codeComment">
 *--------------------------------------------------------------------*<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;###&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전체&nbsp;데이터&nbsp;불러오기<br />
 <br />
    </div>
    <div class="code">
@@ -182,7 +182,7 @@ START-OF-SELECTION.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;&nbsp;SO#&nbsp;###&nbsp;#####&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SO에&nbsp;입력된&nbsp;고객번호로&nbsp;데이터&nbsp;읽기<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;SELECT&nbsp;id&nbsp;name&nbsp;into&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_scustom<br />

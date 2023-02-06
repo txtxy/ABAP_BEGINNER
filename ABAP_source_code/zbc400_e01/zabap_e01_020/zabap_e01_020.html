@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_020</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -64,44 +64,44 @@ REPORT zabap_e01_020.<br />
 DATA: gt_bdcdata TYPE TABLE OF bdcdata,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_bdcdata&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_bdcdata.<br />
 <br />
-gs_bdcdata-program = 'SAPBC402_PGCD_CREATE_CUSTOMER'. " ######<br />
-gs_bdcdata-dynpro = '0100'. " #####<br />
+gs_bdcdata-program = 'SAPBC402_PGCD_CREATE_CUSTOMER'. " 프로그램이름<br />
+gs_bdcdata-dynpro = '0100'. " 스크린번호<br />
 gs_bdcdata-dynbegin = 'X'.<br />
 APPEND gs_bdcdata TO gt_bdcdata.<br />
 <br />
-CLEAR : gs_bdcdata. "## #### ### ##<br />
+CLEAR : gs_bdcdata. "해당 스트럭쳐 데이터 삭제<br />
 gs_bdcdata-fnam = 'SCUSTOM-NAME'.<br />
-gs_bdcdata-fval = '##'.<br />
+gs_bdcdata-fval = '길동'.<br />
 APPEND gs_bdcdata TO gt_bdcdata.<br />
 <br />
-CLEAR : gs_bdcdata. "## #### ### ##<br />
+CLEAR : gs_bdcdata. "해당 스트럭쳐 데이터 삭제<br />
 gs_bdcdata-fnam = 'SCUSTOM-FORM'.<br />
 gs_bdcdata-fval = 'Mr'.<br />
 APPEND gs_bdcdata TO gt_bdcdata.<br />
 <br />
-CLEAR : gs_bdcdata. "## #### ### ##<br />
+CLEAR : gs_bdcdata. "해당 스트럭쳐 데이터 삭제<br />
 <br />
 gs_bdcdata-fnam = 'SCUSTOM-STREET'.<br />
-gs_bdcdata-fval = '### ###'.<br />
+gs_bdcdata-fval = '종로구 관철동'.<br />
 APPEND gs_bdcdata TO gt_bdcdata.<br />
 <br />
-CLEAR : gs_bdcdata. "## #### ### ##<br />
+CLEAR : gs_bdcdata. "해당 스트럭쳐 데이터 삭제<br />
 <br />
 gs_bdcdata-fnam = 'SCUSTOM-POSTCODE'.<br />
 gs_bdcdata-fval = '1235'.<br />
 APPEND gs_bdcdata TO gt_bdcdata.<br />
 <br />
-CLEAR : gs_bdcdata. "## #### ### ##<br />
+CLEAR : gs_bdcdata. "해당 스트럭쳐 데이터 삭제<br />
 <br />
 gs_bdcdata-fnam = 'SCUSTOM-NAME'.<br />
-gs_bdcdata-fval = '##'.<br />
+gs_bdcdata-fval = '길동'.<br />
 APPEND gs_bdcdata TO gt_bdcdata.<br />
 <br />
 <br />
-CLEAR : gs_bdcdata. "## #### ### ##<br />
+CLEAR : gs_bdcdata. "해당 스트럭쳐 데이터 삭제<br />
 <br />
 gs_bdcdata-fnam = 'SCUSTOM-CITY'.<br />
-gs_bdcdata-fval = '##'.<br />
+gs_bdcdata-fval = '서울'.<br />
 APPEND gs_bdcdata TO gt_bdcdata.<br />
 <br />
 CLEAR : gs_bdcdata.<br />

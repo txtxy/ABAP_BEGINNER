@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZBC400_E01_REP_A</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -78,7 +78,7 @@ TRY.<br />
 CALL METHOD cl_bc400_flightmodel=&gt;get_flights_range<br />
 &nbsp;&nbsp;EXPORTING<br />
 &nbsp;&nbsp;&nbsp;&nbsp;iv_carrid&nbsp;=&nbsp;pa_car<br />
-&nbsp;&nbsp;&nbsp;&nbsp;it_connid&nbsp;=&nbsp;so_con[]&nbsp;&nbsp;"&nbsp;####&nbsp;##&nbsp;####&nbsp;####&nbsp;###.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;it_connid&nbsp;=&nbsp;so_con[]&nbsp;&nbsp;"&nbsp;중괄호가&nbsp;붙어&nbsp;있어야지&nbsp;테이블로&nbsp;인식함.<br />
 &nbsp;&nbsp;IMPORTING<br />
 &nbsp;&nbsp;&nbsp;et_flights&nbsp;=&nbsp;gt_flights<br />
 &nbsp;&nbsp;.<br />

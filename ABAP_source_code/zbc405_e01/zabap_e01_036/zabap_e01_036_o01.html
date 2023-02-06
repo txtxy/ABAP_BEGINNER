@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_036_O01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -93,7 +93,7 @@ MODULE init_alv OUTPUT.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;####&nbsp;####&nbsp;##&nbsp;###&nbsp;####&nbsp;##&nbsp;#####&nbsp;##<br />
+*&nbsp;컨테이너&nbsp;오브젝트&nbsp;중복&nbsp;생성을&nbsp;방지하기&nbsp;위한&nbsp;조건문으로&nbsp;실행<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;IF&nbsp;go_cont&nbsp;IS&nbsp;INITIAL.<br />
@@ -119,11 +119,11 @@ MODULE init_alv OUTPUT.<br />
    </div>
    <div class="codeComment">
 *--------------------------------------------------------------------*<br />
-*&nbsp;ALV&nbsp;GRID&nbsp;####&nbsp;##&nbsp;##&nbsp;###&nbsp;##&nbsp;###<br />
+*&nbsp;ALV&nbsp;GRID&nbsp;오브젝트&nbsp;중복&nbsp;생성&nbsp;방지를&nbsp;위한&nbsp;조건문<br />
 <br />
    </div>
    <div class="code">
-&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV#&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_alv&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ALV를&nbsp;다음으로&nbsp;생성<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_parent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;go_cont<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_appl_events&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
@@ -156,25 +156,25 @@ MODULE init_alv OUTPUT.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_variant.<br />
    </div>
    <div class="codeComment">
-*&nbsp;LAOUT&nbsp;##<br />
+*&nbsp;LAOUT&nbsp;설정<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_layout.<br />
    </div>
    <div class="codeComment">
-*&nbsp;DATA&nbsp;SORT&nbsp;##<br />
+*&nbsp;DATA&nbsp;SORT&nbsp;설정<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_sort.<br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV&nbsp;Grid&nbsp;Standard&nbsp;Function&nbsp;HIDE&nbsp;##<br />
+*&nbsp;ALV&nbsp;Grid&nbsp;Standard&nbsp;Function&nbsp;HIDE&nbsp;설정<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_exclude_functions.<br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV&nbsp;Grid&nbsp;Field&nbsp;Catalog&nbsp;##<br />
+*&nbsp;ALV&nbsp;Grid&nbsp;Field&nbsp;Catalog&nbsp;설정<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;set_field_catalog.<br />
@@ -197,14 +197,14 @@ MODULE init_alv OUTPUT.<br />
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;set_table_for_first_display<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_structure_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'SBOOK'&nbsp;&nbsp;&nbsp;"&nbsp;ABAP&nbsp;DICC#&nbsp;Global&nbsp;Structure&nbsp;TYPE#&nbsp;###&nbsp;#&nbsp;##.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_structure_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'SBOOK'&nbsp;&nbsp;&nbsp;"&nbsp;ABAP&nbsp;DICC의&nbsp;Global&nbsp;Structure&nbsp;TYPE만&nbsp;들어올&nbsp;수&nbsp;있다.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_variant&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_variant<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_save&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'A'<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_layout<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_toolbar_excluding&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_exclude_func<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort&nbsp;&nbsp;&nbsp;"&nbsp;SORT&nbsp;###&nbsp;##&nbsp;ITAB&nbsp;##&nbsp;##<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_data&nbsp;&nbsp;&nbsp;"&nbsp;Data&nbsp;List#&nbsp;###&nbsp;##&nbsp;ITAB#&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_sort&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_sort&nbsp;&nbsp;&nbsp;"&nbsp;SORT&nbsp;활용르&nbsp;위한&nbsp;ITAB&nbsp;변수&nbsp;할당<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_data&nbsp;&nbsp;&nbsp;"&nbsp;Data&nbsp;List를&nbsp;가지고&nbsp;있는&nbsp;ITAB이&nbsp;등장<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_fieldcatalog&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_fcat<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invalid_parameter_combination&nbsp;=&nbsp;1<br />

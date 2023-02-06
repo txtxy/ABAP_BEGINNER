@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_013</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -63,11 +63,11 @@ REPORT ZABAP_E01_013.<br />
 <br />
 data: gs_data TYPE bc400_s_connection.<br />
 <br />
-PARAMETERS: pa_car TYPE bc400_s_connection-carrid, " ##### #### #### ## ### ######.<br />
+PARAMETERS: pa_car TYPE bc400_s_connection-carrid, " 스트럭쳐의 컴포넌트 이름으로 타입 선언이 가나ㅡㅇ하다.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_con&nbsp;TYPE&nbsp;bc400_s_connection-connid.<br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;####&nbsp;Local&nbsp;structure&nbsp;##&nbsp;####<br />
+*&nbsp;타입&nbsp;선언없이&nbsp;Local&nbsp;structure&nbsp;변수&nbsp;선언가능<br />
 *data:&nbsp;BEGIN&nbsp;OF&nbsp;ts_info,<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;carrid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;s_carr_id,<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;carrname&nbsp;&nbsp;&nbsp;TYPE&nbsp;s_carrname,<br />

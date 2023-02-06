@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_15_03</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -78,7 +78,7 @@ DATA: OK_CODE TYPE SY-UCOMM.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Container&nbsp;&&nbsp;ALV&nbsp;Grid&nbsp;##&nbsp;##.<br />
+*&nbsp;Container&nbsp;&&nbsp;ALV&nbsp;Grid&nbsp;참조&nbsp;변수.<br />
    </div>
    <div class="code">
 DATA: GO_CONT TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
@@ -93,7 +93,7 @@ DATA: GS_LAYOUT TYPE LVC_S_LAYO.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Selection&nbsp;Screen&nbsp;-&nbsp;##&nbsp;##.<br />
+*&nbsp;Selection&nbsp;Screen&nbsp;-&nbsp;입력&nbsp;필드.<br />
 <br />
    </div>
    <div class="code">
@@ -126,13 +126,13 @@ FORM GET_DATA .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Customer&nbsp;name&nbsp;like&nbsp;###&nbsp;###&nbsp;##.<br />
+*&nbsp;Customer&nbsp;name&nbsp;like&nbsp;검색에&nbsp;필요한&nbsp;변수.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;DATA:&nbsp;LV_NAME&nbsp;TYPE&nbsp;STRING.<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;RAnge#&nbsp;###&nbsp;parameter&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;&nbsp;RAnge를&nbsp;활용한&nbsp;parameter&nbsp;조건&nbsp;활용<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;DATA&nbsp;:&nbsp;rt_custtype&nbsp;type&nbsp;RANGE&nbsp;OF&nbsp;scustom-custtype,<br />
@@ -146,17 +146,17 @@ FORM GET_DATA .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Customer&nbsp;name&nbsp;like&nbsp;##&nbsp;##.<br />
+*&nbsp;Customer&nbsp;name&nbsp;like&nbsp;검색&nbsp;설정.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;LV_NAME&nbsp;=&nbsp;'%'&nbsp;&&&nbsp;PA_NAME&nbsp;&&&nbsp;'%'.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;b/p&nbsp;customer#&nbsp;##&nbsp;####<br />
+*&nbsp;b/p&nbsp;customer에&nbsp;값을&nbsp;입력하면<br />
    </div>
    <div class="code">
-IF pa_bp is not INITIAL.                         "PA# ITAB## ### #### ##,<br />
+IF pa_bp is not INITIAL.                         "PA를 ITAB으로 바꿔서 처리하는 것임,<br />
 <br />
 &nbsp;&nbsp;wa_custtype-sign&nbsp;=&nbsp;'I'.<br />
 &nbsp;&nbsp;wa_custtype-option&nbsp;=&nbsp;'EQ'.<br />
@@ -181,7 +181,7 @@ SELECT *<br />
 <br />
 &nbsp;&nbsp;ls_custbook-book_cnt&nbsp;=&nbsp;1.<br />
 <br />
-&nbsp;&nbsp;COLLECT&nbsp;ls_custbook&nbsp;into&nbsp;lt_custbook.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;###&nbsp;#####!<br />
+&nbsp;&nbsp;COLLECT&nbsp;ls_custbook&nbsp;into&nbsp;lt_custbook.&nbsp;&nbsp;&nbsp;"&nbsp;콜렉트&nbsp;키워드애&nbsp;관해서&nbsp;공부해보자!<br />
 &nbsp;&nbsp;CLEAR&nbsp;:ls_custbook.<br />
 <br />
 ENDSELECT.<br />
@@ -247,7 +247,7 @@ MODULE INIT_ALV OUTPUT.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Container#&nbsp;####&nbsp;##&nbsp;###&nbsp;##.<br />
+*&nbsp;Container가&nbsp;생성되어&nbsp;있지&nbsp;않으면&nbsp;생성.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;IF&nbsp;GO_CONT&nbsp;IS&nbsp;INITIAL.<br />

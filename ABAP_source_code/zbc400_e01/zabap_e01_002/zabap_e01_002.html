@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_002</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -65,20 +65,20 @@ REPORT ZABAP_E01_002.<br />
 <br />
    </div>
    <div class="codeComment">
-*##&nbsp;##<br />
+*변수&nbsp;선언<br />
    </div>
    <div class="code">
-DATA gv_result type i.  "i # Integer# ###<br />
+DATA gv_result type i.  "i 는 Integer를 의미함<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Selection&nbsp;screen&nbsp;##(1000#&nbsp;####&nbsp;###).<br />
+*&nbsp;Selection&nbsp;screen&nbsp;생성(1000번&nbsp;스크린이&nbsp;생성됨).<br />
    </div>
    <div class="code">
 PARAMETERS pa_num type i.<br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;&nbsp;###&nbsp;##<br />
+*&nbsp;명령어&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;변수명&nbsp;&nbsp;데이터&nbsp;타입<br />
 <br />
 *&nbsp;move&nbsp;&nbsp;A&nbsp;&nbsp;&nbsp;to&nbsp;&nbsp;&nbsp;B.<br />
    </div>
@@ -86,9 +86,9 @@ PARAMETERS pa_num type i.<br />
 move pa_num to gv_result.<br />
    </div>
    <div class="codeComment">
-*A#&nbsp;##&nbsp;B#&nbsp;##.<br />
+*A의&nbsp;값을&nbsp;B로&nbsp;할당.<br />
 <br />
-*&nbsp;to&nbsp;###&nbsp;1#&nbsp;##.<br />
+*&nbsp;to&nbsp;변수에&nbsp;1을&nbsp;더함.<br />
    </div>
    <div class="code">
 add 1 to gv_result.<br />
@@ -96,7 +96,7 @@ add 1 to gv_result.<br />
 <br />
    </div>
    <div class="codeComment">
-*##&nbsp;##&nbsp;#####<br />
+*해당&nbsp;변수&nbsp;디스플레이<br />
    </div>
    <div class="code">
 WRITE : 'your input :',<br />

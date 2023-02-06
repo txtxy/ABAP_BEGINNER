@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_014</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -63,7 +63,7 @@ REPORT zabap_e01_014.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Local&nbsp;table&nbsp;type&nbsp;##.<br />
+*&nbsp;Local&nbsp;table&nbsp;type&nbsp;선언.<br />
    </div>
    <div class="code">
 TYPES: tt_flight TYPE STANDARD TABLE OF bc400_s_flight<br />
@@ -71,7 +71,7 @@ TYPES: tt_flight TYPE STANDARD TABLE OF bc400_s_flight<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Local&nbsp;structure&nbsp;type&nbsp;##.<br />
+*&nbsp;Local&nbsp;structure&nbsp;type&nbsp;선언.<br />
    </div>
    <div class="code">
 TYPES: BEGIN OF ts_info,<br />
@@ -84,16 +84,16 @@ TYPES: BEGIN OF ts_info,<br />
 <br />
    </div>
    <div class="codeComment">
-*table&nbsp;type&nbsp;##.<br />
+*table&nbsp;type&nbsp;사용.<br />
    </div>
    <div class="code">
 DATA: gt_itab1 TYPE bc400_t_flights, " Global table type<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_itab2&nbsp;LIKE&nbsp;gt_itab1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIKE&nbsp;'##'&nbsp;##<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_itab3&nbsp;TYPE&nbsp;tt_flight.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Local&nbsp;table&nbsp;type&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_itab2&nbsp;LIKE&nbsp;gt_itab1,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LIKE&nbsp;'타입'&nbsp;사용<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_itab3&nbsp;TYPE&nbsp;tt_flight.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Local&nbsp;table&nbsp;type&nbsp;사용<br />
 <br />
    </div>
    <div class="codeComment">
-*Local&nbsp;structure&nbsp;type&nbsp;##.<br />
+*Local&nbsp;structure&nbsp;type&nbsp;사용.<br />
    </div>
    <div class="code">
 DATA: lt_itab1 TYPE STANDARD TABLE OF ts_info<br />
@@ -101,7 +101,7 @@ DATA: lt_itab1 TYPE STANDARD TABLE OF ts_info<br />
 <br />
    </div>
    <div class="codeComment">
-*Global&nbsp;structure&nbsp;type&nbsp;##.<br />
+*Global&nbsp;structure&nbsp;type&nbsp;사용.<br />
    </div>
    <div class="code">
 DATA: gt_itab4 TYPE STANDARD TABLE OF bc400_s_flight<br />

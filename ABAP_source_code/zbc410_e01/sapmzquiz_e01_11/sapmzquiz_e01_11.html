@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>SAPMZQUIZ_E01_11</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -67,9 +67,9 @@ DATA : gt_sbook TYPE TABLE OF sbook,<br />
 <br />
 <br />
 <br />
-PARAMETERS: pa_id TYPE sbook-customid "  MEMORY ID csm ." ### ### ### ### #<br />
+PARAMETERS: pa_id TYPE sbook-customid "  MEMORY ID csm ." 셀렉션 스크린 이용시 해제할 것<br />
 .<br />
-get PARAMETER ID 'CSM' FIELD pa_id.   " ###### #### ### # pa_id### #####.<br />
+get PARAMETER ID 'CSM' FIELD pa_id.   " 이프로그램을 단독으로 시행할 때 pa_id입력이 불가능해짐.<br />
 <br />
 SELECT COUNT(*) INTO gv_count<br />
 &nbsp;&nbsp;FROM&nbsp;&nbsp;&nbsp;sbook<br />
@@ -77,12 +77,12 @@ SELECT COUNT(*) INTO gv_count<br />
    </div>
    <div class="codeComment">
 **--------------------------------------------------------------------*<br />
-**&nbsp;&nbsp;COUNT&nbsp;##&nbsp;##&nbsp;2<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;Select&nbsp;##&nbsp;SELECT&nbsp;###&nbsp;####.<br />
+**&nbsp;&nbsp;COUNT&nbsp;획득&nbsp;방법&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;하단&nbsp;Select&nbsp;구문&nbsp;SELECT&nbsp;횟수를&nbsp;가져오기.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;gv_count&nbsp;=&nbsp;sy-dbcnt.<br />
-**&nbsp;&nbsp;COUNT&nbsp;##&nbsp;##&nbsp;3<br />
+**&nbsp;&nbsp;COUNT&nbsp;획둑&nbsp;방법&nbsp;3<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;gv_count&nbsp;=&nbsp;lines(&nbsp;gt_sbook&nbsp;).<br />
-**&nbsp;&nbsp;COUNT&nbsp;##&nbsp;##&nbsp;4<br />
+**&nbsp;&nbsp;COUNT&nbsp;획둑&nbsp;방법&nbsp;4<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;DESCRIBE&nbsp;TABLE&nbsp;gt_sbook&nbsp;LINES&nbsp;gv_count.<br />
 **--------------------------------------------------------------------*<br />
 <br />

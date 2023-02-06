@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>MZSCREEN_E01I01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -161,11 +161,11 @@ ENDMODULE.<br />
 MODULE exit INPUT.<br />
 &nbsp;&nbsp;CASE&nbsp;ok_code.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CANCEL'.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##&nbsp;Command&nbsp;##&nbsp;##&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"선택에&nbsp;따른&nbsp;Command&nbsp;값을&nbsp;받을&nbsp;변수필ㅇ함<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_question&nbsp;&nbsp;=&nbsp;'Unsaved&nbsp;Data&nbsp;will&nbsp;be&nbsp;Lost.&nbsp;Cancel?'<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_1&nbsp;&nbsp;=&nbsp;'Yes'(001)&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;#&nbsp;'1'<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_2&nbsp;&nbsp;=&nbsp;'NO'(002)&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;#&nbsp;'2'&nbsp;&nbsp;###&nbsp;##&nbsp;'A'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_1&nbsp;&nbsp;=&nbsp;'Yes'(001)&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;값&nbsp;'1'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_2&nbsp;&nbsp;=&nbsp;'NO'(002)&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Return&nbsp;값&nbsp;'2'&nbsp;&nbsp;취소할&nbsp;때는&nbsp;'A'<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gv_answer<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
@@ -199,17 +199,17 @@ ENDMODULE.<br />
 MODULE check_airpfrom INPUT.<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;###&nbsp;####&nbsp;####&nbsp;#######&nbsp;INTO#&nbsp;##&nbsp;#####&nbsp;##<br />
+*&nbsp;&nbsp;있는지&nbsp;없는지만&nbsp;체크하는&nbsp;로직이기때문에&nbsp;INTO절&nbsp;없이&nbsp;오류체크만&nbsp;진행<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;SELECT&nbsp;COUNT(*)<br />
 &nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;sairport<br />
 &nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;sdyn_conn-airpfrom.<br />
 &nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;####&nbsp;####'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'출발공항이&nbsp;존재하지&nbsp;않습니다'&nbsp;TYPE&nbsp;'E'.<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E01(###&nbsp;##).<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E01(메시지&nbsp;그룹).<br />
 <br />
    </div>
    <div class="code">

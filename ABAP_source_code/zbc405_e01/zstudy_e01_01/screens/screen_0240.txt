@@ -8,10 +8,27 @@ ZSTUDY_E01_01
 754																																
                 40																																
 %_HEADER																																
-ZSTUDY_E01_01                           0240I0240      0  0192 37  0  0 27120  0G E                              20230201235011																																
+ZSTUDY_E01_01                           0240I0240     21 36192 37  0  0 21 36  0G E                              20230202234439																																
 %_DESCRIPTION																																
 sel_ store																																
 %_FIELDS																																
+		CHAR	 36	00	00	00	30	00	  1	  2		  0	  0	  0		 21	R				  0	  0	101									
+korean_rbt	C	CHAR	  1	80	00	80	00	00	  3	  4		  0	  0	  0		  0	A		KOR		  0	  0	102			RB1						
+%#AUTOTEXT001	0	CHAR	  4	00	00	00	30	00	  3	  7		  0	  0	  0		  0					  0	  0								한식		
+ITALY_RBT	C	CHAR	  1	80	00	80	00	00	  3	 17		  0	  0	  0		  0	A		ITA		  0	  0	103			RB1						
+%#AUTOTEXT002	0	CHAR	 10	00	00	00	30	00	  3	 20		  0	  0	  0		  0					  0	  0								이태리식		
+CHINA_RBT	C	CHAR	  1	80	00	80	00	00	  5	  4		  0	  0	  0		  0	A		CHI		  0	  0	104			RB1						
+%#AUTOTEXT003	0	CHAR	  4	00	00	00	30	00	  5	  7		  0	  0	  0		  0					  0	  0								중식		
+JAP_RBT	C	CHAR	  1	80	00	80	00	00	  5	 17		  0	  0	  0		  0	A		JAP		  0	  0	105			RB1						
+%#AUTOTEXT004	0	CHAR	  4	00	00	00	30	00	  5	 20		  0	  0	  0		  0					  0	  0								일식		
+OTHER_RBT	C	CHAR	  1	80	00	80	00	00	  7	  4		  0	  0	  0		  0	A		OTH		  0	  0	106			RB1						
+%#AUTOTEXT007	0	CHAR	  4	00	00	00	30	00	  7	  7		  0	  0	  0		  0					  0	  0								기타		
+ZTSTORE_CL5-STORE_NAME	0	CHAR	  9	30	02	00	30	00	 10	  4		  0	  0	  0		  0					  0	  0								식당 이름	                                                                                                                                                                                                                                                        X	
+ZTSTORE_CL5-STORE_NAME	C	CHAR	150	B1	02	80	00	00	 10	 15		  0	  0	  0		 20					255	  0								____________________________________________________________________________________________________________________________________	                                       00	
+ZTMENU_CL5-MUNUNAME	0	CHAR	 10	30	02	00	30	00	 12	  4		  0	  0	  0		  0					  0	  0								menu name	                                                                                                                                                                                                                                                        X	
+ZTMENU_CL5-MUNUNAME	C	CHAR	 20	B1	02	80	00	00	 12	 15		  0	  0	  0		  0					 40	  0								____________________	                                       00	
+FIND_STORE		CHAR	 16	00	00	00	30	00	 15	  9		  0	  0	  0		  0	P				  0	  0	107							식당 검색	                                                                                                                                                                        FINDSTORE	
+NEW_STORE		CHAR	 16	00	00	00	30	00	 17	  9		  0	  0	  0		  0	P				  0	  0	108							새로운 식당 추가	                                                                                                                                                                        NEWSTORE	
 		CHAR	 20	80	10	00	00	00	255	  1	O	  0	  0	  0		  0					  0	  0								____________________		
 %_FLOWLOGIC																																
 PROCESS BEFORE OUTPUT.																																

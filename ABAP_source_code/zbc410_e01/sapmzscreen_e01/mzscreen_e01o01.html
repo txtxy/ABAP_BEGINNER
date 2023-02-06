@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>MZSCREEN_E01O01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -65,8 +65,8 @@
 MODULE trans_data OUTPUT.<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;*&nbsp;wa_connect#&nbsp;##&nbsp;##&nbsp;SDsdyn_conn&nbsp;###&nbsp;##<br />
-*&nbsp;&nbsp;*&nbsp;100&nbsp;####&nbsp;##<br />
+*&nbsp;&nbsp;*&nbsp;wa_connect의&nbsp;변수&nbsp;값을&nbsp;SDsdyn_conn&nbsp;변수에&nbsp;할당<br />
+*&nbsp;&nbsp;*&nbsp;100&nbsp;스크린에&nbsp;표시<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;MOVE-CORRESPONDING&nbsp;wa_connect&nbsp;TO&nbsp;sdyn_conn.<br />
@@ -83,13 +83,13 @@ ENDMODULE.<br />
 MODULE modify_screen OUTPUT.<br />
 &nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN&nbsp;.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;='FR'&nbsp;.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;gv_mod.&nbsp;"&nbsp;gv_mod#&nbsp;I##&nbsp;###&nbsp;0#&nbsp;######.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;gv_mod.&nbsp;"&nbsp;gv_mod는&nbsp;I니까&nbsp;초기값&nbsp;0이&nbsp;입력되어있음.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-name&nbsp;=&nbsp;'SDYN_CONN-AIRPTO'.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SCREEN-active&nbsp;=&nbsp;0.<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.&nbsp;&nbsp;"&nbsp;####&nbsp;#&nbsp;####&nbsp;####&nbsp;#####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.&nbsp;&nbsp;"&nbsp;잊지말고&nbsp;꼭&nbsp;작성하자&nbsp;설정값을&nbsp;저장해야지<br />
 <br />
 &nbsp;&nbsp;ENDLOOP.<br />
 ENDMODULE.<br />
@@ -123,7 +123,7 @@ MODULE status_0100 OUTPUT.<br />
 &nbsp;SET&nbsp;TITLEBAR&nbsp;'FIRST_TITLE'&nbsp;WITH&nbsp;sdyn_conn-carrname.<br />
    </div>
    <div class="codeComment">
-*&nbsp;*&nbsp;#####&nbsp;###&nbsp;&##&nbsp;###&nbsp;##&nbsp;with#&nbsp;###&nbsp;###&nbsp;##.&nbsp;##&nbsp;9###!!<br />
+*&nbsp;*&nbsp;타이틀바의&nbsp;첫번째&nbsp;&기호&nbsp;위치에&nbsp;해당&nbsp;with에&nbsp;지정한&nbsp;변수가&nbsp;온다.&nbsp;최대&nbsp;9개까지!!<br />
    </div>
    <div class="code">
 ENDMODULE.<br />
@@ -168,10 +168,10 @@ ENDMODULE.<br />
 MODULE set_icon OUTPUT.<br />
 &nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ICON_CREATE'<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_TRANSPORT&nbsp;"&nbsp;##&nbsp;####&nbsp;###&nbsp;###<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'Transport'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;####&nbsp;##&nbsp;Display#&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_TRANSPORT&nbsp;"&nbsp;어떤&nbsp;아이콘을&nbsp;가져올&nbsp;것인지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'Transport'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그&nbsp;아이콘의&nbsp;옆에&nbsp;Display될&nbsp;이름을&nbsp;설정하기<br />
 &nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_FIELD1&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_FIELD1&nbsp;&nbsp;&nbsp;"&nbsp;가져온&nbsp;아이콘을&nbsp;어디에&nbsp;표시할&nbsp;것인지<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
 &nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
    </div>
@@ -183,10 +183,10 @@ MODULE set_icon OUTPUT.<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'ICON_CREATE'<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_WS_PLANE&nbsp;"&nbsp;##&nbsp;####&nbsp;###&nbsp;###<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'Plane'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;####&nbsp;##&nbsp;Display#&nbsp;###&nbsp;####<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_WS_PLANE&nbsp;"&nbsp;어떤&nbsp;아이콘을&nbsp;가져올&nbsp;것인지<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'Plane'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;그&nbsp;아이콘의&nbsp;옆에&nbsp;Display될&nbsp;이름을&nbsp;설정하기<br />
 &nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_FIELD2&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;###<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RESULT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ICON_FIELD2&nbsp;&nbsp;&nbsp;"&nbsp;가져온&nbsp;아이콘을&nbsp;어디에&nbsp;표시할&nbsp;것인지<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
    </div>

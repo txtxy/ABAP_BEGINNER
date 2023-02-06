@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>MZBC410_SOLUTION_E01I01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -127,9 +127,9 @@ MODULE escape INPUT.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CANCEL'.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear:&nbsp;wa_sflight.<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SAP&nbsp;Memory###&nbsp;######&nbsp;##<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'CON'&nbsp;FIELD&nbsp;wa_sflight-connid,&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;WA_SFLIGHT#&nbsp;#####<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'CAR'&nbsp;FIELD&nbsp;wa_sflight-carrid,&nbsp;&nbsp;&nbsp;"&nbsp;SET#&nbsp;##&nbsp;SAP&nbsp;MEMORY#&nbsp;###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SET&nbsp;PARAMETER&nbsp;ID&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SAP&nbsp;Memory내용도&nbsp;삭제해버리는&nbsp;방법<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'CON'&nbsp;FIELD&nbsp;wa_sflight-connid,&nbsp;&nbsp;&nbsp;"&nbsp;위에서&nbsp;WA_SFLIGHT를&nbsp;비웠으니까<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'CAR'&nbsp;FIELD&nbsp;wa_sflight-carrid,&nbsp;&nbsp;&nbsp;"&nbsp;SET을&nbsp;통해&nbsp;SAP&nbsp;MEMORY로&nbsp;빈값을&nbsp;할당<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'DAY'&nbsp;FIELD&nbsp;wa_sflight-fldate.<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;to&nbsp;SCREEN&nbsp;0.<br />

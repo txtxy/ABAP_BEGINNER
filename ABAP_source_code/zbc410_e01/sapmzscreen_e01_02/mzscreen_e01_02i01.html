@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>MZSCREEN_E01_02I01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -144,7 +144,7 @@ MODULE USER_COMMAND_0100 INPUT.<br />
 *&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;300.<br />
 *&nbsp;&nbsp;SET&nbsp;SCREEN&nbsp;300.<br />
 *&nbsp;&nbsp;LEAVE&nbsp;SCREEN.<br />
-*&nbsp;#&nbsp;####&nbsp;#&nbsp;####&nbsp;###.<br />
+*&nbsp;위&nbsp;두문장을&nbsp;한&nbsp;문장으로&nbsp;사용시.<br />
 *&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;300.<br />
    </div>
    <div class="code">
@@ -226,7 +226,7 @@ MODULE CHECK_AIRPFROM INPUT.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ID&nbsp;=&nbsp;SDYN_CONN-AIRPFROM.<br />
 <br />
 &nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'#####&nbsp;##&nbsp;#######.!'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'출발공항을&nbsp;잘못&nbsp;입력하였습니다.!'&nbsp;TYPE&nbsp;'I'.<br />
 &nbsp;&nbsp;ENDIF.<br />
 <br />
 ENDMODULE.<br />

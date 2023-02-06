@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_033</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -65,13 +65,13 @@ TABLES sscrfields.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;elementry&nbsp;###&nbsp;####<br />
+*&nbsp;elementry&nbsp;변수로&nbsp;생성가능<br />
    </div>
    <div class="code">
 DATA : gv_carrid TYPE scarr-carrid.<br />
    </div>
    <div class="codeComment">
-*&nbsp;Structure&nbsp;###&nbsp;####.<br />
+*&nbsp;Structure&nbsp;변수로&nbsp;생성가능.<br />
    </div>
    <div class="code">
 DATA : gs_flight TYPE sflight,<br />
@@ -84,16 +84,16 @@ DATA : gs_flight TYPE sflight,<br />
 <br />
    </div>
    <div class="codeComment">
-**&nbsp;S-O&nbsp;##&nbsp;##&nbsp;##.<br />
+**&nbsp;S-O&nbsp;입력&nbsp;필드&nbsp;생성.<br />
 *SELECT-OPTIONS:&nbsp;so_car&nbsp;FOR&nbsp;gv_carrid<br />
-**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#######&nbsp;##<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;필수입력값으로&nbsp;생성<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OBLIGATORY,<br />
-**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;##&nbsp;##&nbsp;##&nbsp;#########.<br />
-**&nbsp;####&nbsp;###&nbsp;######&nbsp;##&nbsp;###&nbsp;##<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;다중&nbsp;선택&nbsp;칸이&nbsp;디스플레이되지않음.<br />
+**&nbsp;스트럭쳐&nbsp;변수의&nbsp;필드이름으로&nbsp;오는&nbsp;경우가&nbsp;많음<br />
 *so_con&nbsp;FOR&nbsp;gs_flight-connid&nbsp;no-EXTENSION,<br />
-**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;####&nbsp;###.<br />
-**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;####&nbsp;###&nbsp;####&nbsp;####&nbsp;###,<br />
-**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;###&nbsp;###&nbsp;#&nbsp;###&nbsp;####&nbsp;##&nbsp;###<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;두번때&nbsp;입력칸을&nbsp;생략함.<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;파라미터&nbsp;대신에&nbsp;사용해서&nbsp;값입력이&nbsp;없어도,<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;데이터&nbsp;가져올&nbsp;수&nbsp;있도록&nbsp;설정하기&nbsp;위해&nbsp;사용함<br />
 *so_fdt&nbsp;FOR&nbsp;gs_flight-fldate&nbsp;no&nbsp;INTERVALS&nbsp;no-EXTENSION.<br />
 <br />
    </div>
@@ -113,9 +113,9 @@ SELECTION-SCREEN BEGIN OF BLOCK blk2 WITH FRAME.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;pos_low#&nbsp;#&nbsp;####&nbsp;#&nbsp;#&nbsp;##&nbsp;##&nbsp;##&nbsp;###&nbsp;#####.<br />
-*&nbsp;POS_LOW#&nbsp;POS_HIGH#&nbsp;##&nbsp;#####&nbsp;###&nbsp;#&nbsp;###&nbsp;##&nbsp;##&nbsp;###&nbsp;#####&nbsp;###.<br />
-*&nbsp;FOR&nbsp;Field#&nbsp;####&nbsp;##&nbsp;###&nbsp;#####&nbsp;##<br />
+*&nbsp;pos_low는&nbsp;그&nbsp;다음으로&nbsp;올&nbsp;수&nbsp;있는&nbsp;값의&nbsp;최소&nbsp;거리를&nbsp;만들어준다.<br />
+*&nbsp;POS_LOW와&nbsp;POS_HIGH는&nbsp;컬럼&nbsp;상수값으로&nbsp;변경할&nbsp;수&nbsp;있지만&nbsp;값이&nbsp;서로&nbsp;겹치게&nbsp;만들어서는&nbsp;안된다.<br />
+*&nbsp;FOR&nbsp;Field는&nbsp;코멘트와&nbsp;체크&nbsp;박스를&nbsp;연결해주는&nbsp;문법<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;pos_low(14)&nbsp;TEXT-c02&nbsp;FOR&nbsp;FIELD&nbsp;pa_eco.<br />
@@ -123,7 +123,7 @@ SELECTION-SCREEN BEGIN OF BLOCK blk2 WITH FRAME.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;FOR&nbsp;Field#&nbsp;####&nbsp;######&nbsp;Display&nbsp;Sccreen##&nbsp;####&nbsp;#####&nbsp;#####&nbsp;###.<br />
+*&nbsp;FOR&nbsp;Field가&nbsp;설정되지&nbsp;않았기때문에&nbsp;Display&nbsp;Sccreen에서&nbsp;설명문과&nbsp;체크박스는&nbsp;별도요소로&nbsp;인식됨.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;SELECTION-SCREEN&nbsp;COMMENT&nbsp;pos_high(14)&nbsp;TEXT-c03.<br />
@@ -162,16 +162,16 @@ AT SELECTION-SCREEN OUTPUT.<br />
 &nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'MOD'.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;####&nbsp;####<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'MOD'.&nbsp;&nbsp;&nbsp;"&nbsp;그룹을&nbsp;기준으로&nbsp;변경할때<br />
 <br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;gv_mod.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;#####&nbsp;#####&nbsp;###<br />
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_mod.&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;####&nbsp;###<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;gv_mod.&nbsp;&nbsp;&nbsp;"&nbsp;입력&nbsp;가능한지를&nbsp;변화시키고&nbsp;싶을때<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_mod.&nbsp;&nbsp;&nbsp;"&nbsp;보이는&nbsp;지를&nbsp;변경하고&nbsp;싶을때<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
    </div>
    <div class="code">
-&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;&nbsp;screen-name&nbsp;cs&nbsp;'so_con'.&nbsp;&nbsp;&nbsp;"&nbsp;####&nbsp;####&nbsp;#&nbsp;CS#&nbsp;######.<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_mod&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;if&nbsp;&nbsp;screen-name&nbsp;cs&nbsp;'so_con'.&nbsp;&nbsp;&nbsp;"&nbsp;이름으로&nbsp;할때에는&nbsp;꼭&nbsp;CS를&nbsp;사용해야한다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-active&nbsp;=&nbsp;gv_mod&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;왜냐면,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;endif.<br />
 &nbsp;&nbsp;ENDLOOP.<br />
@@ -180,7 +180,7 @@ AT SELECTION-SCREEN OUTPUT.<br />
    <div class="codeComment">
 *Text&nbsp;elements<br />
 *----------------------------------------------------------<br />
-*&nbsp;001&nbsp;######<br />
+*&nbsp;001&nbsp;선택해주세요<br />
 *&nbsp;C01&nbsp;Flight&nbsp;CLASS(Seats)<br />
 *&nbsp;C02&nbsp;Economy&nbsp;CLASS<br />
 *&nbsp;C03&nbsp;Buisiness&nbsp;CLASS<br />

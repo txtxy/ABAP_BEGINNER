@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_036_TOP</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -56,7 +56,7 @@
 *&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZABAP_E01_036_TOP<br />
 *&---------------------------------------------------------------------*<br />
 <br />
-*110####&nbsp;##&nbsp;##<br />
+*110스크린을&nbsp;위한&nbsp;선언<br />
 <br />
    </div>
    <div class="code">
@@ -65,11 +65,11 @@ TABLES : spfli,STRAVELAG,scustom.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Local&nbsp;Structure&nbsp;data&nbsp;type&nbsp;##.<br />
-*&nbsp;sbook#&nbsp;##&nbsp;###&nbsp;TS_DATA&nbsp;#####&nbsp;##.<br />
-*&nbsp;EXCP&nbsp;##&nbsp;##&nbsp;for&nbsp;ICON.<br />
-*&nbsp;COLOR&nbsp;##&nbsp;##&nbsp;for&nbsp;ROW.<br />
-*&nbsp;COLOR&nbsp;TAB##&nbsp;##&nbsp;for&nbsp;CELL.<br />
+*&nbsp;Local&nbsp;Structure&nbsp;data&nbsp;type&nbsp;선언.<br />
+*&nbsp;sbook에&nbsp;모든&nbsp;필드를&nbsp;TS_DATA&nbsp;스트럭쳐에&nbsp;포함.<br />
+*&nbsp;EXCP&nbsp;필드&nbsp;추가&nbsp;for&nbsp;ICON.<br />
+*&nbsp;COLOR&nbsp;필드&nbsp;추가&nbsp;for&nbsp;ROW.<br />
+*&nbsp;COLOR&nbsp;TAB필드&nbsp;추가&nbsp;for&nbsp;CELL.<br />
    </div>
    <div class="code">
 TYPES begin of ts_data.<br />
@@ -86,7 +86,7 @@ TYPES begin of ts_data.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;DATA#&nbsp;##&nbsp;Internal&nbsp;Table<br />
+*&nbsp;DATA를&nbsp;위한&nbsp;Internal&nbsp;Table<br />
    </div>
    <div class="code">
 DATA: gt_data TYPE TABLE of ts_data,<br />
@@ -94,18 +94,18 @@ DATA: gt_data TYPE TABLE of ts_data,<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;DATA&nbsp;##&nbsp;##<br />
+*&nbsp;DATA&nbsp;변수&nbsp;선언<br />
 *DATA&nbsp;:&nbsp;gt_data&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;sbook,<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_data.<br />
 <br />
-*&nbsp;###&nbsp;##&nbsp;##<br />
+*&nbsp;시스템&nbsp;변수&nbsp;선언<br />
    </div>
    <div class="code">
 DATA : ok_code TYPE sy-ucomm.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV#&nbsp;##&nbsp;####&nbsp;##&nbsp;##(Referance&nbsp;Variable)&nbsp;##<br />
+*&nbsp;ALV를&nbsp;위한&nbsp;오브젝트&nbsp;참조&nbsp;변수(Referance&nbsp;Variable)&nbsp;선언<br />
    </div>
    <div class="code">
 DATA: go_cont TYPE REF TO cl_gui_custom_container,<br />
@@ -113,42 +113,42 @@ DATA: go_cont TYPE REF TO cl_gui_custom_container,<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV&nbsp;Grid&nbsp;Variant&nbsp;##&nbsp;##.<br />
+*&nbsp;ALV&nbsp;Grid&nbsp;Variant&nbsp;변수&nbsp;선언.<br />
    </div>
    <div class="code">
 DATA : gs_variant TYPE disvariant,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layout&nbsp;TYPE&nbsp;lvc_s_layo.<br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV&nbsp;Grid&nbsp;SORT&nbsp;##&nbsp;##.<br />
+*&nbsp;ALV&nbsp;Grid&nbsp;SORT&nbsp;변수&nbsp;선언.<br />
    </div>
    <div class="code">
 data : gt_sort TYPE lvc_t_sort.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;CELL&nbsp;COLOR#&nbsp;####&nbsp;##&nbsp;&nbsp;Work&nbsp;Area&nbsp;##<br />
+*&nbsp;CELL&nbsp;COLOR를&nbsp;적용하기&nbsp;위해&nbsp;&nbsp;Work&nbsp;Area&nbsp;선언<br />
    </div>
    <div class="code">
 DATA : gs_scol TYPE LINE OF lvc_t_scol.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV&nbsp;Grid#&nbsp;Standard&nbsp;Function&nbsp;##&nbsp;##<br />
+*&nbsp;ALV&nbsp;Grid의&nbsp;Standard&nbsp;Function&nbsp;처리&nbsp;변수<br />
    </div>
    <div class="code">
 data : gt_exclude_func TYPE UI_functions.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV&nbsp;Grid#&nbsp;Field&nbsp;Catalog&nbsp;Internal&nbsp;Table.<br />
+*&nbsp;ALV&nbsp;Grid의&nbsp;Field&nbsp;Catalog&nbsp;Internal&nbsp;Table.<br />
    </div>
    <div class="code">
 DATA : gt_fcat TYPE lvc_t_fcat.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV&nbsp;Grid&nbsp;Line#&nbsp;##&nbsp;##&nbsp;Word&nbsp;Area.<br />
+*&nbsp;ALV&nbsp;Grid&nbsp;Line에&nbsp;버튼&nbsp;추가&nbsp;Word&nbsp;Area.<br />
    </div>
    <div class="code">
 DATA : gs_inv_btn TYPE lvc_s_styl.<br />
@@ -160,7 +160,7 @@ DATA : gs_inv_btn TYPE lvc_s_styl.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;###&nbsp;####&nbsp;&nbsp;INCL#&nbsp;##&nbsp;###&nbsp;###<br />
+*&nbsp;셀렉션&nbsp;스크린&nbsp;선언부를&nbsp;&nbsp;INCL로&nbsp;뺴는&nbsp;사람도&nbsp;존재함<br />
    </div>
    <div class="code">
 SELECTION-SCREEN BEGIN OF BLOCK blk WITH FRAME.<br />

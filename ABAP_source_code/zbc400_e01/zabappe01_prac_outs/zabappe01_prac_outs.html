@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAPPE01_PRAC_OUTS</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -64,7 +64,7 @@ REPORT zabappe01_prac_outs.<br />
 <br />
    </div>
    <div class="codeComment">
-*--&nbsp;###&nbsp;######&nbsp;APPEND<br />
+*--&nbsp;엑셀의&nbsp;칼럼순서대로&nbsp;APPEND<br />
    </div>
    <div class="code">
 DATA: BEGIN OF p_table OCCURS 0,<br />
@@ -102,7 +102,7 @@ START-OF-SELECTION.<br />
 <br />
    </div>
    <div class="codeComment">
-*DB#&nbsp;###&nbsp;#&nbsp;####.<br />
+*DB에&nbsp;테이블&nbsp;값&nbsp;입력하기.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;INSERT&nbsp;ztani_outs_e01&nbsp;FROM&nbsp;TABLE&nbsp;gt_aniouts&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.<br />
@@ -135,8 +135,8 @@ START-OF-SELECTION.<br />
 *&---------------------------------------------------------------------*<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
 *----------------------------------------------------------------------*<br />
-*&nbsp;&nbsp;KCDE_CELLS&nbsp;#&nbsp;VALUE###&nbsp;32Char#&nbsp;##&nbsp;##&nbsp;##<br />
-*&nbsp;&nbsp;VALUE##&nbsp;32Char&nbsp;####&nbsp;#####&nbsp;KCDE_CELLS&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;KCDE_CELLS&nbsp;의&nbsp;VALUE필드가&nbsp;32Char로&nbsp;정의&nbsp;되어&nbsp;있음<br />
+*&nbsp;&nbsp;VALUE값이&nbsp;32Char&nbsp;이상으로&nbsp;사용하려면&nbsp;KCDE_CELLS&nbsp;대체&nbsp;구조를&nbsp;만듦<br />
 *----------------------------------------------------------------------*<br />
    </div>
    <div class="code">
@@ -146,8 +146,8 @@ FORM excel_upload .<br />
 &nbsp;&nbsp;DATA&nbsp;:&nbsp;lo_index&nbsp;LIKE&nbsp;sy-tabix.<br />
 &nbsp;&nbsp;DATA&nbsp;:&nbsp;lo_start_col&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'1',<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_start_row&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'1',<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_end_col&nbsp;&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'10',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_end_row&nbsp;&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'124200'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_end_col&nbsp;&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'10',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"적당히&nbsp;조절<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_end_row&nbsp;&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'124200'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"적당히&nbsp;조절<br />
 &nbsp;&nbsp;FIELD-SYMBOLS&nbsp;:&nbsp;&lt;lo_fs&gt;.<br />
 <br />
 &nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'KCD_EXCEL_OLE_TO_INT_CONVERT'<br />
@@ -173,13 +173,13 @@ FORM excel_upload .<br />
 <br />
    </div>
    <div class="codeComment">
-*--&nbsp;##&nbsp;###&nbsp;ITAB#&nbsp;###<br />
+*--&nbsp;실제&nbsp;사용할&nbsp;ITAB에&nbsp;넣어줌<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lo_itab.<br />
    </div>
    <div class="codeComment">
-*&nbsp;####&nbsp;####&nbsp;##&nbsp;###&nbsp;COL&nbsp;#####&nbsp;##&nbsp;SKIP<br />
+*&nbsp;첫라인이&nbsp;타이틀인&nbsp;경우&nbsp;타이틀&nbsp;COL&nbsp;갯수만큼은&nbsp;그냥&nbsp;SKIP<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-tabix&nbsp;&lt;=&nbsp;6.<br />

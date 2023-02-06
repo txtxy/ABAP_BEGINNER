@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>MZSCREEN_E01TOP</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -65,9 +65,9 @@ TABLES: sdyn_conn,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SBOOK.<br />
    </div>
    <div class="codeComment">
-*&nbsp;Screen&nbsp;##&nbsp;###&nbsp;##&nbsp;###&nbsp;####&nbsp;###&nbsp;###&nbsp;#&nbsp;Tables#&nbsp;###.<br />
-*&nbsp;##&nbsp;###&nbsp;##&nbsp;#&nbsp;####.<br />
-*##&nbsp;Identical&nbsp;Names###.<br />
+*&nbsp;Screen&nbsp;에서&nbsp;사용한&nbsp;필드&nbsp;이름을&nbsp;이용해서&nbsp;변수를&nbsp;생성할&nbsp;때&nbsp;Tables를&nbsp;사용함.<br />
+*&nbsp;모든&nbsp;기준은&nbsp;이름&nbsp;을&nbsp;사용한다.<br />
+*이를&nbsp;Identical&nbsp;Names라고함.<br />
 <br />
    </div>
    <div class="code">
@@ -75,19 +75,19 @@ DATA : wa_connect LIKE  sdyn_conn,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_sflight&nbsp;LIKE&nbsp;sflight,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_comm&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;char1,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ok_code&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-ucomm,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_mod&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;&nbsp;&nbsp;"&nbsp;Display/Change&nbsp;###&nbsp;##&nbsp;####&nbsp;##&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_mod&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,&nbsp;&nbsp;&nbsp;"&nbsp;Display/Change&nbsp;버튼의&nbsp;값을&nbsp;처리하기&nbsp;위한&nbsp;변수<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_answer&nbsp;&nbsp;TYPE&nbsp;char1.<br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;##&nbsp;#&nbsp;###&nbsp;####&nbsp;##&nbsp;###&nbsp;###&nbsp;##&nbsp;####.<br />
-*&nbsp;###&nbsp;###&nbsp;###&nbsp;SCREEN##&nbsp;from&nbsp;program#&nbsp;##&nbsp;INPUT&nbsp;##&nbsp;OUPUT#&nbsp;###&nbsp;#&nbsp;##.<br />
+*&nbsp;임의&nbsp;변수&nbsp;및&nbsp;이외에&nbsp;사용하기&nbsp;위한&nbsp;변수는&nbsp;평소와&nbsp;같이&nbsp;사용하고.<br />
+*&nbsp;여기서&nbsp;생성한&nbsp;변수를&nbsp;SCREEN에서&nbsp;from&nbsp;program을&nbsp;통해&nbsp;INPUT&nbsp;혹은&nbsp;OUPUT에&nbsp;사용할&nbsp;수&nbsp;있다.<br />
    </div>
    <div class="code">
 DATA : ICON_FIELD1 TYPE icons-text,<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ICON_FIELD2&nbsp;&nbsp;TYPE&nbsp;icons-text.<br />
    </div>
    <div class="codeComment">
-*###&nbsp;####<br />
+*아이콘&nbsp;변수선언<br />
 <br />
    </div>
    <div class="code">
@@ -96,7 +96,7 @@ DATA : check1 TYPE char1 VALUE 'X',<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;check3&nbsp;TYPE&nbsp;char1&nbsp;VALUE&nbsp;'X',<br />
    </div>
    <div class="codeComment">
-*&nbsp;##&nbsp;##&nbsp;##&nbsp;##.<br />
+*&nbsp;체크&nbsp;박스&nbsp;변수&nbsp;선언.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display&nbsp;TYPE&nbsp;char1,<br />
@@ -104,11 +104,11 @@ DATA : check1 TYPE char1 VALUE 'X',<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Create&nbsp;TYPE&nbsp;char1&nbsp;VALUE&nbsp;'X'.<br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;##&nbsp;&nbsp;##&nbsp;##.<br />
+*&nbsp;라디오&nbsp;버튼&nbsp;&nbsp;변수&nbsp;선언.<br />
 <br />
    </div>
    <div class="code">
-DATA : gv_dynnr type sy-dynnr.   " ###### ## ### ## ##<br />
+DATA : gv_dynnr type sy-dynnr.   " 서브스크린의 동적 변환을 위한 변수<br />
             </div>
           </td>
         </tr>

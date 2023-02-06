@@ -8,12 +8,20 @@ ZSTUDY_E01_01
 754																																
                 40																																
 %_HEADER																																
-ZSTUDY_E01_01                           0210I0210      0  0192 37  0  0 27120  0G E                              20230201234833																																
+ZSTUDY_E01_01                           0210I0210      4 31192 37  0  0  5 35  0G E                              20230202194212																																
 %_DESCRIPTION																																
 subscreen for tab																																
 %_FIELDS																																
+%#AUTOTEXT001	0	CHAR	 11	00	00	00	30	00	  2	  4		  0	  0	  0		  0					  0	  0								유저 아이디		
+ZTUSER_CL5-USER_CODE	C	CHAR	 10	A0	02	80	30	00	  2	 20		  0	  0	  0		  0					 20	  0				USR				__________	                                       00	
+ZTUSER_CL5-NICKNAME	0	CHAR	 11	30	00	00	30	00	  3	  4		  0	  0	  0		  0					  0	  0								유저 닉네임	                                                                                                                                                                                                                                                        X	
+ZTUSER_CL5-NICKNAME	C	CHAR	 13	B0	00	80	30	00	  3	 20		  0	  0	  0		  0					160	  0								_____________	                                       00	
+ZTUSER_CL5-LAST_CHANGED	0	CHAR	  6	30	00	00	34	00	  4	  4		  0	  0	  0		  0					  0	  0								수정일	                                                                                                                                                                                                                                                        X	
+ZTUSER_CL5-LAST_CHANGED	C	CHAR	  8	A0	00	80	34	00	  4	 20		  0	  0	  0		  0					 16	  0								________	                                       00	
 		CHAR	 20	80	10	00	00	00	255	  1	O	  0	  0	  0		  0					  0	  0								____________________		
 %_FLOWLOGIC																																
 PROCESS BEFORE OUTPUT.																																
+module get_user.																																
 *																																
 PROCESS AFTER INPUT.																																
+MODULE user_command_tab1.																																

@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZSTUDY_E01_01_I01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -117,6 +117,26 @@ MODULE user_command_0200 INPUT.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'BACK'.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LEAVE&nbsp;TO&nbsp;SCREEN&nbsp;0.<br />
 &nbsp;&nbsp;endcase.<br />
+ENDMODULE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;SET_USER_DATA&nbsp;inPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+MODULE set_user_data inPUT.<br />
+&nbsp;&nbsp;data&nbsp;:lv_datum&nbsp;type&nbsp;sy-datum.<br />
+<br />
+lv_datum = sy-datum.<br />
+gs_user = ztuser_cl5 .<br />
+gs_user-last_changed = sy-datum.<br />
+<br />
+modify ztuser_cl5 from gs_user.<br />
+<br />
+<br />
 ENDMODULE.<br />
             </div>
           </td>

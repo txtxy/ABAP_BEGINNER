@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_035</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -63,27 +63,27 @@ REPORT zabap_e01_035.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;###&nbsp;###&nbsp;####&nbsp;####&nbsp;###<br />
-*###&nbsp;###&nbsp;#####.<br />
+*&nbsp;메쏘드&nbsp;설정을&nbsp;통해서&nbsp;익스포트&nbsp;필요값을&nbsp;찾아서<br />
+*필요한&nbsp;변수를&nbsp;생성해줬음.<br />
 <br />
    </div>
    <div class="code">
 DATA : gt_file TYPE filetable,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"###&nbsp;##&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"선택한&nbsp;파일&nbsp;이름을&nbsp;저장하는&nbsp;변수<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_file&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_file,<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#&nbsp;###&nbsp;WA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"위&nbsp;변수의&nbsp;WA<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_rc&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"####&nbsp;###&nbsp;###?<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"유저클릭&nbsp;행동에&nbsp;대한값?<br />
 <br />
-*SELCTION&nbsp;SCREEN&nbsp;##&nbsp;#&nbsp;####&nbsp;##<br />
+*SELCTION&nbsp;SCREEN&nbsp;생성&nbsp;및&nbsp;입력필드&nbsp;설정<br />
    </div>
    <div class="code">
 PARAMETERS: pa_fname TYPE string.<br />
    </div>
    <div class="codeComment">
-*F4&nbsp;HELP&nbsp;##.<br />
+*F4&nbsp;HELP&nbsp;설정.<br />
    </div>
    <div class="code">
 AT SELECTION-SCREEN ON VALUE-REQUEST FOR pa_fname.<br />
@@ -91,10 +91,10 @@ AT SELECTION-SCREEN ON VALUE-REQUEST FOR pa_fname.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;pattern&nbsp;##&nbsp;##<br />
+*&nbsp;&nbsp;pattern&nbsp;버튼&nbsp;클릭<br />
 **&nbsp;&nbsp;ABAP&nbsp;OBJECT&nbsp;PATTERN<br />
-*&nbsp;&nbsp;cl_gui_frontend_services&nbsp;#####<br />
-*&nbsp;&nbsp;file_open_dialog&nbsp;###&nbsp;####<br />
+*&nbsp;&nbsp;cl_gui_frontend_services&nbsp;클래스에서<br />
+*&nbsp;&nbsp;file_open_dialog&nbsp;메쏘드&nbsp;불러오기<br />
 <br />
    </div>
    <div class="code">
@@ -136,14 +136,14 @@ AT SELECTION-SCREEN ON VALUE-REQUEST FOR pa_fname.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;GT_FILE&nbsp;###&nbsp;#####&nbsp;1##&nbsp;###&nbsp;###.<br />
+*&nbsp;&nbsp;GT_FILE&nbsp;인터널&nbsp;테이블에서&nbsp;1번째&nbsp;데이터&nbsp;읽어옴.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_file&nbsp;into&nbsp;gs_file&nbsp;INDEX&nbsp;1.<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;###&nbsp;#####&nbsp;###&nbsp;###&nbsp;PA_FNAME&nbsp;###&nbsp;##.<br />
+*&nbsp;&nbsp;인터널&nbsp;테이블에서&nbsp;읽어온&nbsp;데이터&nbsp;PA_FNAME&nbsp;필드에&nbsp;할당.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;pa_fname&nbsp;=&nbsp;gs_file-filename.<br />

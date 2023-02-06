@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_16_F01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -157,7 +157,7 @@ FORM call_change .<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;et_row_no&nbsp;=&nbsp;lt_row.<br />
 <br />
 <br />
-&nbsp;&nbsp;IF&nbsp;lines(&nbsp;lt_row&nbsp;)&nbsp;&gt;&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;lines&nbsp;###&nbsp;##&nbsp;####&nbsp;##&nbsp;##&nbsp;#&nbsp;RETURN<br />
+&nbsp;&nbsp;IF&nbsp;lines(&nbsp;lt_row&nbsp;)&nbsp;&gt;&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;lines&nbsp;펑션은&nbsp;해당&nbsp;테이블의&nbsp;로우&nbsp;건수&nbsp;를&nbsp;RETURN<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_row&nbsp;INTO&nbsp;ls_row&nbsp;INDEX&nbsp;1.<br />
 <br />
@@ -265,9 +265,9 @@ FORM set_sort .<br />
 <br />
 &nbsp;&nbsp;DATA:&nbsp;ls_sort&nbsp;TYPE&nbsp;lvc_s_sort.<br />
 <br />
-&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'CARRID'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SOTING&nbsp;#&nbsp;##&nbsp;##<br />
-&nbsp;&nbsp;ls_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ASC#&nbsp;#&nbsp;###?<br />
-&nbsp;&nbsp;ls_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORTING&nbsp;###?<br />
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'CARRID'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SOTING&nbsp;할&nbsp;필드&nbsp;이름<br />
+&nbsp;&nbsp;ls_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ASC로&nbsp;할&nbsp;것인지?<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORTING&nbsp;순서는?<br />
 &nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
 <br />
 ENDFORM.<br />
@@ -343,7 +343,7 @@ FORM del_record .<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;et_row_no&nbsp;=&nbsp;lt_row.<br />
 <br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lines(&nbsp;lt_row&nbsp;)&nbsp;&gt;&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;lines&nbsp;###&nbsp;##&nbsp;####&nbsp;##&nbsp;##&nbsp;#&nbsp;RETURN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lines(&nbsp;lt_row&nbsp;)&nbsp;&gt;&nbsp;0.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;lines&nbsp;펑션은&nbsp;해당&nbsp;테이블의&nbsp;로우&nbsp;건수&nbsp;를&nbsp;RETURN<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_row&nbsp;INTO&nbsp;ls_row&nbsp;INDEX&nbsp;1.<br />
 <br />

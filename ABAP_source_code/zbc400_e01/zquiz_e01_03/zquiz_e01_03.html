@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_03</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -44,7 +44,7 @@
 <table class="outerTable">
   <tr class="normalBoldLarge">
      <td><h2>Code listing for: ZQUIZ_E01_03</h2>
-<h3> Description: #### ### ### ##</h3></td>
+<h3> Description: 부가세를 포함한 가격을 표시</h3></td>
    </tr>
   <tr>
      <td>
@@ -82,7 +82,7 @@ DATA gv_result TYPE p LENGTH 16 DECIMALS 2.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'Dening&nbsp;Zero&nbsp;VAT.&nbsp;Please&nbsp;Try&nbsp;again'&nbsp;TYPE&nbsp;'I'.<br />
 *else.<br />
 *<br />
-*&nbsp;&nbsp;WRITE:/'##&nbsp;:',pa_amt&nbsp;CENTERED,'&nbsp;###&nbsp;',pa_vat&nbsp;CENTERED,'%#&nbsp;##',&nbsp;gv_result&nbsp;CENTERED,'#'.<br />
+*&nbsp;&nbsp;WRITE:/'금액&nbsp;:',pa_amt&nbsp;CENTERED,'&nbsp;부가세&nbsp;',pa_vat&nbsp;CENTERED,'%일&nbsp;경우',&nbsp;gv_result&nbsp;CENTERED,'임'.<br />
 *<br />
 *ENDIF.<br />
 <br />
@@ -107,7 +107,7 @@ IF sy-subrc &lt;&gt; 0.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
 <br />
 <br />
-&nbsp;&nbsp;WRITE:/'##&nbsp;:',pa_amt&nbsp;CENTERED,'&nbsp;###&nbsp;',pa_vat&nbsp;CENTERED,'%#&nbsp;##',&nbsp;gv_result&nbsp;CENTERED,'#'.<br />
+&nbsp;&nbsp;WRITE:/'금액&nbsp;:',pa_amt&nbsp;CENTERED,'&nbsp;세일이&nbsp;',pa_vat&nbsp;CENTERED,'%일&nbsp;경우',&nbsp;gv_result&nbsp;CENTERED,'임'.<br />
 <br />
 ENDIF.<br />
 <br />
@@ -137,14 +137,14 @@ ENDIF.<br />
 *&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_RESULT&nbsp;LIKE&nbsp;gv_result.<br />
 *<br />
 **&nbsp;&nbsp;pv_result&nbsp;=&nbsp;pv_amt&nbsp;+&nbsp;(&nbsp;pv_amt&nbsp;*&nbsp;pv_vat&nbsp;/&nbsp;100&nbsp;).<br />
-**&nbsp;&nbsp;WRITE:/'##&nbsp;:',pv_amt&nbsp;CENTERED,'&nbsp;###&nbsp;',pv_vat&nbsp;CENTERED,'%#&nbsp;##',&nbsp;pv_result&nbsp;CENTERED,'#'.<br />
+**&nbsp;&nbsp;WRITE:/'금액&nbsp;:',pv_amt&nbsp;CENTERED,'&nbsp;부가세&nbsp;',pv_vat&nbsp;CENTERED,'%일&nbsp;경우',&nbsp;pv_result&nbsp;CENTERED,'임'.<br />
 *<br />
 **&nbsp;&nbsp;data:lv_amT&nbsp;TYPE&nbsp;p&nbsp;LENGTH&nbsp;16&nbsp;DECIMALS&nbsp;2.<br />
 **&nbsp;&nbsp;lv_amt&nbsp;=&nbsp;pv_amt&nbsp;*&nbsp;(&nbsp;1&nbsp;+&nbsp;pv_vat&nbsp;/&nbsp;100&nbsp;).<br />
 **&nbsp;&nbsp;pv_result&nbsp;=&nbsp;lv_amT.<br />
 *<br />
 *&nbsp;&nbsp;pv_result&nbsp;=&nbsp;pv_amt&nbsp;+&nbsp;(&nbsp;pv_amt&nbsp;*&nbsp;pv_vat&nbsp;/&nbsp;100&nbsp;).<br />
-*&nbsp;&nbsp;WRITE:/'##&nbsp;:',pv_amt&nbsp;CENTERED,'&nbsp;###&nbsp;',pv_vat&nbsp;CENTERED,'%#&nbsp;##',&nbsp;pv_result&nbsp;CENTERED,'#'.<br />
+*&nbsp;&nbsp;WRITE:/'금액&nbsp;:',pv_amt&nbsp;CENTERED,'&nbsp;부가세&nbsp;',pv_vat&nbsp;CENTERED,'%일&nbsp;경우',&nbsp;pv_result&nbsp;CENTERED,'임'.<br />
 *<br />
 *<br />
 *ENDFORM.<br />

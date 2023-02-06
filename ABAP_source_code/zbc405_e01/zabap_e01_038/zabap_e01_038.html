@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_038</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -73,7 +73,7 @@ data: gt_scarr type TABLE of ztscarr_e01.<br />
 *<br />
 *INSERT&nbsp;ztscarr_E01&nbsp;from&nbsp;table&nbsp;gt_scarr.<br />
 <br />
-*&nbsp;##&nbsp;##&nbsp;##<br />
+*&nbsp;중복&nbsp;내용&nbsp;저장<br />
 <br />
    </div>
    <div class="code">
@@ -84,8 +84,8 @@ select * into<br />
 insert ztscarr_e01 From table gt_scarr.<br />
    </div>
    <div class="codeComment">
-*ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;####&nbsp;#####&nbsp;###&nbsp;##&nbsp;###&nbsp;SUBRC&nbsp;##&nbsp;4#&nbsp;#.<br />
-*&nbsp;####&nbsp;##&nbsp;####!<br />
+*ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.&nbsp;&nbsp;&nbsp;"&nbsp;중복&nbsp;데이터를&nbsp;용인하면서&nbsp;데이터&nbsp;저장&nbsp;하지만&nbsp;SUBRC&nbsp;값이&nbsp;4가&nbsp;됨.<br />
+*&nbsp;가능하면&nbsp;이거&nbsp;쓰지말라!<br />
 <br />
 <br />
    </div>

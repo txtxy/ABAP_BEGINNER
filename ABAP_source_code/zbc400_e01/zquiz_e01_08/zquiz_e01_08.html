@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZQUIZ_E01_08</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -79,7 +79,7 @@ DATA :<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Structure&nbsp;value&nbsp;##&nbsp;.<br />
+*&nbsp;Structure&nbsp;value&nbsp;선언&nbsp;.<br />
    </div>
    <div class="code">
 DATA :<br />
@@ -88,7 +88,7 @@ DATA :<br />
 <br />
    </div>
    <div class="codeComment">
-*Range&nbsp;##&nbsp;##&nbsp;:&nbsp;Internal&nbsp;Table<br />
+*Range&nbsp;변수&nbsp;선언&nbsp;:&nbsp;Internal&nbsp;Table<br />
    </div>
    <div class="code">
 DATA : gt_bp TYPE RANGE OF sbook-custtype,<br />
@@ -127,7 +127,7 @@ START-OF-SELECTION.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;c~id&nbsp;=&nbsp;b~customid<br />
 &nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;b~customid&nbsp;IN&nbsp;so_cusid&nbsp;AND<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~cancelled&nbsp;=&nbsp;pa_can&nbsp;AND<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~custtype&nbsp;IN&nbsp;gt_bp."&nbsp;###&nbsp;###&nbsp;##&nbsp;##&nbsp;/&nbsp;=&nbsp;pa_cotp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~custtype&nbsp;IN&nbsp;gt_bp."&nbsp;레인지&nbsp;변수를&nbsp;통해&nbsp;관리&nbsp;/&nbsp;=&nbsp;pa_cotp.<br />
 <br />
    </div>
    <div class="codeComment">

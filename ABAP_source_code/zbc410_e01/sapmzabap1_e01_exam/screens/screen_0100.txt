@@ -28,28 +28,28 @@ TAB3		CHAR	  8	00	00	00	30	00	  1	  3	I	101	  1	  1		  0	P				  0	  0	105	SUB			
 SUB			114	00	C0	00	30	00	 12	  4	I	101	  0	  0		 14	B				  3	  3	106									
 OK_CODE		CHAR	 20	80	10	00	00	00	255	  1	O	  0	  0	  0		  0					  0	  0								____________________		
 %_FLOWLOGIC																																
-PROCESS BEFORE OUTPUT.               " ## ## ## Logic																																
-  MODULE status_0100.                " ### ### ## ##																																
-  MODULE sync_data.                  " ### ### Display																																
-  MODULE fill_dynnr.                 " TAB # Sub screen ## Setting																																
+PROCESS BEFORE OUTPUT.               " 화면 표시 이전 Logic																																
+  MODULE status_0100.                " 제목과 상태창 기능 표시																																
+  MODULE sync_data.                  " 조회한 데이터 Display																																
+  MODULE fill_dynnr.                 " TAB 및 Sub screen 화면 Setting																																
 																																
-  CALL SUBSCREEN sub                 " TAb ## Display																																
-  INCLUDING sy-cprog gv_dynnr.       " TAb ## ### ## ###																																
+  CALL SUBSCREEN sub                 " TAb 화면 Display																																
+  INCLUDING sy-cprog gv_dynnr.       " TAb 동적 구성을 위한 명령어																																
 																																
-  MODULE clear_okcode.               " ## ### ## U.C.###																																
+  MODULE clear_okcode.               " 오류 방지를 위한 U.C.초기화																																
 																																
 																																
 *--------------------------------------------------------------------*																																
 *--------------------------------------------------------------------*																																
-PROCESS AFTER INPUT.                 " User Action ## Logic																																
-  MODULE escape AT EXIT-COMMAND.     " ## ## ## # ##																																
+PROCESS AFTER INPUT.                 " User Action 이후 Logic																																
+  MODULE escape AT EXIT-COMMAND.     " 탈출 함수 설정 및 선언																																
 																																
-  CALL SUBSCREEN sub.                " Subscreen (TAB) ##																																
+  CALL SUBSCREEN sub.                " Subscreen (TAB) 호출																																
 																																
-  MODULE get_basic_data.             " ZTREQ- ### ##																																
+  MODULE get_basic_data.             " ZTREQ- 테이블 조회																																
 																																
-  MODULE get_booking_data.           " TAB1 DATA ##																																
-  MODULE get_connection_data.        " TAB2 DATA ##																																
-  MODULE get_custom_data.            " TAB3 DATA ##																																
+  MODULE get_booking_data.           " TAB1 DATA 조회																																
+  MODULE get_connection_data.        " TAB2 DATA 조회																																
+  MODULE get_custom_data.            " TAB3 DATA 조회																																
 																																
-  MODULE user_command_0100.          " U.C. ## # ## ##																																
+  MODULE user_command_0100.          " U.C. 함수 및 팝업 호출																																

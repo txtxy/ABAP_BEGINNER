@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=ISO-8859-1" />
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
 <title>ZABAP_E01_036_F01</title>
 <style type="text/css">
 .code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
@@ -72,7 +72,7 @@ FORM get_booking .<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;IN&nbsp;so_con&nbsp;AND<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;IN&nbsp;so_fdt.<br />
 <br />
-&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_data&nbsp;INTO&nbsp;gs_data.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;##&nbsp;###<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_data&nbsp;INTO&nbsp;gs_data.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;신호등&nbsp;필드&nbsp;내용&nbsp;채우기<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;name&nbsp;telephone<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(&nbsp;gs_data-name,&nbsp;gs_data-phone&nbsp;)<br />
@@ -95,8 +95,8 @@ FORM get_booking .<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-excp&nbsp;=&nbsp;'0'.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
 <br />
-&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_data-smoker&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LAYOUT&nbsp;COLOR&nbsp;##&nbsp;##<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-color&nbsp;=&nbsp;'C610'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;GS_LAYOUT#&nbsp;##&nbsp;###&nbsp;######<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_data-smoker&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LAYOUT&nbsp;COLOR&nbsp;변경&nbsp;조건<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-color&nbsp;=&nbsp;'C610'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이제&nbsp;GS_LAYOUT에&nbsp;컬러&nbsp;필드를&nbsp;전달해줘야함<br />
 <br />
 &nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
 <br />
@@ -116,7 +116,7 @@ FORM get_booking .<br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_scol&nbsp;TO&nbsp;gs_data-itab_scol.<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;Grid&nbsp;Line#&nbsp;##&nbsp;#&nbsp;##&nbsp;###&nbsp;#####.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;Grid&nbsp;Line에&nbsp;버튼&nbsp;및&nbsp;버튼&nbsp;텍스트&nbsp;추추가하기.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-btn_txt&nbsp;=&nbsp;'Invoice'.<br />
@@ -149,7 +149,7 @@ ENDFORM.<br />
 *&---------------------------------------------------------------------*<br />
    </div>
    <div class="code">
-FORM set_variant.                              " ### ## ## ## #### #<br />
+FORM set_variant.                              " 일종의 필드 보기 방식 저장하는 것<br />
 &nbsp;&nbsp;gs_variant-report&nbsp;=&nbsp;sy-cprog.<br />
 &nbsp;&nbsp;gs_variant-variant&nbsp;=&nbsp;pa_vari.<br />
 ENDFORM.<br />
@@ -167,16 +167,16 @@ ENDFORM.<br />
    <div class="code">
 FORM set_layout .<br />
 &nbsp;&nbsp;gs_layout-grid_title&nbsp;=&nbsp;'Booking&nbsp;List&nbsp;Data'.<br />
-&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ROW##&nbsp;####<br />
-&nbsp;&nbsp;gs_layout-cwidth_opt&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;#&nbsp;##&nbsp;####<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ROW마다&nbsp;색다르게<br />
+&nbsp;&nbsp;gs_layout-cwidth_opt&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;열&nbsp;간격&nbsp;자동정렬<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;gs_layout-no_toolbar&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;standard&nbsp;toolbar#&nbsp;##<br />
-*&nbsp;&nbsp;gs_layout-no_headers&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;###&nbsp;##&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;gs_layout-no_toolbar&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;standard&nbsp;toolbar를&nbsp;가림<br />
+*&nbsp;&nbsp;gs_layout-no_headers&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;리스트&nbsp;컬럼&nbsp;헤드를&nbsp;가림<br />
    </div>
    <div class="code">
-&nbsp;&nbsp;gs_layout-sel_mode&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;##&nbsp;##&nbsp;####&nbsp;A,B,C,D#&nbsp;##&nbsp;#&nbsp;#&nbsp;##<br />
-&nbsp;&nbsp;gs_layout-excp_fname&nbsp;=&nbsp;'EXCP'.&nbsp;&nbsp;"&nbsp;###&nbsp;###&nbsp;####&nbsp;##<br />
+&nbsp;&nbsp;gs_layout-sel_mode&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;선택&nbsp;모드&nbsp;변경하기&nbsp;A,B,C,D가&nbsp;각기&nbsp;올&nbsp;수&nbsp;있음<br />
+&nbsp;&nbsp;gs_layout-excp_fname&nbsp;=&nbsp;'EXCP'.&nbsp;&nbsp;"&nbsp;신호등&nbsp;아이콘&nbsp;필드네임&nbsp;전달<br />
 &nbsp;&nbsp;gs_layout-excp_led&nbsp;=&nbsp;'X'.<br />
 &nbsp;&nbsp;gs_layout-info_fname&nbsp;=&nbsp;'COLOR'.<br />
 &nbsp;&nbsp;gs_layout-ctab_fname&nbsp;=&nbsp;'ITAB_SCOL'.<br />
@@ -199,15 +199,15 @@ FORM set_sort .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;work&nbsp;area&nbsp;##.<br />
+*&nbsp;&nbsp;work&nbsp;area&nbsp;선언.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;DATA:&nbsp;ls_sort&nbsp;TYPE&nbsp;lvc_s_sort.<br />
 <br />
-&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'CARRID'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SOTING&nbsp;#&nbsp;##&nbsp;##<br />
-&nbsp;&nbsp;ls_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ASC#&nbsp;#&nbsp;###?<br />
-&nbsp;&nbsp;ls_sort-down&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;DESC#&nbsp;#&nbsp;###?<br />
-&nbsp;&nbsp;ls_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORTING&nbsp;###?<br />
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'CARRID'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SOTING&nbsp;할&nbsp;필드&nbsp;이름<br />
+&nbsp;&nbsp;ls_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ASC로&nbsp;할&nbsp;것인지?<br />
+&nbsp;&nbsp;ls_sort-down&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;DESC로&nbsp;할&nbsp;것인지?<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORTING&nbsp;순서는?<br />
 &nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
 &nbsp;&nbsp;CLEAR&nbsp;ls_sort.<br />
 <br />
@@ -234,7 +234,7 @@ FORM set_exclude_functions .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;###&nbsp;##&nbsp;toolbar#&nbsp;######&nbsp;##<br />
+*&nbsp;숨기고&nbsp;싶은&nbsp;toolbar를&nbsp;예외테이블로&nbsp;입력<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;APPEND&nbsp;cl_gui_alv_grid=&gt;mc_fc_detail&nbsp;TO&nbsp;gt_exclude_func.<br />
@@ -258,7 +258,7 @@ ENDFORM.<br />
 FORM set_field_catalog .<br />
    </div>
    <div class="codeComment">
-*&nbsp;ALV&nbsp;GRid&nbsp;Field&nbsp;Catalog&nbsp;Work&nbsp;Area&nbsp;##<br />
+*&nbsp;ALV&nbsp;GRid&nbsp;Field&nbsp;Catalog&nbsp;Work&nbsp;Area&nbsp;선언<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_fcat&nbsp;TYPE&nbsp;lvc_s_fcat.<br />
@@ -272,7 +272,7 @@ FORM set_field_catalog .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;ABAP&nbsp;Dicc&nbsp;#####&nbsp;##&nbsp;###&nbsp;Filed&nbsp;Catalog#&nbsp;##<br />
+*&nbsp;&nbsp;ABAP&nbsp;Dicc&nbsp;전역변수의&nbsp;내용&nbsp;그대로&nbsp;Filed&nbsp;Catalog에&nbsp;사용<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ls_fcat-fieldname&nbsp;='NAME'.<br />
@@ -283,7 +283,7 @@ FORM set_field_catalog .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;ABAP&nbsp;Dicc&nbsp;#####&nbsp;##&nbsp;&nbsp;Filed&nbsp;Catalog#&nbsp;##(##&nbsp;###&nbsp;#)<br />
+*&nbsp;&nbsp;ABAP&nbsp;Dicc&nbsp;전역변수의&nbsp;내용&nbsp;&nbsp;Filed&nbsp;Catalog에&nbsp;사용(다른&nbsp;이름일&nbsp;때)<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ls_fcat-fieldname&nbsp;='PHONE'.<br />
@@ -295,7 +295,7 @@ FORM set_field_catalog .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;Field&nbsp;Catalog#&nbsp;OTHER&nbsp;###&nbsp;###&nbsp;##.<br />
+*&nbsp;Field&nbsp;Catalog의&nbsp;OTHER&nbsp;속성을&nbsp;사용해&nbsp;적용.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ls_fcat-fieldname&nbsp;='ICON_CANC'.<br />
@@ -307,7 +307,7 @@ FORM set_field_catalog .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;sbook#&nbsp;CANCELLED&nbsp;###&nbsp;#####&nbsp;##.<br />
+*&nbsp;sbook의&nbsp;CANCELLED&nbsp;필드를&nbsp;안보이도록&nbsp;처리.<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CANCELLED'.<br />
@@ -322,7 +322,7 @@ FORM set_field_catalog .<br />
 <br />
    </div>
    <div class="codeComment">
-*&nbsp;AGENCYNUM&nbsp;###&nbsp;hotspot&nbsp;##<br />
+*&nbsp;AGENCYNUM&nbsp;필드에&nbsp;hotspot&nbsp;생성<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ls_fcat-fieldname&nbsp;='AGENCYNUM'.<br />
@@ -331,7 +331,7 @@ FORM set_field_catalog .<br />
 &nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_fcat.<br />
    </div>
    <div class="codeComment">
-*&nbsp;custid&nbsp;###&nbsp;hotspot&nbsp;##<br />
+*&nbsp;custid&nbsp;필드에&nbsp;hotspot&nbsp;생성<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CUSTOMID'.<br />
@@ -340,7 +340,7 @@ FORM set_field_catalog .<br />
 &nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_fcat.<br />
    </div>
    <div class="codeComment">
-*&nbsp;Button&nbsp;##&nbsp;####<br />
+*&nbsp;Button&nbsp;필드&nbsp;추가하기<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;ls_fcat-fieldname&nbsp;='BTN_TXT'.<br />
@@ -389,7 +389,7 @@ ENDFORM.<br />
 FORM get_data_spfli .<br />
    </div>
    <div class="codeComment">
-*&nbsp;&nbsp;Flight&nbsp;Connection&nbsp;###&nbsp;##<br />
+*&nbsp;&nbsp;Flight&nbsp;Connection&nbsp;데이터&nbsp;취득<br />
    </div>
    <div class="code">
 &nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
@@ -503,7 +503,7 @@ CALL METHOD go_alv-&gt;get_selected_rows<br />
 &nbsp;&nbsp;&nbsp;&nbsp;et_row_no&nbsp;=&nbsp;lt_row.<br />
 &nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_row&nbsp;into&nbsp;ls_row&nbsp;index&nbsp;1.<br />
 IF lt_row is INITIAL.<br />
-&nbsp;&nbsp;MESSAGE&nbsp;'Row#&nbsp;####&nbsp;#####.'&nbsp;TYPE&nbsp;'I'.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'Row가&nbsp;선택되지&nbsp;않았습니다.'&nbsp;TYPE&nbsp;'I'.<br />
 ENDIF.<br />
 <br />
 <br />
