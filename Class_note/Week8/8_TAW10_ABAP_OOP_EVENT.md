@@ -38,6 +38,7 @@
         ENDMETHOD.
     ENDCLASS.
 ```
+
 ## 핸들러 등록
 
 ```abap

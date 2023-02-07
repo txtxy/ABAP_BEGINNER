@@ -2,26 +2,26 @@
 &nbsp;&nbsp;&nbsp;&nbsp;P.265
 
 SE-24 | OBJECT CLASS BUILDER
-혹은
-패키지의 CLASS_LIBRARY에서 생성
+  혹은
+패키지의 CREATE-CLASS_LIBRARY에서 생성
 
 ## 클래스 접두사 명명법
 ZCL_ 혹은 YCL_
 
 ## ATTRIBUTE 작성 필요 Field
 - 변수명
-- LEVE\[선택\]
+- LEVEL \[**선택**\]
     - Constants
     - Instance
     - Static
-- Visibility\[선택\]
+- Visibility \[**선택**\]
     - Private
     - Public
-- Read-only \[checkBox\]
-- Associated Type \[필수\]
-- Description \[Optional\]
+- Read-only \[**checkBox**\]
+- Associated Type \[**필수**\]
+- Description \[**Optional**\]
 - Initial Value
-    - Constants의 경우 \[필수\]
+    - Constants의 경우 \[**필수**\]
 
 ## METHOD
 - Method 명
@@ -56,6 +56,46 @@ ZCL_ 혹은 YCL_
 
 
 # 글로벌 인터페이스
+&nbsp;&nbsp;&nbsp;&nbsp;P.284
+
+SE-24 | OBJECT CLASS BUILDER
+  혹은
+패키지의 CREATE-CLASS_LIBRARY에서 생성
+
+## 클래스 접두사 명명법 (Naming Convention)
+ZIF_ 혹은 YIF_
 
 
-# 글로벌 클래스의 상속
+
+# Local Class 의 Importing
+
+Class Builder에서
+
+![임포팅 창 실행법](../screenShot/Week8/Local_classs_Importing.png)
+
+create type - Import - local_classes in Program
+
+![로컬 클래스 임포팅 창](../screenShot/Week8/Local_classs_Importing_from_Program.png)
+
+클래스의 이름을 접두사 명명법에 따라서 수정할 것!
+
+
+
+# Inheritance In Global Class
+
+class의 Property안에서 SuperClass를 설정할 수 있음
+
+상속받은 메쏘드를 REDIFINITION하기위해서는
+
+꼭 REDIFINE 버튼을 눌러야한다.!!!
+![리디파인 버튼](../screenShot/Week8/inheriment_redefintion.png)
+
+
+![](../screenShot/Week8/inheriment_redefintion.png)
+
+
+이거는 꼭 설정해놓자!!
+
+![메쏘드 하이아키](../screenShot/Week8/Group_by_interface_and_super_class.png)
+
+이거해놔야지 구분이 된다!
