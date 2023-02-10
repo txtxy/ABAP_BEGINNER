@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAPPE01_PRAC</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAPPE01_PRAC</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAPPE01_PRAC<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZABAPPE01_PRAC.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;P_TABLE이&nbsp;엑셀에서&nbsp;불러온&nbsp;정보를&nbsp;저장할&nbsp;Internal&nbsp;Table<br />
+*&nbsp;엑셀의&nbsp;각&nbsp;컬럼의&nbsp;필드&nbsp;크기를&nbsp;정의해놓음.<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF P_TABLE OCCURS 0,<br />
+&nbsp;&nbsp;COL_A(10),<br />
+&nbsp;&nbsp;COL_B(5),<br />
+&nbsp;&nbsp;COL_C&nbsp;TYPE&nbsp;DATE_STRING,<br />
+&nbsp;&nbsp;COL_D(20),<br />
+&nbsp;&nbsp;COL_E(20),<br />
+&nbsp;&nbsp;COL_F(25),END&nbsp;OF&nbsp;P_TABLE.<br />
+<br />
+DATA : gt_aniins TYPE TABLE of ZtANIMAL_INS_E01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniins&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_aniins.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-------&nbsp;SELECTION-SCREEN&nbsp;-------------------------------------------<br />
+*&nbsp;P_FILE&nbsp;Parameter에&nbsp;불러올&nbsp;파일의&nbsp;절대경로와&nbsp;이름을&nbsp;입력함.<br />
+*&nbsp;현재&nbsp;입력해놓은&nbsp;것은&nbsp;Default&nbsp;파일경로.<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE text-t01.<br />
+PARAMETERS P_FILE  LIKE RLGRAP-FILENAME DEFAULT 'C:\Users\txtxy\Downloads\archive\aac_intakes.csv'.<br />
+SELECTION-SCREEN END OF BLOCK b1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*------<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;오류&nbsp;방지를&nbsp;위해&nbsp;기존에&nbsp;있던&nbsp;DB내용&nbsp;삭제<br />
+   </div>
+   <div class="code">
+DELETE FROM ZtANIMAL_INS_E01.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;삭제를&nbsp;DB에&nbsp;적용함.<br />
+   </div>
+   <div class="code">
+COMMIT WORK.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;엑셀&nbsp;파일을&nbsp;P_TABLE에&nbsp;업로드하는&nbsp;서브루틴&nbsp;EXCEL_UPLOAD&nbsp;실행&nbsp;명령.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;EXCEL_UPLOAD.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DB&nbsp;에&nbsp;Internal&nbsp;Table에&nbsp;불러온&nbsp;값을&nbsp;입력.<br />
+   </div>
+   <div class="code">
+insert ZtANIMAL_INS_E01 FROM TABLE gt_aniins ACCEPTING DUPLICATE KEYS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;입력&nbsp;값&nbsp;확인을&nbsp;위한&nbsp;확인&nbsp;구문<br />
+   </div>
+   <div class="code">
+write:/ 'insert completed!!'.<br />
+<br />
+cl_demo_output=&gt;display_data( gt_aniins ).<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;EXCEL_UPLOAD<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;KCDE_CELLS&nbsp;의&nbsp;VALUE필드가&nbsp;32Char로&nbsp;정의&nbsp;되어&nbsp;있음<br />
+*&nbsp;&nbsp;VALUE값이&nbsp;32Char&nbsp;이상으로&nbsp;사용하려면&nbsp;KCDE_CELLS&nbsp;대체&nbsp;구조를&nbsp;만듦<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM EXCEL_UPLOAD .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;P_FILENAME&nbsp;&nbsp;LIKE&nbsp;RLGRAP-FILENAME.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LO_ITAB&nbsp;TYPE&nbsp;&nbsp;KCDE_CELLS&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LO_INDEX&nbsp;like&nbsp;sy-tabix.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LO_START_COL&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;'1',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"컬럼&nbsp;세로줄&nbsp;시작&nbsp;위치<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LO_START_ROW&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;'1',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"선택할&nbsp;가로줄&nbsp;시작&nbsp;위치&nbsp;HEADLine도&nbsp;포함해야한다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LO_END_COL&nbsp;&nbsp;&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;'10',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"컬럼&nbsp;세로줄&nbsp;끝자리<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LO_END_ROW&nbsp;&nbsp;&nbsp;TYPE&nbsp;I&nbsp;VALUE&nbsp;'124200'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"몇줄까지&nbsp;불러올&nbsp;것인지?<br />
+<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;:&nbsp;&lt;LO_FS&gt;.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;엑셀을&nbsp;불러오는&nbsp;Function&nbsp;Call<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'KCD_EXCEL_OLE_TO_INT_CONVERT'<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;펑션&nbsp;요소<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FILENAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;P_FILE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"불러올&nbsp;파일의&nbsp;절대경로와&nbsp;이름<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LO_START_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"컬럼&nbsp;세로줄&nbsp;시작&nbsp;위치<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BEGIN_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LO_START_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"선택할&nbsp;가로줄&nbsp;시작&nbsp;위치&nbsp;HEADLine도&nbsp;포함해야한다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LO_END_COL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"컬럼&nbsp;세로줄&nbsp;끝자리<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_END_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LO_END_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"몇줄까지&nbsp;불러올&nbsp;것인지?<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LO_ITAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;엑셀&nbsp;입력값&nbsp;저장&nbsp;테이블<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;오류&nbsp;체크&nbsp;로직<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCONSISTENT_PARAMETERS&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;UPLOAD_OLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;E000(ZMPS)&nbsp;WITH&nbsp;'File&nbsp;Upload&nbsp;Failed&nbsp;!'(E10).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CHECK&nbsp;NOT&nbsp;LO_ITAB[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;SORT&nbsp;LO_ITAB&nbsp;BY&nbsp;ROW&nbsp;COL.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;실제&nbsp;사용할&nbsp;ITAB에&nbsp;넣어줌<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LO_ITAB.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;첫라인이&nbsp;타이틀인&nbsp;경우&nbsp;타이틀&nbsp;COL&nbsp;갯수만큼은&nbsp;그냥&nbsp;SKIP<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-TABIX&nbsp;&lt;=&nbsp;6.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;:&nbsp;LO_ITAB-COL&nbsp;TO&nbsp;LO_INDEX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;LO_INDEX&nbsp;OF&nbsp;STRUCTURE&nbsp;P_TABLE&nbsp;TO&nbsp;&lt;LO_FS&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;:&nbsp;LO_ITAB-VALUE&nbsp;TO&nbsp;&lt;LO_FS&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;ROW.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;P_TABLE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;P_TABLE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;P_TABLE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniins-ANIMAL_ID&nbsp;=&nbsp;P_TABLE-COL_A.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniins-animal_type&nbsp;=&nbsp;P_TABLE-COL_B.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniins-INTAKE_DATE&nbsp;=&nbsp;P_TABLE-COL_C.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniins-INTAKE_CONDITION&nbsp;=&nbsp;P_TABLE-COL_D.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniins-name&nbsp;=&nbsp;P_TABLE-COL_E.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniins-SEX_UPON_INTAKE&nbsp;=&nbsp;P_TABLE-COL_F.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;append&nbsp;gs_aniins&nbsp;to&nbsp;gt_aniins.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;clear&nbsp;gs_aniins.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.                    " EXCEL_UPLOAD<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

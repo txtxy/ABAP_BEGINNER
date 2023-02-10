@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP2_TV_EXAM</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP2_TV_EXAM</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP2_TV_EXAM<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabap2_tv_exam.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;1.&nbsp;Dicc&nbsp;스트럭쳐&nbsp;생성<br />
+*&nbsp;첫번째&nbsp;스크린에&nbsp;보여줄&nbsp;ysexam2_cust_e01&nbsp;스트럭쳐를&nbsp;생성.<br />
+<br />
+*&nbsp;2.&nbsp;인클루드&nbsp;생성하고&nbsp;TOP에서&nbsp;변수선언하기<br />
+   </div>
+   <div class="code">
+include <a href ="zabap2_tv_exam_top.html">zabap2_tv_exam_top</a>.<br />
+include <a href ="zabap2_tv_exam_cls.html">zabap2_tv_exam_cls</a>.<br />
+<br />
+include <a href ="zabap2_tv_exam_o01.html">zabap2_tv_exam_o01</a>.<br />
+<br />
+<br />
+include <a href ="zabap2_tv_exam_i01.html">zabap2_tv_exam_i01</a>.<br />
+<br />
+<br />
+include <a href ="zabap2_tv_exam_f01.html">zabap2_tv_exam_f01</a>.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;7.&nbsp;초기&nbsp;입력값&nbsp;처리<br />
+   </div>
+   <div class="code">
+INITIALIZATION.<br />
+&nbsp;&nbsp;so_fdt-sign&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;so_fdt-option&nbsp;=&nbsp;'BT'.<br />
+&nbsp;&nbsp;so_fdt-low&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;so_fdt-high&nbsp;=&nbsp;sy-datum(4)&nbsp;&&&nbsp;'1231'.<br />
+&nbsp;&nbsp;APPEND&nbsp;so_fdt.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_domain_values.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;START-OF-SELECTION&nbsp;.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;8.&nbsp;기본&nbsp;고객&nbsp;데이터&nbsp;조회를&nbsp;위한&nbsp;서브루틴<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;PERFORM&nbsp;get_cust_data.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;9.&nbsp;100번&nbsp;스크린&nbsp;생성&nbsp;및&nbsp;ALV컨테이너&nbsp;등&nbsp;레이아웃설정<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;9-1&nbsp;100번&nbsp;스크린&nbsp;기본&nbsp;commd&nbsp;code&nbsp;,clearokcode&nbsp;등&nbsp;설정<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;9-2&nbsp;init&nbsp;alv&nbsp;모듈&nbsp;생성하여&nbsp;기본&nbsp;ALV&nbsp;GRID&nbsp;출력&nbsp;설정.<br />
+<br />
+*&nbsp;&nbsp;10.&nbsp;100번&nbsp;스크린&nbsp;호출하여&nbsp;첫번째&nbsp;스크린&nbsp;출력<br />
+   </div>
+   <div class="code">
+call SCREEN 100.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;11.&nbsp;고객&nbsp;예약정버&nbsp;불러오는&nbsp;로직&nbsp;생성.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;11-1&nbsp;PERFORM&nbsp;GET_SELECTED_DATA.&nbsp;를&nbsp;이용해&nbsp;적용<br />
+<br />
+*&nbsp;12.&nbsp;200&nbsp;스크린&nbsp;생성<br />
+*&nbsp;&nbsp;12-1&nbsp;100번&nbsp;스크린&nbsp;기본&nbsp;commd&nbsp;code&nbsp;,clearokcode&nbsp;등&nbsp;설정<br />
+*&nbsp;&nbsp;12-2&nbsp;init&nbsp;alv&nbsp;모듈&nbsp;생성하여&nbsp;기본&nbsp;ALV&nbsp;GRID&nbsp;출력&nbsp;설정.<br />
+<br />
+*&nbsp;13.&nbsp;200번&nbsp;스크린에&nbsp;보여질&nbsp;데이터를&nbsp;불러올&nbsp;module작성<br />
+*&nbsp;13-1&nbsp;get_booking_data&nbsp;모둘<br />
+*&nbsp;&nbsp;13-2&nbsp;&nbsp;기내식을&nbsp;신청했는지를&nbsp;EXCP&nbsp;와&nbsp;REASONS&nbsp;컬럼을&nbsp;통해&nbsp;보여줘야하기&nbsp;때문에<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;REQMENU에&nbsp;신청한&nbsp;데이터에&nbsp;관한&nbsp;값을&nbsp;조회해야함,<br />
+*&nbsp;&nbsp;&nbsp;13-3<br />
+<br />
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;T100&nbsp;--&gt;&nbsp;Customer&nbsp;Boooking&nbsp;Information<br />
+*&nbsp;T200&nbsp;--&gt;&nbsp;Customer&nbsp;Booking&nbsp;List<br />
+*&nbsp;T210&nbsp;--&gt;&nbsp;Request&nbsp;Meal&nbsp;Menu<br />
+*&nbsp;T300&nbsp;--&gt;&nbsp;Flight&nbsp;Meal&nbsp;List<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;아직&nbsp;신청한&nbsp;기내식이&nbsp;없습니다!!<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP_E01_005</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_005</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP_E01_005<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabap_e01_005.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*변수선언.<br />
+   </div>
+   <div class="code">
+DATA : gv_carrid TYPE s_carr_id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_count&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_perc&nbsp;&nbsp;&nbsp;TYPE&nbsp;p&nbsp;LENGTH&nbsp;3&nbsp;DECIMALS&nbsp;2.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*상수선언.<br />
+   </div>
+   <div class="code">
+CONSTANTS : gc_qf TYPE s_carr_id VALUE 'QF'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*selection&nbsp;screen.<br />
+   </div>
+   <div class="code">
+PARAMETERS : pa_car TYPE s_carr_id DEFAULT 'LH',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_str&nbsp;TYPE&nbsp;string.<br />
+<br />
+MOVE pa_car TO gv_carrid. " LH가 나올테고<br />
+WRITE :/ 'gv_carrid : ',gv_carrid.<br />
+<br />
+gv_carrid = gc_qf." QF가 나올테고<br />
+WRITE :/ 'gv_carrid : ',gv_carrid.<br />
+<br />
+gv_count = gv_count + 1." 1이 나올테고<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;add&nbsp;1&nbsp;to&nbsp;gv_count.<br />
+   </div>
+   <div class="code">
+WRITE :/ 'gv_count : ' ,gv_count LEFT-JUSTIFIED.<br />
+<br />
+CLEAR : gv_carrid,gv_count.<br />
+ULINE. "밑줄 귿기<br />
+WRITE :/'gv_carrid :', gv_carrid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/'gv_count&nbsp;:',&nbsp;gv_count.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;백분율.<br />
+   </div>
+   <div class="code">
+gv_perc = 125 / 250 * 100.<br />
+WRITE :/ '백분율 : ', gv_perc, '%'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;문자열의&nbsp;길이<br />
+   </div>
+   <div class="code">
+gv_count = strlen( pa_str ).<br />
+<br />
+WRITE :/ '문자열의 길이 : ', gv_count.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;/,&nbsp;div,&nbsp;MOD&nbsp;비교.<br />
+   </div>
+   <div class="code">
+gv_perc = 10 / 3.<br />
+WRITE :/ '/기호 나누기 :', gv_perc.<br />
+CLEAR : gv_perc.<br />
+ULINE.<br />
+gv_perc = 10 DIV 3.<br />
+WRITE :/ 'div 기호나누기 :', gv_perc.<br />
+CLEAR : gv_perc.<br />
+ULINE.<br />
+gv_perc = 10 MOD 3.<br />
+WRITE :/ 'mod 기호나누기 :', gv_perc.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

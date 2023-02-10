@@ -1,0 +1,157 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBC430_E01_STRUCT_DEEP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBC430_E01_STRUCT_DEEP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;&nbsp;SAPBC430S_STRUCT_DEEP&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+REPORT  zbc430_e01_struct_deep.<br />
+<br />
+DATA wa_person TYPE zperson_e01.   " DEEP STRUCTURE 타입으로 변수 선언.<br />
+DATA wa_phone  TYPE str_phone.     " zperson_e01 내부 phone 인터널 테이블을 위한 WA선언.<br />
+<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Fill&nbsp;deep&nbsp;structure&nbsp;with&nbsp;data<br />
+<br />
+<br />
+*---------------------------------------------------------------------------<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE타입의&nbsp;외부&nbsp;내용&nbsp;입력<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;wa_person-street&nbsp;=&nbsp;'Privet&nbsp;Drive'.<br />
+&nbsp;&nbsp;wa_person-nr&nbsp;=&nbsp;'3'.<br />
+&nbsp;&nbsp;wa_person-zip&nbsp;=&nbsp;'GB-10889'.<br />
+&nbsp;&nbsp;wa_person-city&nbsp;=&nbsp;'London'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------------<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE타입의&nbsp;내부&nbsp;NAME&nbsp;STRUCTURE&nbsp;입력<br />
+<br />
+*&nbsp;&nbsp;wa_person-name-firstname&nbsp;=&nbsp;'Harry'.&nbsp;&nbsp;"&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE&nbsp;내부의&nbsp;NAME&nbsp;스트럭쳐에&nbsp;접근하기&nbsp;위해&nbsp;-으로&nbsp;이중&nbsp;연결<br />
+*&nbsp;&nbsp;wa_person-name-lastname&nbsp;=&nbsp;'potter'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;wa_person-firstname&nbsp;=&nbsp;'Harry'.&nbsp;&nbsp;&nbsp;"&nbsp;NAME&nbsp;스트럭쳐를&nbsp;.include&nbsp;방식으로&nbsp;변경하여&nbsp;쉽게&nbsp;호출<br />
+&nbsp;&nbsp;wa_person-lastname&nbsp;=&nbsp;'potter'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------------<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;zperson_e01&nbsp;DEEP&nbsp;STRUCTURE타입의&nbsp;내부&nbsp;Internal&nbsp;Table에&nbsp;접근하기&nbsp;위해,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PHONE&nbsp;Internal&nbsp;Table의&nbsp;WA인&nbsp;wa_phone을&nbsp;사용해&nbsp;PHONE&nbsp;테이블에&nbsp;Value&nbsp;입력<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;wa_phone-p_type&nbsp;=&nbsp;'P'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;워크&nbsp;에어리어에&nbsp;값&nbsp;부여.<br />
+&nbsp;&nbsp;wa_phone-p_number&nbsp;=&nbsp;'+31-10-9938990'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;워크&nbsp;에어리어에&nbsp;값&nbsp;부여.<br />
+&nbsp;&nbsp;INSERT&nbsp;wa_phone&nbsp;INTO&nbsp;TABLE&nbsp;wa_person-phone.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;워크&nbsp;에어리어&nbsp;부여한&nbsp;값을&nbsp;인터널&nbsp;테이블에&nbsp;입력하기.<br />
+<br />
+&nbsp;&nbsp;wa_phone-p_type&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;wa_phone-p_number&nbsp;=&nbsp;'+31-10-9938991'.<br />
+&nbsp;&nbsp;INSERT&nbsp;wa_phone&nbsp;INTO&nbsp;TABLE&nbsp;wa_person-phone.<br />
+<br />
+&nbsp;&nbsp;wa_phone-p_type&nbsp;=&nbsp;'M'.<br />
+&nbsp;&nbsp;wa_phone-p_number&nbsp;=&nbsp;'+31-79-12211433'.<br />
+&nbsp;&nbsp;INSERT&nbsp;wa_phone&nbsp;INTO&nbsp;TABLE&nbsp;wa_person-phone.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Write&nbsp;on&nbsp;List<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;WRITE:&nbsp;/<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_person-name-firstname&nbsp;,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_person-name-lastname&nbsp;,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_person-firstname&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_person-lastname&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_person-street&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_person-nr&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_person-zip&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_person-city&nbsp;.<br />
+<br />
+&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;'Phone-Numbers:'.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;wa_person-phone&nbsp;INTO&nbsp;wa_phone.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;&nbsp;AT&nbsp;20&nbsp;wa_phone-p_type,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wa_phone-p_number.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;NEW-LINE.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAPPE01_PRAC_OUTS</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAPPE01_PRAC_OUTS</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAPPE01_PRAC<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabappe01_prac_outs.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;엑셀의&nbsp;칼럼순서대로&nbsp;APPEND<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF p_table OCCURS 0,<br />
+&nbsp;&nbsp;col_a(10),<br />
+&nbsp;&nbsp;col_b(5),<br />
+&nbsp;&nbsp;col_c&nbsp;TYPE&nbsp;date,<br />
+&nbsp;&nbsp;col_d(20),<br />
+&nbsp;&nbsp;col_e(20),<br />
+&nbsp;&nbsp;END&nbsp;OF&nbsp;p_table.<br />
+<br />
+DATA : gt_aniouts TYPE TABLE OF ztani_outs_e01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_aniouts.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*-------&nbsp;SELECTION-SCREEN&nbsp;-------------------------------------------<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK b1 WITH FRAME TITLE TEXT-t01.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;p_file&nbsp;&nbsp;LIKE&nbsp;rlgrap-filename&nbsp;DEFAULT&nbsp;'C:\Users\txtxy\Desktop\animal_outs.xlsx'.<br />
+SELECTION-SCREEN END OF BLOCK b1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*------<br />
+   </div>
+   <div class="code">
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;DELETE&nbsp;FROM&nbsp;ztani_outs_e01.<br />
+&nbsp;&nbsp;COMMIT&nbsp;WORK.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;excel_upload.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*DB에&nbsp;테이블&nbsp;값&nbsp;입력하기.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;INSERT&nbsp;ztani_outs_e01&nbsp;FROM&nbsp;TABLE&nbsp;gt_aniouts&nbsp;ACCEPTING&nbsp;DUPLICATE&nbsp;KEYS.<br />
+<br />
+<br />
+&nbsp;&nbsp;WRITE:/&nbsp;'insert&nbsp;completed!!'.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_aniouts&nbsp;INTO&nbsp;gs_aniouts&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;gs_aniouts-animal_id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-animal_type,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-outdate,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-sex_upon_outcome.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;EXCEL_UPLOAD<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;KCDE_CELLS&nbsp;의&nbsp;VALUE필드가&nbsp;32Char로&nbsp;정의&nbsp;되어&nbsp;있음<br />
+*&nbsp;&nbsp;VALUE값이&nbsp;32Char&nbsp;이상으로&nbsp;사용하려면&nbsp;KCDE_CELLS&nbsp;대체&nbsp;구조를&nbsp;만듦<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM excel_upload .<br />
+&nbsp;&nbsp;DATA&nbsp;p_filename&nbsp;&nbsp;LIKE&nbsp;rlgrap-filename.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lo_itab&nbsp;TYPE&nbsp;&nbsp;kcde_cells&nbsp;OCCURS&nbsp;0&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lo_index&nbsp;LIKE&nbsp;sy-tabix.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lo_start_col&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'1',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_start_row&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'1',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_end_col&nbsp;&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'10',&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"적당히&nbsp;조절<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_end_row&nbsp;&nbsp;&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;'124200'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"적당히&nbsp;조절<br />
+&nbsp;&nbsp;FIELD-SYMBOLS&nbsp;:&nbsp;&lt;lo_fs&gt;.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'KCD_EXCEL_OLE_TO_INT_CONVERT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;filename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;p_file<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_begin_col&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lo_start_col<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_begin_row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lo_start_row<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_end_col&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lo_end_col<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_end_row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lo_end_row<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;intern&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lo_itab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inconsistent_parameters&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;upload_ole&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;e000(zmps)&nbsp;WITH&nbsp;'File&nbsp;Upload&nbsp;Failed&nbsp;!'(e10).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;STOP.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CHECK&nbsp;NOT&nbsp;lo_itab[]&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;SORT&nbsp;lo_itab&nbsp;BY&nbsp;row&nbsp;col.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--&nbsp;실제&nbsp;사용할&nbsp;ITAB에&nbsp;넣어줌<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lo_itab.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;첫라인이&nbsp;타이틀인&nbsp;경우&nbsp;타이틀&nbsp;COL&nbsp;갯수만큼은&nbsp;그냥&nbsp;SKIP<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-tabix&nbsp;&lt;=&nbsp;6.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;:&nbsp;lo_itab-col&nbsp;TO&nbsp;lo_index.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;COMPONENT&nbsp;lo_index&nbsp;OF&nbsp;STRUCTURE&nbsp;p_table&nbsp;TO&nbsp;&lt;lo_fs&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;:&nbsp;lo_itab-value&nbsp;TO&nbsp;&lt;lo_fs&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;END&nbsp;OF&nbsp;row.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;p_table.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;p_table.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDAT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;p_table.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-animal_id&nbsp;=&nbsp;p_table-col_a.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-animal_type&nbsp;=&nbsp;p_table-col_b.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-name&nbsp;=&nbsp;p_table-col_c.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-outdate&nbsp;=&nbsp;p_table-col_d.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_aniouts-sex_upon_outcome&nbsp;=&nbsp;p_table-col_e.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_aniouts&nbsp;TO&nbsp;gt_aniouts.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;gs_aniouts.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.                    " EXCEL_UPLOAD<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

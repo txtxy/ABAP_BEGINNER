@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP2_TV_EXAM_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP2_TV_EXAM_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZABAP2_TV_EXAM_TOP<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+TABLES : ztreqmenu_e01,ysexam2_menu_e01.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;3.&nbsp;1에서&nbsp;생성한&nbsp;Dicc&nbsp;변수&nbsp;선언<br />
+   </div>
+   <div class="code">
+DATA : gt_custdata TYPE TABLE OF ysexam2_cust_e01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_custdata&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_custdata.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;4.&nbsp;booking&nbsp;data를&nbsp;저장할&nbsp;Dicc&nbsp;YSEXAM2_BOOK_E01를&nbsp;생성하고&nbsp;변수&nbsp;선언.<br />
+   </div>
+   <div class="code">
+DATA : gt_bookdata TYPE TABLE OF ysexam2_book_e01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_bookdata&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_bookdata.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*9-2&nbsp;스크린&nbsp;ok_code&nbsp;생성<br />
+   </div>
+   <div class="code">
+DATA : ok_code TYPE sy-ucomm.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+<br />
+*&nbsp;11.&nbsp;alv&nbsp;grid를&nbsp;위한&nbsp;변수&nbsp;선언.<br />
+<br />
+   </div>
+   <div class="code">
+DATA : go_cont TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+DATA: gs_layout TYPE lvc_s_layo.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;200&nbsp;번&nbsp;스크린의&nbsp;ALV&nbsp;GRID를&nbsp;위한&nbsp;변수&nbsp;선언<br />
+   </div>
+   <div class="code">
+DATA : go_cont2 TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+DATA: gs_layout2 TYPE lvc_s_layo,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcat&nbsp;TYPE&nbsp;lvc_t_fcat.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;300&nbsp;번&nbsp;스크린의&nbsp;ALV&nbsp;GRID를&nbsp;위한&nbsp;변수&nbsp;선언<br />
+<br />
+   </div>
+   <div class="code">
+DATA : go_cont3 TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv3&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+DATA: gs_layout3 TYPE lvc_s_layo.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*13&nbsp;번&nbsp;이후&nbsp;활용할&nbsp;req_stat의&nbsp;도메인&nbsp;TEXT&nbsp;value&nbsp;조회를&nbsp;위한&nbsp;변수&nbsp;선언<br />
+<br />
+   </div>
+   <div class="code">
+DATA : gt_reqstatus TYPE TABLE of dd07v.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+<br />
+*&nbsp;300&nbsp;스크린&nbsp;선택할&nbsp;메뉴&nbsp;리스트를&nbsp;보여줄&nbsp;ALV&nbsp;GRID&nbsp;를&nbsp;위한&nbsp;테이블<br />
+   </div>
+   <div class="code">
+&nbsp;DATA&nbsp;:&nbsp;gt_menu&nbsp;TYPE&nbsp;TABLE&nbsp;of&nbsp;ysexam2_menu_e01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_menu&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_menu.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;5.&nbsp;셀렉션&nbsp;스크린&nbsp;생성<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK blk1 WITH FRAME TITLE TEXT-t01.<br />
+<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;so_id&nbsp;FOR&nbsp;gs_custdata-customerid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so_fdt&nbsp;FOR&nbsp;gs_bookdata-fldate&nbsp;.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK blk1 .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*6.&nbsp;추가&nbsp;셀렉션&nbsp;블럭&nbsp;생성<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK blk2 WITH FRAME TITLE TEXT-t02.<br />
+<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;pa_all&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1&nbsp;DEFAULT&nbsp;'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_eco&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_biz&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_fst&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1,<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;리스트&nbsp;박스&nbsp;처리<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_bp&nbsp;&nbsp;TYPE&nbsp;sbook-custtype&nbsp;AS&nbsp;LISTBOX&nbsp;VISIBLE&nbsp;LENGTH&nbsp;20.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK blk2 .<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

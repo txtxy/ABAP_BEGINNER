@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>SAPMZQUIZ_E01_11</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: SAPMZQUIZ_E01_11</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;SAPMZQUIZ_E01_11<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT sapmzquiz_e01_11.<br />
+<br />
+DATA : gt_sbook TYPE TABLE OF sbook,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_sbook&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_sbook,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_count&nbsp;TYPE&nbsp;i.<br />
+<br />
+<br />
+<br />
+PARAMETERS: pa_id TYPE sbook-customid "  MEMORY ID csm ." 셀렉션 스크린 이용시 해제할 것<br />
+.<br />
+get PARAMETER ID 'CSM' FIELD pa_id.   " 이프로그램을 단독으로 시행할 때 pa_id입력이 불가능해짐.<br />
+<br />
+SELECT COUNT(*) INTO gv_count<br />
+&nbsp;&nbsp;FROM&nbsp;&nbsp;&nbsp;sbook<br />
+&nbsp;&nbsp;WHERE&nbsp;customid&nbsp;=&nbsp;pa_id.<br />
+   </div>
+   <div class="codeComment">
+**--------------------------------------------------------------------*<br />
+**&nbsp;&nbsp;COUNT&nbsp;획득&nbsp;방법&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;하단&nbsp;Select&nbsp;구문&nbsp;SELECT&nbsp;횟수를&nbsp;가져오기.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_count&nbsp;=&nbsp;sy-dbcnt.<br />
+**&nbsp;&nbsp;COUNT&nbsp;획둑&nbsp;방법&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_count&nbsp;=&nbsp;lines(&nbsp;gt_sbook&nbsp;).<br />
+**&nbsp;&nbsp;COUNT&nbsp;획둑&nbsp;방법&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;DESCRIBE&nbsp;TABLE&nbsp;gt_sbook&nbsp;LINES&nbsp;gv_count.<br />
+**--------------------------------------------------------------------*<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+SELECT *<br />
+&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;gt_sbook<br />
+&nbsp;&nbsp;FROM&nbsp;sbook<br />
+&nbsp;&nbsp;WHERE&nbsp;customid&nbsp;=&nbsp;pa_id.<br />
+<br />
+WRITE :/'Booking Count : ', gv_count.<br />
+ULINE.<br />
+<br />
+LOOP AT gt_sbook INTO gs_sbook.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;gs_sbook-carrid,<br />
+gs_sbook-connid,<br />
+gs_sbook-fldate,<br />
+gs_sbook-bookid,<br />
+gs_sbook-customid,<br />
+gs_sbook-custtype,<br />
+gs_sbook-smoker,<br />
+gs_sbook-luggweight unit gs_sbook-wunit,<br />
+gs_sbook-class,<br />
+gs_sbook-loccuram currency gs_sbook-loccurkey,<br />
+gs_sbook-loccurkey,<br />
+gs_sbook-order_date.<br />
+<br />
+ENDLOOP.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>
