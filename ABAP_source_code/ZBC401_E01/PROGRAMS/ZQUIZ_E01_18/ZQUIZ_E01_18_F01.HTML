@@ -1,0 +1,341 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZQUIZ_E01_18_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZQUIZ_E01_18_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQUIZ_E01_18_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_basic_data<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_basic_data .<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_year&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;5.<br />
+&nbsp;&nbsp;lv_year&nbsp;=&nbsp;pa_year&nbsp;&&&nbsp;'%'.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;a~carrid&nbsp;a~carrname&nbsp;b~fldate&nbsp;&nbsp;b~paymentsum&nbsp;AS&nbsp;paysum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_pay_group<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;scarr&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;sflight&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~carrid&nbsp;=&nbsp;b~carrid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;b~fldate&nbsp;LIKE&nbsp;lv_year&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~paymentsum&nbsp;&lt;&gt;&nbsp;0&nbsp;.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_fcat<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_fcat .<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_fcat&nbsp;TYPE&nbsp;lvc_s_fcat.<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;'CARRID'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'Airline'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;&nbsp;'CARRNAME'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'Airline&nbsp;name'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;&nbsp;'MON01'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'1월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;&nbsp;'MON02'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'2월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;&nbsp;'MON03'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'3월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;&nbsp;'MON04'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'4월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;'MON05'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'5월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;'MON06'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'6월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;'MON07'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'7월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;'MON08'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'8월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;&nbsp;'MON09'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;11.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'9월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;'MON10'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;12.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'10월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;'MON11'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;13.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'11월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;=&nbsp;'MON12'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;14.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'12월'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_fcat.<br />
+<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_sort<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_sort .<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_sort&nbsp;TYPE&nbsp;lvc_s_sort.<br />
+<br />
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'CARRID'.<br />
+&nbsp;&nbsp;ls_sort-up&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;mothly_grouping<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM mothly_grouping .<br />
+&nbsp;&nbsp;DATA&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_month&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_cnt&nbsp;&nbsp;&nbsp;TYPE&nbsp;num2&nbsp;VALUE&nbsp;'01',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_sum&nbsp;&nbsp;&nbsp;TYPE&nbsp;sflight-paymentsum.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;gt_pay_group&nbsp;BY&nbsp;carrid&nbsp;fldate&nbsp;ASCENDING.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_scarr&nbsp;INTO&nbsp;wa_scarr.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHILE&nbsp;lv_cnt&nbsp;&lt;&nbsp;13.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_pay_group&nbsp;INTO&nbsp;gs_pay_group&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_pay_group-carrid&nbsp;&gt;&nbsp;wa_scarr-carrid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pay_group-fldate(6)&nbsp;&gt;&nbsp;pa_year(4)&nbsp;&&&nbsp;lv_cnt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXIT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_pay_group-carrid&nbsp;=&nbsp;wa_scarr-carrid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pay_group-fldate(6)&nbsp;=&nbsp;pa_year(4)&nbsp;&&&nbsp;lv_cnt.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_sum&nbsp;=&nbsp;lv_sum&nbsp;+&nbsp;gs_pay_group-paysum.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_month&nbsp;=&nbsp;'GS_PAY_SUM-MON'&nbsp;&&&nbsp;lv_cnt&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;(lv_month)&nbsp;TO&nbsp;&lt;fv_month&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;fv_month&gt;&nbsp;=&nbsp;lv_sum.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;lv_sum.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;lv_cnt.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDWHILE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_pay_sum-carrid&nbsp;=&nbsp;wa_scarr-carrid.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_pay_sum-carrname&nbsp;=&nbsp;wa_scarr-carrname.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_pay_sum&nbsp;TO&nbsp;gt_pay_sum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_pay_sum,lv_cnt.<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_SCARR<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_scarr .<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;scarr&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_scarr.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;del_unnes_data<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM del_unnes_data .<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_cal&nbsp;TYPE&nbsp;i.<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_pay_sum&nbsp;INTO&nbsp;gs_pay_sum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_cal&nbsp;=&nbsp;gs_pay_sum-mon01&nbsp;+&nbsp;gs_pay_sum-mon02&nbsp;+&nbsp;gs_pay_sum-mon03&nbsp;+&nbsp;gs_pay_sum-mon04&nbsp;+&nbsp;gs_pay_sum-mon05&nbsp;+&nbsp;gs_pay_sum-mon06&nbsp;+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pay_sum-mon07&nbsp;+&nbsp;gs_pay_sum-mon08&nbsp;+&nbsp;gs_pay_sum-mon09&nbsp;+&nbsp;gs_pay_sum-mon10&nbsp;+&nbsp;gs_pay_sum-mon11&nbsp;+&nbsp;gs_pay_sum-mon12.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_cal&nbsp;=&nbsp;0&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;gt_pay_sum&nbsp;INDEX&nbsp;sy-tabix.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_layout<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+form set_layout.<br />
+<br />
+gs_layo-cwidth_opt = 'X'.<br />
+<br />
+endform.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

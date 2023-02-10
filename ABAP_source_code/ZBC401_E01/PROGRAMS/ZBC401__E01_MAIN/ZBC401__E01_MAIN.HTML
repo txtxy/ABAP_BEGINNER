@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBC401__E01_MAIN</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBC401__E01_MAIN</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZBC401__E01_MAIN<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zbc401__e01_main.<br />
+<br />
+include <a href ="zbc401_e01_agency.html">zbc401_e01_agency</a>.<br />
+include <a href ="zbc401_e01_carrier.html">ZBC401_E01_CARRIER</a>.<br />
+<br />
+<br />
+TYPE-POOLS icon.<br />
+DATA:<br />
+&nbsp;&nbsp;go_agency&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_travel_agency,<br />
+&nbsp;&nbsp;go_carrier&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_carrier,<br />
+&nbsp;&nbsp;go_airplane&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_airplane,<br />
+&nbsp;&nbsp;go_cargo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_cargo_plane,<br />
+&nbsp;&nbsp;go_passenger&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_passenger_plane,<br />
+&nbsp;&nbsp;go_hotel&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;zcl_hotel_e01,<br />
+&nbsp;&nbsp;gv_count&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i.<br />
+<br />
+START-OF-SELECTION.<br />
+   </div>
+   <div class="codeComment">
+*******************<br />
+<br />
+*******&nbsp;create&nbsp;travel_agency&nbsp;**********************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_agency<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;=&nbsp;'Travel&Smile&nbsp;Travel'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****&nbsp;Create&nbsp;Carrier&nbsp;******************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_carrier<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;=&nbsp;'Smile&Fly-Travel'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****&nbsp;Insert&nbsp;carrier&nbsp;into&nbsp;business&nbsp;partner&nbsp;list&nbsp;of&nbsp;travel&nbsp;agency<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;go_agency-&gt;add_partner(&nbsp;go_carrier&nbsp;).<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****&nbsp;Passenger&nbsp;Plane&nbsp;*****************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_passenger<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'LH&nbsp;BERLIN'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'747-400'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_seats&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;345<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;go_carrier-&gt;add_airplane(&nbsp;go_passenger&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****&nbsp;cargo&nbsp;Plane&nbsp;*********************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_cargo<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'US&nbsp;Hercules'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'747-200F'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_cargo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;533<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;go_carrier-&gt;add_airplane(&nbsp;go_cargo&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+********&nbsp;Create&nbsp;Carrier&nbsp;******************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_carrier<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;=&nbsp;'MINKU-Travel'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****&nbsp;Insert&nbsp;carrier&nbsp;into&nbsp;business&nbsp;partner&nbsp;list&nbsp;of&nbsp;travel&nbsp;agency<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;go_agency-&gt;add_partner(&nbsp;go_carrier&nbsp;).<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****&nbsp;Passenger&nbsp;Plane&nbsp;*****************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_passenger<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'OZ&nbsp;INCHEON'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'747-400'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_seats&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;345<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;go_carrier-&gt;add_airplane(&nbsp;go_passenger&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****&nbsp;cargo&nbsp;Plane&nbsp;*********************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_cargo<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'OZ&nbsp;GIMPO'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'747-200F'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_cargo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;533<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;go_carrier-&gt;add_airplane(&nbsp;go_cargo&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*****&nbsp;cargo&nbsp;Plane&nbsp;*********************************************<br />
+<br />
+   </div>
+   <div class="code">
+CREATE OBJECT go_hotel<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;=&nbsp;'California'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;iv_beds&nbsp;=&nbsp;120<br />
+&nbsp;&nbsp;.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*******&nbsp;show&nbsp;attributes&nbsp;of&nbsp;all&nbsp;partners&nbsp;of&nbsp;travel_agency&nbsp;******<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;go_agency-&gt;display_attributes(&nbsp;).<br />
+&nbsp;&nbsp;go_hotel-&gt;display_attributes(&nbsp;).<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

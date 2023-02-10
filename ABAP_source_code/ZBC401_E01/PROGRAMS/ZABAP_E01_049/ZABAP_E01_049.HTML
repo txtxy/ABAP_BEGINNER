@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP_E01_049</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_049</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP_E01_049<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZABAP_E01_049.<br />
+<br />
+data :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_int&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;15,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_date&nbsp;TYPE&nbsp;d.<br />
+gv_date = sy-datum.<br />
+DATA :<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_int&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_date&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;d,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_gen&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;data.<br />
+<br />
+FIELD-SYMBOLS : &lt;fs&gt; TYPE any.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+GET REFERENCE OF gv_int INTO gr_int.<br />
+WRITE :/ ' gr_int   : ' , gr_int-&gt;* LEFT-JUSTIFIED.<br />
+gr_gen = gr_int.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;any&nbsp;타입에&nbsp;i타입을&nbsp;입력<br />
+   </div>
+   <div class="code">
+gr_int ?= gr_gen.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;현재&nbsp;int인&nbsp;generic&nbsp;타입에&nbsp;int를&nbsp;DOWNCAST해도&nbsp;문제가&nbsp;발생하진&nbsp;않는다.<br />
+<br />
+   </div>
+   <div class="code">
+get REFERENCE OF gv_date into gr_date.<br />
+<br />
+WRITE :/ ' gr_date  : ' , gr_date-&gt;* LEFT-JUSTIFIED.<br />
+<br />
+gr_gen = gr_date.<br />
+ASSIGN gr_gen-&gt;* to &lt;fs&gt;.<br />
+<br />
+WRITE :/' gr_gen   : ', &lt;fs&gt; LEFT-JUSTIFIED." 디레퍼런싱이 불사능함ㄷ,<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*gr_int&nbsp;?=&nbsp;gr_gen.<br />
+*&nbsp;gr_int&nbsp;는&nbsp;정수&nbsp;타입,&nbsp;gr_gen은&nbsp;현재&nbsp;date&nbsp;타입<br />
+*&nbsp;date&nbsp;타입에서&nbsp;정수&nbsp;타입으로&nbsp;DOWNCAST한다면&nbsp;오류가&nbsp;발생한다.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

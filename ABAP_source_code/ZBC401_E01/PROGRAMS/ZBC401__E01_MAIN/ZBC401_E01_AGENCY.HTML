@@ -1,0 +1,142 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBC401_E01_AGENCY</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBC401_E01_AGENCY</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBC401_E01_AGENCY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INTERFACE lif_partner.<br />
+<br />
+&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;display_partner.<br />
+<br />
+ENDINTERFACE.                    "lif_partner<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_travel_agency&nbsp;DEFINITION<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_travel_agency DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor&nbsp;IMPORTING&nbsp;iv_name&nbsp;TYPE&nbsp;string,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add_partner&nbsp;IMPORTING&nbsp;io_partner&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lif_partner,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_agency_partners,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attributes.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mt_partners&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;REF&nbsp;TO&nbsp;lif_partner.<br />
+<br />
+ENDCLASS.                    "lcl_travel_agency DEFINITION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_travel_agency&nbsp;IMPLEMENTATION<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_travel_agency IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;display_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;/&nbsp;icon_private_files&nbsp;AS&nbsp;ICON,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'Travel&nbsp;Agency:'(007),&nbsp;mv_name.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;display_agency_partners(&nbsp;).<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"display_attributes<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;display_agency_partners.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_partner&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lif_partner.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;'Here&nbsp;are&nbsp;the&nbsp;partners&nbsp;of&nbsp;the&nbsp;travel&nbsp;agency:'(008).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;mt_partners&nbsp;INTO&nbsp;lo_partner.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_partner-&gt;display_partner(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"display_agency_partners<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;&nbsp;constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;=&nbsp;iv_name.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constructor<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;&nbsp;add_partner.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;io_partner&nbsp;TO&nbsp;mt_partners.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"add_partner<br />
+<br />
+ENDCLASS.                    "lcl_travel_agency IMPLEMENTATION<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

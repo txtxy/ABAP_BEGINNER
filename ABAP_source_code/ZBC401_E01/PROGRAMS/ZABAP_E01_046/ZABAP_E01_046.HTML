@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP_E01_046</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_046</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP_E01_046<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabap_e01_046.<br />
+<br />
+DATA :gv_result TYPE p LENGTH 10 DECIMALS 5,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gx_root&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cx_root,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_msg&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+<br />
+*PARAMETERS&nbsp;:&nbsp;pa_int1&nbsp;TYPE&nbsp;i,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pa_int2&nbsp;TYPE&nbsp;i.<br />
+<br />
+*TRY&nbsp;.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_result&nbsp;=&nbsp;pa_int1&nbsp;/&nbsp;pa_int2.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;'Result&nbsp;is&nbsp;',&nbsp;gv_result.<br />
+*<br />
+*&nbsp;&nbsp;CATCH&nbsp;cx_root&nbsp;INTO&nbsp;gx_root&nbsp;.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_msg&nbsp;=&nbsp;gx_root-&gt;get_text(&nbsp;)&nbsp;.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;gv_msg&nbsp;TYPE&nbsp;'I'.<br />
+*ENDTRY.<br />
+<br />
+*--------------------------------------------------------------------*<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+DATA : BEGIN OF ls_stru,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld1&nbsp;TYPE&nbsp;char10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld2&nbsp;TYPE&nbsp;char10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld3&nbsp;TYPE&nbsp;num8&nbsp;,"i,&nbsp;&nbsp;&nbsp;"&nbsp;Numaric&nbsp;Character만&nbsp;올&nbsp;수&nbsp;있다.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld4&nbsp;TYPE&nbsp;dats,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fld5&nbsp;TYPE&nbsp;tims,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ls_stru.<br />
+<br />
+ls_stru-FLD1 = 'aaaa'.<br />
+ls_stru-FLD2 = 'zzzz'.<br />
+ls_stru-FLD3 = 121.<br />
+ls_stru-FLD4 = sy-datum.<br />
+ls_stru-FLD5 = sy-timlo.<br />
+<br />
+WRITE :/ ls_stru .<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

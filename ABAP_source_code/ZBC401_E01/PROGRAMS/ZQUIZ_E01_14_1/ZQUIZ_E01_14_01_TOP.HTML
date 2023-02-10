@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZQUIZ_E01_14_01_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZQUIZ_E01_14_01_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQUIZ_E00_14_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES: SCUSTOM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;grid&nbsp;list&nbsp;data&nbsp;-&nbsp;internal&nbsp;table&nbsp;*&nbsp;work&nbsp;area.<br />
+   </div>
+   <div class="code">
+DATA: GT_DATA TYPE TABLE OF ZSQUIZ14_E00,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;GT_DATA.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;빠른&nbsp;예약고객에&nbsp;대한&nbsp;스트럭쳐.<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_EARLY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID01&nbsp;TYPE&nbsp;SBOOK-CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCUSTOM-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID02&nbsp;TYPE&nbsp;SBOOK-CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCUSTOM-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS02&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID03&nbsp;TYPE&nbsp;SBOOK-CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCUSTOM-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS03&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID04&nbsp;TYPE&nbsp;SBOOK-CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCUSTOM-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS04&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID05&nbsp;TYPE&nbsp;SBOOK-CUSTOMID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NAME05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCUSTOM-NAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DAYS05&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_EARLY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;항공사&nbsp;코드,&nbsp;텍스트&nbsp;-&nbsp;인터널&nbsp;테이블&nbsp;&&nbsp;work&nbsp;area.<br />
+   </div>
+   <div class="code">
+DATA: BEGIN OF GS_SCARR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;&nbsp;&nbsp;TYPE&nbsp;SCARR-CARRID,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRNAME&nbsp;TYPE&nbsp;SCARR-CARRNAME,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;GS_SCARR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SCARR&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;GS_SCARR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Screen&nbsp;Function&nbsp;Code&nbsp;variable.<br />
+   </div>
+   <div class="code">
+DATA: OK_CODE TYPE SY-UCOMM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;Grid&nbsp;Layout&nbsp;variable.<br />
+   </div>
+   <div class="code">
+DATA: GS_LAYOUT TYPE LVC_S_LAYO.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;Field&nbsp;category&nbsp;internal&nbsp;table.<br />
+   </div>
+   <div class="code">
+DATA: GT_FCAT TYPE LVC_T_FCAT,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;Sort&nbsp;internal&nbsp;table.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GT_SORT&nbsp;TYPE&nbsp;LVC_T_SORT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Container&nbsp;&&nbsp;ALV&nbsp;Grid&nbsp;reference&nbsp;variable.<br />
+   </div>
+   <div class="code">
+DATA: GO_CONT TYPE REF TO CL_GUI_CUSTOM_CONTAINER,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ALV&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;CL_GUI_ALV_GRID.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;selection&nbsp;screen&nbsp;box&nbsp;생성.<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK BLK1 WITH FRAME TITLE TEXT-T01.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;PA_CAR&nbsp;TYPE&nbsp;SBOOK-CARRID&nbsp;OBLIGATORY,&nbsp;"필수&nbsp;입력.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_CON&nbsp;TYPE&nbsp;SBOOK-CONNID&nbsp;OBLIGATORY,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_FDT&nbsp;TYPE&nbsp;SBOOK-FLDATE&nbsp;OBLIGATORY.<br />
+SELECTION-SCREEN END OF BLOCK BLK1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK BLK2 WITH FRAME TITLE TEXT-T02.<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;SO_ID&nbsp;FOR&nbsp;GS_DATA-CUSTOMID.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;PA_ALL&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RB1&nbsp;DEFAULT&nbsp;'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_VAL&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RB1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PA_CAN&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;RB1.<br />
+SELECTION-SCREEN END OF BLOCK BLK2.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

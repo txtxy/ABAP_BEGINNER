@@ -1,0 +1,537 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP_E01_036_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_036_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZABAP_E01_036_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_booking<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_booking .<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;sbook<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;IN&nbsp;so_car&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;IN&nbsp;so_con&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;IN&nbsp;so_fdt.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_data&nbsp;INTO&nbsp;gs_data.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;신호등&nbsp;필드&nbsp;내용&nbsp;채우기<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;name&nbsp;telephone<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(&nbsp;gs_data-name,&nbsp;gs_data-phone&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;scustom<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;gs_data-customid.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_data-cancelled&nbsp;='X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-icon_canc&nbsp;=&nbsp;icon_system_cancel.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_data-loccuram&nbsp;&lt;&nbsp;500.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-excp&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_data-loccuram&nbsp;&gt;=&nbsp;500&nbsp;AND&nbsp;gs_data-loccuram&nbsp;&lt;&nbsp;1000&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-excp&nbsp;=&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;gs_data-loccuram&nbsp;&gt;&nbsp;1000.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-excp&nbsp;=&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-excp&nbsp;=&nbsp;'0'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_data-smoker&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;LAYOUT&nbsp;COLOR&nbsp;변경&nbsp;조건<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-color&nbsp;=&nbsp;'C610'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;이제&nbsp;GS_LAYOUT에&nbsp;컬러&nbsp;필드를&nbsp;전달해줘야함<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_data-custtype&nbsp;=&nbsp;'B'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-fname&nbsp;=&nbsp;'CUSTTYPE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-col&nbsp;=&nbsp;'7'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-int&nbsp;=&nbsp;1&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-inv&nbsp;=&nbsp;0&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_scol&nbsp;TO&nbsp;gs_data-itab_scol.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_data-invoice&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-fname&nbsp;=&nbsp;'INVOICE'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-col&nbsp;=&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-int&nbsp;=&nbsp;1&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-inv&nbsp;=&nbsp;0&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_scol&nbsp;TO&nbsp;gs_data-itab_scol.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ALV&nbsp;Grid&nbsp;Line에&nbsp;버튼&nbsp;및&nbsp;버튼&nbsp;텍스트&nbsp;추추가하기.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-btn_txt&nbsp;=&nbsp;'Invoice'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_inv_btn-fieldname&nbsp;=&nbsp;'BTN_TXT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_inv_btn-style&nbsp;=&nbsp;cl_gui_alv_grid=&gt;mc_style_button.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_inv_btn&nbsp;TO&nbsp;gs_data-inv_btn.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_data-class&nbsp;=&nbsp;'F'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-fname&nbsp;=&nbsp;'CLASS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-col&nbsp;=&nbsp;'5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-int&nbsp;=&nbsp;1&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scol-color-inv&nbsp;=&nbsp;0&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_scol&nbsp;TO&nbsp;gs_data-itab_scol.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_data&nbsp;FROM&nbsp;gs_data&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_data,gs_scol,gs_inv_btn.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_variant<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_variant.                              " 일종의 필드 보기 방식 저장하는 것<br />
+&nbsp;&nbsp;gs_variant-report&nbsp;=&nbsp;sy-cprog.<br />
+&nbsp;&nbsp;gs_variant-variant&nbsp;=&nbsp;pa_vari.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_layout<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_layout .<br />
+&nbsp;&nbsp;gs_layout-grid_title&nbsp;=&nbsp;'Booking&nbsp;List&nbsp;Data'.<br />
+&nbsp;&nbsp;gs_layout-zebra&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ROW마다&nbsp;색다르게<br />
+&nbsp;&nbsp;gs_layout-cwidth_opt&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;열&nbsp;간격&nbsp;자동정렬<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;gs_layout-no_toolbar&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;standard&nbsp;toolbar를&nbsp;가림<br />
+*&nbsp;&nbsp;gs_layout-no_headers&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;리스트&nbsp;컬럼&nbsp;헤드를&nbsp;가림<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_layout-sel_mode&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;선택&nbsp;모드&nbsp;변경하기&nbsp;A,B,C,D가&nbsp;각기&nbsp;올&nbsp;수&nbsp;있음<br />
+&nbsp;&nbsp;gs_layout-excp_fname&nbsp;=&nbsp;'EXCP'.&nbsp;&nbsp;"&nbsp;신호등&nbsp;아이콘&nbsp;필드네임&nbsp;전달<br />
+&nbsp;&nbsp;gs_layout-excp_led&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_layout-info_fname&nbsp;=&nbsp;'COLOR'.<br />
+&nbsp;&nbsp;gs_layout-ctab_fname&nbsp;=&nbsp;'ITAB_SCOL'.<br />
+&nbsp;&nbsp;gs_layout-stylefname&nbsp;=&nbsp;'INV_BTN'.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_sort<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_sort .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;work&nbsp;area&nbsp;선언.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;ls_sort&nbsp;TYPE&nbsp;lvc_s_sort.<br />
+<br />
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'CARRID'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SOTING&nbsp;할&nbsp;필드&nbsp;이름<br />
+&nbsp;&nbsp;ls_sort-up&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;ASC로&nbsp;할&nbsp;것인지?<br />
+&nbsp;&nbsp;ls_sort-down&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;''.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;DESC로&nbsp;할&nbsp;것인지?<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;SORTING&nbsp;순서는?<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_sort.<br />
+<br />
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'FLDATE'.<br />
+&nbsp;&nbsp;ls_sort-down&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_exclude_Functions<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_exclude_functions .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;숨기고&nbsp;싶은&nbsp;toolbar를&nbsp;예외테이블로&nbsp;입력<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;APPEND&nbsp;cl_gui_alv_grid=&gt;mc_fc_detail&nbsp;TO&nbsp;gt_exclude_func.<br />
+&nbsp;&nbsp;APPEND&nbsp;cl_gui_alv_grid=&gt;mc_mb_sum&nbsp;&nbsp;&nbsp;&nbsp;TO&nbsp;gt_exclude_func.<br />
+&nbsp;&nbsp;APPEND&nbsp;cl_gui_alv_grid=&gt;mc_fc_filter&nbsp;TO&nbsp;gt_exclude_func.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_field_catalog<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_field_catalog .<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;GRid&nbsp;Field&nbsp;Catalog&nbsp;Work&nbsp;Area&nbsp;선언<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_fcat&nbsp;TYPE&nbsp;lvc_s_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CUSNOMID'.<br />
+&nbsp;&nbsp;ls_fcat-no_out&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;6.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;ABAP&nbsp;Dicc&nbsp;전역변수의&nbsp;내용&nbsp;그대로&nbsp;Filed&nbsp;Catalog에&nbsp;사용<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='NAME'.<br />
+&nbsp;&nbsp;ls_fcat-ref_table&nbsp;=&nbsp;'SCUSTOM'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;ABAP&nbsp;Dicc&nbsp;전역변수의&nbsp;내용&nbsp;&nbsp;Filed&nbsp;Catalog에&nbsp;사용(다른&nbsp;이름일&nbsp;때)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='PHONE'.<br />
+&nbsp;&nbsp;ls_fcat-ref_table&nbsp;=&nbsp;'SCUSTOM'.<br />
+&nbsp;&nbsp;ls_fcat-ref_field&nbsp;=&nbsp;'TELEPHONE'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Field&nbsp;Catalog의&nbsp;OTHER&nbsp;속성을&nbsp;사용해&nbsp;적용.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='ICON_CANC'.<br />
+&nbsp;&nbsp;ls_fcat-icon&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'Cancelled'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;9.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;sbook의&nbsp;CANCELLED&nbsp;필드를&nbsp;안보이도록&nbsp;처리.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CANCELLED'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;ls_fcat-no_out&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_fcat-tech&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;AGENCYNUM&nbsp;필드에&nbsp;hotspot&nbsp;생성<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='AGENCYNUM'.<br />
+&nbsp;&nbsp;ls_fcat-hotspot&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_fcat.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;custid&nbsp;필드에&nbsp;hotspot&nbsp;생성<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CUSTOMID'.<br />
+&nbsp;&nbsp;ls_fcat-hotspot&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_fcat.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Button&nbsp;필드&nbsp;추가하기<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='BTN_TXT'.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'Invoice'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_select_data<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_select_data USING pv_rowid TYPE i<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_subrc&nbsp;TYPE&nbsp;sy-subrc.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_data&nbsp;INTO&nbsp;gs_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INDEX&nbsp;pv_rowid.<br />
+<br />
+&nbsp;&nbsp;pv_subrc&nbsp;=&nbsp;sy-subrc.<br />
+<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_data_spfli<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_data_spfli .<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;Flight&nbsp;Connection&nbsp;데이터&nbsp;취득<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;spfli<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;gs_data-carrid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;=&nbsp;&nbsp;gs_data-connid&nbsp;.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_data_agct<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_data_agct .<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;stravelag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;stravelag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;agencynum&nbsp;=&nbsp;gs_data-agencynum.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_data_custom<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_data_custom .<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;scustom<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;scustom<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;id&nbsp;=&nbsp;gs_data-customid.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;refresh_data<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM refresh_data .<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;refresh_table_display<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;is_stable&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;i_soft_refresh&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;finished&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;read_data<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM read_data .<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_row&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_col&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_row&nbsp;type&nbsp;lvc_t_roid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_row&nbsp;type&nbsp;lvc_s_roid.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;get_current_cell<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LV_row<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_col&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lV_col.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+*Another<br />
+   </div>
+   <div class="code">
+CALL METHOD go_alv-&gt;get_selected_rows<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;et_row_no&nbsp;=&nbsp;lt_row.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_row&nbsp;into&nbsp;ls_row&nbsp;index&nbsp;1.<br />
+IF lt_row is INITIAL.<br />
+&nbsp;&nbsp;MESSAGE&nbsp;'Row가&nbsp;선택되지&nbsp;않았습니다.'&nbsp;TYPE&nbsp;'I'.<br />
+ENDIF.<br />
+<br />
+<br />
+PERFORM get_select_data<br />
+&nbsp;&nbsp;using<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_row<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_row-row_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sy-subrc.<br />
+<br />
+IF  sy-subrc = 0.<br />
+&nbsp;&nbsp;call&nbsp;SCREEN&nbsp;110<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STARTING&nbsp;AT&nbsp;5&nbsp;5&nbsp;.<br />
+<br />
+ENDIF.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

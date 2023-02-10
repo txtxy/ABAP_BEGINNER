@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZQUIZ_E01_14_01_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZQUIZ_E01_14_01_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQUIZ_E00_14_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_SCARR<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_SCARR .<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;항공사&nbsp;코드,&nbsp;텍스트&nbsp;전체&nbsp;데이터&nbsp;취득.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;CARRID&nbsp;CARRNAME<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;GT_SCARR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SCARR.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_BOOKING<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM GET_BOOKING .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Range&nbsp;variable(internal&nbsp;table)&nbsp;&&nbsp;work&nbsp;area.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;RT_CAN&nbsp;TYPE&nbsp;RANGE&nbsp;OF&nbsp;SBOOK-CANCELLED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CAN&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;RT_CAN.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;cell&nbsp;color&nbsp;표시&nbsp;하기&nbsp;위한&nbsp;work&nbsp;area.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;WA_CELL&nbsp;TYPE&nbsp;LVC_S_SCOL.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;Vaild&nbsp;Booking&nbsp;라디오&nbsp;버튼&nbsp;선택.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;PA_VAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CAN-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CAN-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CAN-LOW&nbsp;&nbsp;&nbsp;=&nbsp;''.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;WA_CAN&nbsp;TO&nbsp;RT_CAN.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;Cancelled&nbsp;Booking&nbsp;라디오&nbsp;버튼&nbsp;선택.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;PA_CAN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CAN-SIGN&nbsp;=&nbsp;'I'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CAN-OPTION&nbsp;=&nbsp;'EQ'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CAN-LOW&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;WA_CAN&nbsp;TO&nbsp;RT_CAN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_DATA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SBOOK&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;SCUSTOM&nbsp;AS&nbsp;B<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~CUSTOMID&nbsp;=&nbsp;B~ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;=&nbsp;PA_CAR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CONNID&nbsp;=&nbsp;PA_CON<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~FLDATE&nbsp;=&nbsp;PA_FDT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CUSTOMID&nbsp;IN&nbsp;SO_ID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CANCELLED&nbsp;IN&nbsp;RT_CAN.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_DATA&nbsp;INTO&nbsp;GS_DATA.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;항공사&nbsp;코드,&nbsp;텍스트의&nbsp;인터널&nbsp;테이블에서&nbsp;key&nbsp;access로<br />
+*&nbsp;&nbsp;&nbsp;해당&nbsp;데이터&nbsp;취득&nbsp;후&nbsp;carrname&nbsp;필드에&nbsp;할당.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_SCARR&nbsp;INTO&nbsp;GS_SCARR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;CARRID&nbsp;=&nbsp;GS_DATA-CARRID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-CARRNAME&nbsp;=&nbsp;GS_SCARR-CARRNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_DATA-CANCELLED&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-CANCELLED&nbsp;=&nbsp;ICON_CANCEL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-COLOR_FLD&nbsp;=&nbsp;'C610'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-DAYS&nbsp;=&nbsp;GS_DATA-FLDATE&nbsp;-&nbsp;GS_DATA-ORDER_DATE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_DATA-DAYS&nbsp;&lt;=&nbsp;50.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-EXCP_FLD&nbsp;=&nbsp;'1'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSEIF&nbsp;GS_DATA-DAYS&nbsp;&gt;&nbsp;50&nbsp;AND&nbsp;GS_DATA-DAYS&nbsp;&lt;=&nbsp;100.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-EXCP_FLD&nbsp;=&nbsp;'2'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_DATA-EXCP_FLD&nbsp;=&nbsp;'3'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;GS_DATA-DAYS&nbsp;&gt;=&nbsp;150.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CELL-FNAME&nbsp;=&nbsp;'DAYS'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CELL-COLOR-COL&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CELL-COLOR-INT&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WA_CELL-COLOR-INV&nbsp;=&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;WA_CELL&nbsp;TO&nbsp;GS_DATA-IT_CELL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_DATA&nbsp;FROM&nbsp;GS_DATA.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;work&nbsp;area에&nbsp;할당된&nbsp;데이터&nbsp;삭제.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;GS_DATA,&nbsp;WA_CELL,&nbsp;GS_SCARR.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SELECT&nbsp;*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_DATA<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SBOOK&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;SCUSTOM&nbsp;AS&nbsp;B<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~CUSTOMID&nbsp;=&nbsp;B~ID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;=&nbsp;PA_CAR<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CONNID&nbsp;=&nbsp;PA_CON<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~FLDATE&nbsp;=&nbsp;PA_FDT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CUSTOMID&nbsp;IN&nbsp;SO_ID.<br />
+*<br />
+*&nbsp;&nbsp;SELECT&nbsp;*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_DATA<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SBOOK&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;SCUSTOM&nbsp;AS&nbsp;B<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~CUSTOMID&nbsp;=&nbsp;B~ID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;=&nbsp;PA_CAR<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CONNID&nbsp;=&nbsp;PA_CON<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~FLDATE&nbsp;=&nbsp;PA_FDT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CUSTOMID&nbsp;IN&nbsp;SO_ID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~CANCELLED&nbsp;=&nbsp;'X'.<br />
+*<br />
+*&nbsp;&nbsp;SELECT&nbsp;*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_DATA<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SBOOK&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;SCUSTOM&nbsp;AS&nbsp;B<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~CUSTOMID&nbsp;=&nbsp;B~ID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;=&nbsp;PA_CAR<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CONNID&nbsp;=&nbsp;PA_CON<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~FLDATE&nbsp;=&nbsp;PA_FDT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CUSTOMID&nbsp;IN&nbsp;SO_ID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;a~CANCELLED&nbsp;=&nbsp;''.<br />
+<br />
+*&nbsp;&nbsp;SELECT&nbsp;*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;GT_DATA<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;SBOOK&nbsp;AS&nbsp;A&nbsp;INNER&nbsp;JOIN&nbsp;SCUSTOM&nbsp;AS&nbsp;B<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;A~CUSTOMID&nbsp;=&nbsp;B~ID<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;A~CARRID&nbsp;=&nbsp;PA_CAR<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CONNID&nbsp;=&nbsp;PA_CON<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~FLDATE&nbsp;=&nbsp;PA_FDT<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AND&nbsp;A~CUSTOMID&nbsp;IN&nbsp;SO_ID.<br />
+<br />
+*&nbsp;&nbsp;CASE&nbsp;'X'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;PA_CAN.<br />
+**&nbsp;&nbsp;cancelled&nbsp;booking&nbsp;선택시.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_DATA&nbsp;WHERE&nbsp;CANCELLED&nbsp;=&nbsp;''.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;PA_VAL.<br />
+**&nbsp;&nbsp;vaild&nbsp;booking&nbsp;선택시.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;GT_DATA&nbsp;WHERE&nbsp;CANCELLED&nbsp;=&nbsp;'X'.<br />
+*&nbsp;&nbsp;ENDCASE.<br />
+<br />
+   </div>
+   <div class="code">
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_layout<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_LAYOUT .<br />
+<br />
+&nbsp;&nbsp;GS_LAYOUT-ZEBRA&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;GS_LAYOUT-CWIDTH_OPT&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Exception&nbsp;필드&nbsp;설정.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;GS_LAYOUT-EXCP_FNAME&nbsp;=&nbsp;'EXCP_FLD'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;단일&nbsp;아이콘&nbsp;설정.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;GS_LAYOUT-EXCP_LED&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Line(Row)에&nbsp;Color표시&nbsp;하기위해&nbsp;사용된&nbsp;필드이름&nbsp;설정.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;GS_LAYOUT-INFO_FNAME&nbsp;=&nbsp;'COLOR_FLD'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Cell(Field)에&nbsp;Color표시&nbsp;하기위해&nbsp;사용된&nbsp;필드이름&nbsp;설정.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;GS_LAYOUT-CTAB_FNAME&nbsp;=&nbsp;'IT_CELL'.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_SORT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_SORT .<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Sort&nbsp;work&nbsp;area.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;LS_SORT&nbsp;TYPE&nbsp;LVC_S_SORT.<br />
+<br />
+&nbsp;&nbsp;LS_SORT-FIELDNAME&nbsp;=&nbsp;'NAME'.<br />
+&nbsp;&nbsp;LS_SORT-UP&nbsp;=&nbsp;'X'.&nbsp;"오름차순(Ascending).<br />
+&nbsp;&nbsp;APPEND&nbsp;LS_SORT&nbsp;TO&nbsp;GT_SORT.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SET_FCAT<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM SET_FCAT .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Field&nbsp;Catalo&nbsp;work&nbsp;area.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;LS_FCAT&nbsp;TYPE&nbsp;LVC_S_FCAT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Global&nbsp;Structure에&nbsp;대한&nbsp;Filed&nbsp;Catalog&nbsp;생성.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LVC_FIELDCATALOG_MERGE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_STRUCTURE_NAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZSQUIZ14_E00'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CT_FIELDCAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;GT_FCAT<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCONSISTENT_INTERFACE&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PROGRAM_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;GT_FCAT&nbsp;INTO&nbsp;LS_FCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;LS_FCAT-FIELDNAME.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CUSTOMID'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_FCAT-HOTSPOT&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'CANCELLED'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_FCAT-ICON&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_FCAT-COLTEXT&nbsp;=&nbsp;'Cancelled'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_FCAT-COL_POS&nbsp;=&nbsp;15.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;GT_FCAT&nbsp;FROM&nbsp;LS_FCAT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LS_FCAT.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

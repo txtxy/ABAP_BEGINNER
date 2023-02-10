@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZQUIZ_E01_17_F01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZQUIZ_E01_17_F01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQUIZ_E01_17_F01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_layout<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_layout .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;열&nbsp;너비&nbsp;자동&nbsp;정렬.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_layo-cwidth_opt&nbsp;='X'.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_field_catalog<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_field_catalog .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;필드&nbsp;카탈로그&nbsp;관리.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_fcat&nbsp;TYPE&nbsp;lvc_s_fcat.&nbsp;&nbsp;"&nbsp;WA&nbsp;지역&nbsp;변수로&nbsp;선언<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CLASS'&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;CLASS&nbsp;TYPE&nbsp;TECH&nbsp;속성으로&nbsp;지정<br />
+&nbsp;&nbsp;ls_fcat-tech&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_fcat.<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='CLASS_NAME'.&nbsp;"&nbsp;CLASS_NAME&nbsp;컬럼을&nbsp;CLASS&nbsp;로&nbsp;보여지도록.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'CLASS'&nbsp;.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='COMMENT_TXT'.<br />
+&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'Comment'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ls_fcat.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_data<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_data .<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;평가항목&nbsp;점수를&nbsp;받아올&nbsp;LOCAL&nbsp;STRUCTURE&nbsp;선언.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;ls_evl&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evl1&nbsp;TYPE&nbsp;zteval_e00-evl1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evl2&nbsp;TYPE&nbsp;zteval_e00-evl2,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;evl3&nbsp;TYPE&nbsp;zteval_e00-evl3,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ls_evl.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;LIKE&nbsp;검색을&nbsp;위한&nbsp;와일드&nbsp;카드&nbsp;부여.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;pa_cnm&nbsp;=&nbsp;'%'&nbsp;&&&nbsp;pa_cnm&nbsp;&&&nbsp;'%'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;기본&nbsp;데이터&nbsp;조회<br />
+*&nbsp;반복문으로&nbsp;계산값을&nbsp;동시에&nbsp;부여할&nbsp;계획임.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_data<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1번&nbsp;DB&nbsp;&nbsp;scustom&nbsp;&nbsp;기준<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;scustom&nbsp;AS&nbsp;c<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2번&nbsp;DB&nbsp;SBOOK<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;sbook&nbsp;AS&nbsp;b<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CUSTOMID&nbsp;가&nbsp;FK조건<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;c~id&nbsp;=&nbsp;b~customid<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3번&nbsp;DB&nbsp;SCARR<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;scarr&nbsp;AS&nbsp;a<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CARRID&nbsp;가&nbsp;FK&nbsp;조건<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;b~carrid&nbsp;=&nbsp;a~carrid<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;4번&nbsp;DB&nbsp;&nbsp;zteval_e00<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;zteval_e00&nbsp;AS&nbsp;z<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PK인&nbsp;항목을&nbsp;조건으로&nbsp;작성.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;b~customid&nbsp;=&nbsp;z~customid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~bookid&nbsp;=&nbsp;z~bookid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~connid&nbsp;=&nbsp;z~connid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~fldate&nbsp;=&nbsp;z~fldate<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;c~id&nbsp;IN&nbsp;so_cid&nbsp;AND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;S-O&nbsp;조건&nbsp;입력<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~fldate&nbsp;IN&nbsp;so_fld&nbsp;AND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;S-O&nbsp;조건&nbsp;입력<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~custtype&nbsp;IN&nbsp;so_bp&nbsp;AND&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;실질&nbsp;PA지만&nbsp;미입력시&nbsp;전체&nbsp;조회를&nbsp;위해&nbsp;S-O로&nbsp;조건<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c~name&nbsp;LIKE&nbsp;pa_cnm&nbsp;.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;NAME의&nbsp;LIKE&nbsp;조회<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;기본&nbsp;데이터&nbsp;1개&nbsp;ROW조회<br />
+*--------------------------------------------------------------------*<br />
+<br />
+*&nbsp;&nbsp;GS_DATA&nbsp;미입력&nbsp;사항&nbsp;입력<br />
+<br />
+*&nbsp;Average&nbsp;계산을&nbsp;위한&nbsp;기초&nbsp;데이터&nbsp;조회.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;evl1&nbsp;evl2&nbsp;evl3&nbsp;INTO&nbsp;ls_evl&nbsp;&nbsp;"&nbsp;평점&nbsp;STRUCTURE로&nbsp;받아오기<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;zteval_e00<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;carrid&nbsp;=&nbsp;gs_data-carrid&nbsp;AND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;다중&nbsp;식별자를&nbsp;이용하여&nbsp;UNIQUE&nbsp;RECORD&nbsp;조회.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;connid&nbsp;=&nbsp;gs_data-connid&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fldate&nbsp;=&nbsp;gs_data-fldate&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;customid&nbsp;=&nbsp;gs_data-id&nbsp;.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;평점&nbsp;평균&nbsp;값&nbsp;적용.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;gs_data-average&nbsp;=&nbsp;(&nbsp;ls_evl-evl1&nbsp;+&nbsp;ls_evl-evl2&nbsp;+&nbsp;ls_evl-evl3&nbsp;&nbsp;)&nbsp;DIV&nbsp;3.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;도메인&nbsp;이름&nbsp;값&nbsp;획득.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_domain_name&nbsp;USING&nbsp;'S_CLASS'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-class<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data-class_name.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;1개&nbsp;ROW의&nbsp;값을&nbsp;GT_DATA&nbsp;ITAB으로&nbsp;차근차근&nbsp;입력하기.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_data&nbsp;TO&nbsp;gt_data.<br />
+<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_domain_name<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_domain_name          USING    pv_domain TYPE domname<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_value&nbsp;&nbsp;TYPE&nbsp;char1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_text&nbsp;&nbsp;&nbsp;TYPE&nbsp;text30.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_value&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;dd07v,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_value&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;lt_value.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'GET_DOMAIN_VALUES'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;domname&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_domain<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;values_tab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lt_value<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no_values_found&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;lt_value&nbsp;INTO&nbsp;ls_value<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;domvalue_l&nbsp;=&nbsp;pv_value.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;pv_text&nbsp;=&nbsp;ls_value-ddtext.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_sort<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_sort .<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_sort&nbsp;TYPE&nbsp;lvc_s_sort.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;data&nbsp;정렬&nbsp;순서&nbsp;&nbsp;지정<br />
+<br />
+*&nbsp;기준&nbsp;1번&nbsp;CUSTOMID&nbsp;오름차순<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'ID'.<br />
+&nbsp;&nbsp;ls_sort-up&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
+&nbsp;&nbsp;CLEAR:ls_sort.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;기준&nbsp;2번&nbsp;NAME&nbsp;오름차순<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'NAME'.<br />
+&nbsp;&nbsp;ls_sort-up&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
+&nbsp;&nbsp;CLEAR:ls_sort.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;기준&nbsp;3번&nbsp;CARRID오름차순<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'CARRID'.<br />
+&nbsp;&nbsp;ls_sort-up&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
+&nbsp;&nbsp;CLEAR:ls_sort.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;기준&nbsp;4번&nbsp;FLDATE&nbsp;오름차순<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_sort-fieldname&nbsp;=&nbsp;'FLDATE'.<br />
+&nbsp;&nbsp;ls_sort-up&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;ls_sort-spos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_sort&nbsp;TO&nbsp;gt_sort.<br />
+&nbsp;&nbsp;CLEAR:ls_sort.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

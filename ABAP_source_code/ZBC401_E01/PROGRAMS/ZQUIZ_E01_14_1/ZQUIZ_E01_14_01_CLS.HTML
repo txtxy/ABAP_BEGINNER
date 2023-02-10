@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZQUIZ_E01_14_01_CLS</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZQUIZ_E01_14_01_CLS</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZQUIZ_E00_14_CLS<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+CLASS LCL_EVENT_HANDLER DEFINITION.<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS:<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Hotspot&nbsp;event&nbsp;핸들러&nbsp;메소드&nbsp;정의.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON_HOTSPOT_CLICK&nbsp;FOR&nbsp;EVENT&nbsp;HOTSPOT_CLICK<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;ES_ROW_NO,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Toolbar&nbsp;event&nbsp;핸들러&nbsp;메서드.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON_TOOLBAR&nbsp;FOR&nbsp;EVENT&nbsp;TOOLBAR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;E_OBJECT,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;User_Command&nbsp;event&nbsp;핸들러&nbsp;메소드.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON_USER_COMMAND&nbsp;FOR&nbsp;EVENT&nbsp;USER_COMMAND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OF&nbsp;CL_GUI_ALV_GRID<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING&nbsp;E_UCOMM.<br />
+<br />
+ENDCLASS.<br />
+<br />
+CLASS LCL_EVENT_HANDLER IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_HOTSPOT_CLICK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;GT_DATA&nbsp;INTO&nbsp;GS_DATA&nbsp;INDEX&nbsp;ES_ROW_NO-ROW_ID.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;110<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STARTING&nbsp;AT&nbsp;10&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_TOOLBAR.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;button에&nbsp;대한&nbsp;work&nbsp;area.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;LS_BUTTON&nbsp;TYPE&nbsp;STB_BUTTON.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;toolbar에&nbsp;구분선(세로&nbsp;경계선)설정.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BUTTON-BUTN_TYPE&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LS_BUTTON&nbsp;TO&nbsp;E_OBJECT-&gt;MT_TOOLBAR.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;toolbar에&nbsp;button&nbsp;설정.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR:&nbsp;LS_BUTTON.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BUTTON-FUNCTION&nbsp;=&nbsp;'TOP5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BUTTON-BUTN_TYPE&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BUTTON-TEXT&nbsp;=&nbsp;'빠른&nbsp;예약고객&nbsp;5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LS_BUTTON-ICON&nbsp;=&nbsp;ICON_CUSTOMER.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;LS_BUTTON&nbsp;TO&nbsp;E_OBJECT-&gt;MT_TOOLBAR.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;ON_USER_COMMAND.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;E_UCOMM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'TOP5'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;120<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STARTING&nbsp;AT&nbsp;10&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+<br />
+ENDCLASS.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

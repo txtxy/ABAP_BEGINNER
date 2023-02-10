@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP_E01_036_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_036_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZABAP_E01_036_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+*110스크린을&nbsp;위한&nbsp;선언<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : spfli,STRAVELAG,scustom.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Local&nbsp;Structure&nbsp;data&nbsp;type&nbsp;선언.<br />
+*&nbsp;sbook에&nbsp;모든&nbsp;필드를&nbsp;TS_DATA&nbsp;스트럭쳐에&nbsp;포함.<br />
+*&nbsp;EXCP&nbsp;필드&nbsp;추가&nbsp;for&nbsp;ICON.<br />
+*&nbsp;COLOR&nbsp;필드&nbsp;추가&nbsp;for&nbsp;ROW.<br />
+*&nbsp;COLOR&nbsp;TAB필드&nbsp;추가&nbsp;for&nbsp;CELL.<br />
+   </div>
+   <div class="code">
+TYPES begin of ts_data.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;sbook.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;types&nbsp;:&nbsp;excp&nbsp;TYPE&nbsp;char1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color&nbsp;TYPE&nbsp;char4,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;itab_scol&nbsp;type&nbsp;lvc_t_scol,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;TYPE&nbsp;scustom-name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;phone&nbsp;TYPE&nbsp;scustom-telephone,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;icon_canc&nbsp;TYPE&nbsp;icon-id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;btn_txt(10)&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inv_btn&nbsp;TYPE&nbsp;lvc_t_styl,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ts_data.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DATA를&nbsp;위한&nbsp;Internal&nbsp;Table<br />
+   </div>
+   <div class="code">
+DATA: gt_data TYPE TABLE of ts_data,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_data.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DATA&nbsp;변수&nbsp;선언<br />
+*DATA&nbsp;:&nbsp;gt_data&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;sbook,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_data.<br />
+<br />
+*&nbsp;시스템&nbsp;변수&nbsp;선언<br />
+   </div>
+   <div class="code">
+DATA : ok_code TYPE sy-ucomm.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV를&nbsp;위한&nbsp;오브젝트&nbsp;참조&nbsp;변수(Referance&nbsp;Variable)&nbsp;선언<br />
+   </div>
+   <div class="code">
+DATA: go_cont TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;Grid&nbsp;Variant&nbsp;변수&nbsp;선언.<br />
+   </div>
+   <div class="code">
+DATA : gs_variant TYPE disvariant,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layout&nbsp;TYPE&nbsp;lvc_s_layo.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;Grid&nbsp;SORT&nbsp;변수&nbsp;선언.<br />
+   </div>
+   <div class="code">
+data : gt_sort TYPE lvc_t_sort.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;CELL&nbsp;COLOR를&nbsp;적용하기&nbsp;위해&nbsp;&nbsp;Work&nbsp;Area&nbsp;선언<br />
+   </div>
+   <div class="code">
+DATA : gs_scol TYPE LINE OF lvc_t_scol.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;Grid의&nbsp;Standard&nbsp;Function&nbsp;처리&nbsp;변수<br />
+   </div>
+   <div class="code">
+data : gt_exclude_func TYPE UI_functions.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;Grid의&nbsp;Field&nbsp;Catalog&nbsp;Internal&nbsp;Table.<br />
+   </div>
+   <div class="code">
+DATA : gt_fcat TYPE lvc_t_fcat.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;ALV&nbsp;Grid&nbsp;Line에&nbsp;버튼&nbsp;추가&nbsp;Word&nbsp;Area.<br />
+   </div>
+   <div class="code">
+DATA : gs_inv_btn TYPE lvc_s_styl.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;셀렉션&nbsp;스크린&nbsp;선언부를&nbsp;&nbsp;INCL로&nbsp;뺴는&nbsp;사람도&nbsp;존재함<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK blk WITH FRAME.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;:&nbsp;so_car&nbsp;FOR&nbsp;gs_data-carrid&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so_con&nbsp;FOR&nbsp;gs_data-connid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so_fdt&nbsp;FOR&nbsp;gs_data-fldate.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;pa_vari&nbsp;TYPE&nbsp;disvariant-variant.<br />
+SELECTION-SCREEN END OF BLOCK blk.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

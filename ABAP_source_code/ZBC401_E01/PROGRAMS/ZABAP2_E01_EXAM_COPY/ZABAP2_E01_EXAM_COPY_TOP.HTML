@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP2_E01_EXAM_COPY_TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP2_E01_EXAM_COPY_TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZABAP2_E01_EXAM_TOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : sbook,scustom, ztreqmenu_e01,smenu,smealt.<br />
+<br />
+DATA : go_con TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+DATA : gt_fcat TYPE lvc_t_fcat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sort&nbsp;TYPE&nbsp;lvc_t_sort,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layo&nbsp;TYPE&nbsp;lvc_s_layo.<br />
+<br />
+DATA : ok_code TYPE sy-ucomm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to_day&nbsp;&nbsp;TYPE&nbsp;sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_mark&nbsp;TYPE&nbsp;c&nbsp;LENGTH&nbsp;1&nbsp;VALUE&nbsp;'X'.<br />
+<br />
+DATA : gv_sel_row TYPE lvc_s_roid-row_id .<br />
+<br />
+RANGES : gr_class FOR sbook-class.<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;INTERNAL&nbsp;TABLE<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+TYPES : BEGIN OF ts_sbook.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;sbook.<br />
+TYPES :   reasons TYPE text20,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp(1)&nbsp;TYPE&nbsp;c,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ts_sbook.<br />
+<br />
+<br />
+DATA : gt_sbook TYPE TABLE OF ts_sbook,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_sbook&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_sbook.<br />
+<br />
+DATA : gt_scustom TYPE TABLE OF scustom,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_scustom&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_scustom.<br />
+<br />
+<br />
+<br />
+DATA : BEGIN OF gs_book_data,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;excp(1)&nbsp;&nbsp;&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;scustom-id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;scustom-name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;book_cnt&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;grade(10)&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;street&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;scustom-street,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;postcode&nbsp;&nbsp;TYPE&nbsp;scustom-postcode,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;city&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;scustom-city,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;country&nbsp;&nbsp;&nbsp;TYPE&nbsp;scustom-country,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;telephone&nbsp;TYPE&nbsp;scustom-telephone,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;custtype&nbsp;&nbsp;TYPE&nbsp;scustom-custtype,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;email&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;scustom-email,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_book_data,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_book_data&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;gs_book_data.<br />
+<br />
+<br />
+TYPES : BEGIN OF ts_menu.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INCLUDE&nbsp;TYPE&nbsp;smenu.<br />
+TYPES :   appi TYPE string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;main&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desert&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ts_menu.<br />
+<br />
+<br />
+DATA : gt_menu TYPE TABLE OF ts_menu,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_menu&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_menu.<br />
+<br />
+DATA : gt_reqmenu TYPE TABLE of ztreqmenu_e01,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_reqmenu&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_reqmenu.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+DATA : TEXT_APPTIZER TYPE smealt-text,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TEXT_MAIN&nbsp;TYPE&nbsp;smealt-text,<br />
+TEXT_desert TYPE smealt-text.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECTION&nbsp;SCREEN<br />
+**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK blk1  WITH FRAME TITLE TEXT-se1.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_cid&nbsp;FOR&nbsp;sbook-customid&nbsp;OBLIGATORY.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_fld&nbsp;FOR&nbsp;sbook-fldate&nbsp;.<br />
+SELECTION-SCREEN END OF BLOCK blk1.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK blk2 WITH FRAME TITLE TEXT-se2.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;rb_all&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1&nbsp;DEFAULT&nbsp;'X',<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rb_eco&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rb_bus&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rb_fst&nbsp;RADIOBUTTON&nbsp;GROUP&nbsp;rb1.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;pa_bp&nbsp;TYPE&nbsp;sbook-custtype&nbsp;VISIBLE&nbsp;LENGTH&nbsp;15&nbsp;AS&nbsp;LISTBOX&nbsp;.<br />
+SELECTION-SCREEN END OF BLOCK blk2 .<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

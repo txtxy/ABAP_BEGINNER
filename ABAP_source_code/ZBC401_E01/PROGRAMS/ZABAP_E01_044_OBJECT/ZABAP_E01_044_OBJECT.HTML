@@ -1,0 +1,797 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZABAP_E01_044_OBJECT</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZABAP_E01_044_OBJECT</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZABAP_E01_044<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zabap_e01_044_object.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERFACE&nbsp;lif_partner.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+INTERFACE lif_partner.<br />
+&nbsp;&nbsp;METHODS&nbsp;:&nbsp;display_partner.<br />
+ENDINTERFACE.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_tarvel_agency&nbsp;DEFINITION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_travel_agency DEFINITION.<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor&nbsp;IMPORTING&nbsp;iv_name&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add_partner&nbsp;IMPORTING&nbsp;io_partner&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lif_partner,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_partner.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mt_partners&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;REF&nbsp;TO&nbsp;lif_partner.<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_tarvel_agency&nbsp;IMPLEMENTATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_travel_agency IMPLEMENTATION.<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;=&nbsp;iv_name.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;add_partner.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;io_partner&nbsp;to&nbsp;mt_partners.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;display_partner.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;lo_partner&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lif_partner.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'Travel&nbsp;Agency&nbsp;:&nbsp;',&nbsp;mv_name&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;skip.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;mt_partners&nbsp;into&nbsp;lo_partner.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_partner-&gt;display_partner(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_vehicle&nbsp;DEFINITION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_vehicle DEFINITION.<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor&nbsp;IMPORTING&nbsp;&nbsp;iv_make&nbsp;&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;,<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;set_attributes&nbsp;IMPORTING&nbsp;iv_make&nbsp;&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attributes.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS&nbsp;:<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*&nbsp;static&nbsp;Constructor&nbsp;=&nbsp;class&nbsp;costructor<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class_constructor,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_n_o_vehicles,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_n_o_vehicles&nbsp;RETURNING&nbsp;VALUE(rv_count)&nbsp;TYPE&nbsp;&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;mv_make&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_model&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-DATA&nbsp;:&nbsp;gv_n_o_vehicles&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_vehicle&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;svehicle.<br />
+<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_vehicle&nbsp;IMPLEMENTATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_vehicle IMPLEMENTATION.<br />
+&nbsp;&nbsp;METHOD&nbsp;class_constructor.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;svehicle<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;TABLE&nbsp;gt_vehicle.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;클래스가&nbsp;생성되면&nbsp;gt_vehicle&nbsp;에&nbsp;svehicle&nbsp;정보를&nbsp;입력해서&nbsp;활용한다.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;set_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;mv_make&nbsp;TYPE&nbsp;string.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;me-&gt;mv_make&nbsp;=&nbsp;iv_make.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Self&nbsp;reference<br />
+&nbsp;&nbsp;&nbsp;&nbsp;me-&gt;mv_model&nbsp;=&nbsp;iv_model.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_make&nbsp;=&nbsp;'sdf'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;지역변수&nbsp;선언했지만&nbsp;셀프&nbsp;레퍼런스를&nbsp;사용했기에&nbsp;메쏘드에&nbsp;이상없음.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*이곳은&nbsp;인스턴스여&nbsp;인스턴스&nbsp;어트리뷰트와&nbsp;스태틱&nbsp;어트리뷰트가&nbsp;올&nbsp;수&nbsp;있어.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;display_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/'Make&nbsp;&nbsp;:&nbsp;',mv_make,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/'Model&nbsp;:&nbsp;',mv_model.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP&nbsp;1.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;display_n_o_vehicles.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/'number&nbsp;of&nbsp;vehicles&nbsp;:&nbsp;',gv_n_o_vehicles.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+   </div>
+   <div class="codeComment">
+*이곳은&nbsp;스태틱이여&nbsp;인스턴스&nbsp;데이터가&nbsp;올&nbsp;수&nbsp;없어.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;get_n_o_vehicles.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;rv_count&nbsp;=&nbsp;gv_n_o_vehicles.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_make&nbsp;=&nbsp;iv_make&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_model&nbsp;=&nbsp;iv_model.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;COUNT(&nbsp;*&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;svehicle<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;make&nbsp;=&nbsp;iv_make&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;model&nbsp;=&nbsp;iv_model.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;인터널&nbsp;테이블에&nbsp;입력한&nbsp;값에&nbsp;맞는&nbsp;레코드를&nbsp;조회하고<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_vehicle&nbsp;WITH&nbsp;KEY&nbsp;make&nbsp;=&nbsp;iv_make&nbsp;model&nbsp;=&nbsp;iv_model<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;가져온&nbsp;값을&nbsp;어디에&nbsp;저장하지&nbsp;않고&nbsp;종료<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;NO&nbsp;FIELDS.&nbsp;"&nbsp;Field에&nbsp;전달&nbsp;No.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;wrong_vehicle.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;gv_n_o_vehicles.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_bus&nbsp;DEFINITION&nbsp;INHERITING&nbsp;FROM&nbsp;lcl_vehicle.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_bus DEFINITION INHERITING FROM lcl_vehicle.<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_seats&nbsp;TYPE&nbsp;i<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attributes&nbsp;REDEFINITION.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;mv_seats&nbsp;TYPE&nbsp;i.<br />
+<br />
+<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_bus&nbsp;IMPLEMENTATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_bus IMPLEMENTATION.<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;super-&gt;constructor(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;iv_make<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;iv_model<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;wrong_vehicle.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_seats&nbsp;=&nbsp;iv_seats.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;display_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;super-&gt;display_attributes(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'Seats&nbsp;:&nbsp;',&nbsp;mv_seats.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_truck&nbsp;DEFINITION<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_truck DEFINITION INHERITING FROM lcl_vehicle.<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_cargo&nbsp;TYPE&nbsp;s_plan_car<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attributes&nbsp;REDEFINITION,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_cargo&nbsp;RETURNING&nbsp;VALUE(rv_cargo)&nbsp;TYPE&nbsp;s_plan_car.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;mv_cargo&nbsp;TYPE&nbsp;s_plan_car.<br />
+<br />
+<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_truck&nbsp;IMPLEMENTATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_truck IMPLEMENTATION.<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;super-&gt;constructor(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;iv_make<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;iv_model<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;wrong_vehicle.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_cargo&nbsp;=&nbsp;iv_cargo.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;display_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;super-&gt;display_attributes(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'Max&nbsp;Cargo&nbsp;:&nbsp;',&nbsp;mv_cargo.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;get_cargo.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;rv_cargo&nbsp;=&nbsp;mv_cargo.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_rental&nbsp;DEFINITION<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_rental  DEFINITION.<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTERFACES&nbsp;lif_partner.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ALIASES&nbsp;dis_partner<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FOR&nbsp;lif_partner~display_partner.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor&nbsp;IMPORTING&nbsp;iv_name&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attribute,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add_vehicle&nbsp;IMPORTING&nbsp;io_vehicle&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_vehicle,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_max_cargo&nbsp;RETURNING&nbsp;VALUE(rv_max_cargo)&nbsp;TYPE&nbsp;s_plan_car&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;mv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mt_vehicles&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;REF&nbsp;TO&nbsp;lcl_vehicle.<br />
+<br />
+<br />
+<br />
+<br />
+ENDCLASS.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_rental&nbsp;IMPLEMENTATION.<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_rental IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;=&nbsp;iv_name.<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;add_vehicle.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;io_vehicle&nbsp;TO&nbsp;mt_vehicles.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;&nbsp;display_attribute.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;lo_vehicle&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_vehicle.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE&nbsp;:&nbsp;/&nbsp;mv_name.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;mt_vehicles&nbsp;INTO&nbsp;lo_vehicle.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_vehicle-&gt;display_attributes(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;get_max_cargo.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA&nbsp;:&nbsp;lo_vehicle&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_vehicle,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_truck&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_truck.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;mt_vehicles&nbsp;INTO&nbsp;lo_vehicle.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRY.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_truck&nbsp;?=&nbsp;lo_vehicle.&nbsp;&nbsp;&nbsp;"&nbsp;DOWNCAST<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv_max_cargo&nbsp;=&nbsp;rv_max_cargo&nbsp;+&nbsp;lo_truck-&gt;get_cargo(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_sy_move_cast_error.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CATCH&nbsp;cx_root.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;또는&nbsp;CX_root.&nbsp;를&nbsp;써도&nbsp;무방하다.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDTRY.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+&nbsp;&nbsp;METHOD&nbsp;dis_partner.&nbsp;"&nbsp;method&nbsp;lif_partner~display_partner.&nbsp;와&nbsp;동일함<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;me-&gt;display_attribute(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.<br />
+ENDCLASS.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;만약&nbsp;어트리&nbsp;뷰트만&nbsp;존재하는&nbsp;클래스를&nbsp;선언한다면&nbsp;임플리멘테이션이&nbsp;없어도&nbsp;된다,<br />
+*&nbsp;임플리멘테이션에는&nbsp;메쏘드들을&nbsp;구현할&nbsp;뿐이니까.<br />
+<br />
+*DATA:&nbsp;go_vehicle1&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_vehicle,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_vehicle2&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_vehicle,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_vehicle3&nbsp;LIKE&nbsp;go_vehicle1.<br />
+<br />
+   </div>
+   <div class="code">
+DATA: go_vehicle TYPE REF TO lcl_vehicle,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_bus&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_bus,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_truck&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_truck,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_rental&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_rental,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_trabel_agency&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_travel_agency.<br />
+<br />
+DATA : gv_max_cargo TYPE s_plan_car.<br />
+<br />
+DATA: gt_vehicles TYPE TABLE OF REF TO lcl_vehicle.<br />
+<br />
+DATA : gv_count TYPE i.<br />
+<br />
+START-OF-SELECTION.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_trabel_agency<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;=&nbsp;'SYNC&nbsp;Travel'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_rental<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;=&nbsp;'SYNC-Rental&nbsp;Corp'.<br />
+<br />
+go_trabel_agency-&gt;add_partner( io_partner = go_rental ).<br />
+   </div>
+   <div class="codeComment">
+*<br />
+**&nbsp;오브젝트를&nbsp;먼저&nbsp;생성함.<br />
+*&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_vehicle1.<br />
+*&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*<br />
+*&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_vehicle2.<br />
+*&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*<br />
+*&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_vehicle3.<br />
+*&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*<br />
+**&nbsp;Stactic&nbsp;Method&nbsp;호출&nbsp;압축&nbsp;문법<br />
+*&nbsp;&nbsp;lcl_vehicle=&gt;display_n_o_vehicles(&nbsp;).<br />
+*<br />
+**어트리뷰트에&nbsp;값을&nbsp;입력하는&nbsp;메쏘드를&nbsp;실행<br />
+*<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_vehicle1-&gt;set_attributes<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;=&nbsp;'BMW'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;=&nbsp;'325i'.<br />
+*<br />
+**&nbsp;어트리뷰트&nbsp;값을&nbsp;표시하는&nbsp;메쏘드를&nbsp;실행.<br />
+*<br />
+*&nbsp;&nbsp;go_vehicle1-&gt;display_attributes(&nbsp;).<br />
+*<br />
+**&nbsp;Stactic&nbsp;Method&nbsp;호출&nbsp;압축&nbsp;문법<br />
+*&nbsp;&nbsp;lcl_vehicle=&gt;display_n_o_vehicles(&nbsp;)&nbsp;.<br />
+*<br />
+*<br />
+*<br />
+**두번째&nbsp;오브젝트의&nbsp;어트리뷰트에&nbsp;값을&nbsp;입력하는&nbsp;메쏘드를&nbsp;실행<br />
+*<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_vehicle2-&gt;set_attributes<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;=&nbsp;'Audi'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;=&nbsp;'A3'.<br />
+*<br />
+**&nbsp;어트리뷰트&nbsp;값을&nbsp;표시하는&nbsp;메쏘드를&nbsp;실행.<br />
+*<br />
+*&nbsp;&nbsp;go_vehicle2-&gt;display_attributes(&nbsp;).<br />
+*<br />
+**&nbsp;Stactic&nbsp;Method&nbsp;호출&nbsp;압축&nbsp;문법<br />
+*&nbsp;&nbsp;lcl_vehicle=&gt;display_n_o_vehicles(&nbsp;)&nbsp;.<br />
+*<br />
+*<br />
+**세번째&nbsp;오브젝트의&nbsp;어트리뷰트에&nbsp;값을&nbsp;입력하는&nbsp;메쏘드를&nbsp;실행<br />
+*<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_vehicle3-&gt;set_attributes<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;=&nbsp;'MAN'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;=&nbsp;'X24'.<br />
+*<br />
+**&nbsp;어트리뷰트&nbsp;값을&nbsp;표시하는&nbsp;메쏘드를&nbsp;실행.<br />
+*<br />
+*&nbsp;&nbsp;go_vehicle3-&gt;display_attributes(&nbsp;).<br />
+*<br />
+*<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;lcl_vehicle=&gt;display_n_o_vehicles.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_vehicle<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'BMW'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'318I'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+*&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+**<br />
+**&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_vehicle-&gt;set_attributes<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;=&nbsp;'MAN'<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;=&nbsp;'X24'.<br />
+*<br />
+**&nbsp;&nbsp;인터널&nbsp;테이블에&nbsp;할당<br />
+**&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*<br />
+*&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_vehicle<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'MAN'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X24'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+*&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*<br />
+*&nbsp;&nbsp;ENDIF..<br />
+**&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_vehicle-&gt;set_attributes<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;=&nbsp;'Audi'<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;=&nbsp;'A3'.<br />
+*<br />
+**&nbsp;&nbsp;인터널&nbsp;테이블에&nbsp;할당<br />
+**&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*<br />
+*&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_vehicle<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;=&nbsp;'AUDI'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;=&nbsp;'A3'<br />
+**&nbsp;&nbsp;EXCEPTIONS<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+*&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_vehicle<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'MAN'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+*&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;go_vehicle&nbsp;TO&nbsp;gt_vehicles.<br />
+*<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*<br />
+<br />
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_vehicles&nbsp;INTO&nbsp;go_vehicle.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;go_vehicle-&gt;display_attributes(&nbsp;).<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+*&nbsp;Stactic&nbsp;Method&nbsp;호출<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;lcl_vehicle=&gt;display_n_o_vehicles.<br />
+<br />
+**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_bus<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'SCANIA'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'IRIZAR'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_seats&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;56<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;go_rental-&gt;add_vehicle(&nbsp;io_vehicle&nbsp;=&nbsp;go_bus&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_truck<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'MAN'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'TGX'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_cargo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;250<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ELSE&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;go_rental-&gt;add_vehicle(&nbsp;io_vehicle&nbsp;=&nbsp;go_truck&nbsp;).<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_bus<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'MERCEDES'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'SPRINTER'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_seats&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;45<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;go_rental-&gt;add_vehicle(&nbsp;io_vehicle&nbsp;=&nbsp;go_bus&nbsp;).<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;go_truck<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_make&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'RENAULT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_model&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'R4'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_cargo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;300<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_vehicle&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;go_rental-&gt;add_vehicle(&nbsp;io_vehicle&nbsp;=&nbsp;go_truck&nbsp;).<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+<br />
+*&nbsp;&nbsp;go_rental-&gt;display_attribute(&nbsp;).<br />
+*&nbsp;&nbsp;go_rental-&gt;dis_partner(&nbsp;).<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;go_trabel_agency-&gt;display_partner(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;ULINE.<br />
+<br />
+&nbsp;&nbsp;gv_max_cargo&nbsp;=&nbsp;go_rental-&gt;get_max_cargo(&nbsp;).<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;'MAX&nbsp;Cargo&nbsp;sum&nbsp;:',&nbsp;gv_max_cargo.<br />
+<br />
+&nbsp;&nbsp;ULINE.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+*--------------------------------------------------------------------*<br />
+*go_bus-&gt;display_attributes(&nbsp;).<br />
+*go_truck-&gt;display_attributes(&nbsp;).<br />
+*<br />
+*&nbsp;&nbsp;APPEND&nbsp;go_bus&nbsp;TO&nbsp;gt_vehicles.<br />
+**&nbsp;gt_vehicles는&nbsp;부모클래스의&nbsp;오브젝트&nbsp;타입으로&nbsp;이뤄진&nbsp;테이블인데<br />
+**&nbsp;자식&nbsp;클래스의&nbsp;오브젝트가&nbsp;UPCAST&nbsp;되어서&nbsp;GO_VEHICLE에서&nbsp;변수&nbsp;확인이&nbsp;가능하다.<br />
+*<br />
+*&nbsp;&nbsp;APPEND&nbsp;go_truck&nbsp;TO&nbsp;gt_vehicles.<br />
+*<br />
+*&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_vehicles&nbsp;INTO&nbsp;go_vehicle.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;SKIP&nbsp;2.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;go_vehicle-&gt;display_attributes(&nbsp;).<br />
+*<br />
+*<br />
+*&nbsp;&nbsp;ENDLOOP.<br />
+*--------------------------------------------------------------------*<br />
+<br />
+*<br />
+**&nbsp;Functional&nbsp;Method&nbsp;호출&nbsp;방법&nbsp;1<br />
+*&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;lcl_vehicle=&gt;get_n_o_vehicles<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;RECEIVING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rv_count&nbsp;=&nbsp;gv_count.<br />
+*<br />
+*&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;gv_count.<br />
+*<br />
+**&nbsp;Functional&nbsp;Method&nbsp;호출&nbsp;방법&nbsp;2<br />
+*&nbsp;&nbsp;gv_count&nbsp;=&nbsp;lcl_vehicle=&gt;get_n_o_vehicles(&nbsp;&nbsp;)&nbsp;.<br />
+*<br />
+*&nbsp;&nbsp;WRITE&nbsp;:/&nbsp;gv_count.<br />
+<br />
+<br />
+<br />
+*&nbsp;Functional&nbsp;Method&nbsp;호출&nbsp;방법&nbsp;3<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;lcl_vehicle=&gt;get_n_o_vehicles(&nbsp;RECEIVING&nbsp;rv_count&nbsp;=&nbsp;gv_count&nbsp;)&nbsp;.<br />
+&nbsp;&nbsp;WRITE&nbsp;:/'number&nbsp;of&nbsp;vehicles&nbsp;:&nbsp;',&nbsp;gv_count.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,391 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZBC401_E01_CARRIER</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZBC401_E01_CARRIER</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZBC401_E01_CARRIER<br />
+*&---------------------------------------------------------------------*<br />
+*------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_airplane&nbsp;DEFINITION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_airplane DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;TYPE&nbsp;saplane-planetype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attributes.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;class_constructor,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_n_o_airplanes,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_n_o_airplanes<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURNING&nbsp;value(rv_count)&nbsp;TYPE&nbsp;i.<br />
+<br />
+&nbsp;&nbsp;PROTECTED&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CONSTANTS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;c_pos_1&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;30.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TYPES:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ty_planetypes&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;saplane<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;NON-UNIQUE&nbsp;KEY&nbsp;planetype.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_planetype&nbsp;TYPE&nbsp;saplane-planetype,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_weight&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;saplane-weight,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_tankcap&nbsp;&nbsp;&nbsp;TYPE&nbsp;saplane-tankcap.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-DATA:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_n_o_airplanes&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_planetypes&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ty_planetypes.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLASS-METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;get_technical_attributes<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_type&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;saplane-planetype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_weight&nbsp;&nbsp;&nbsp;TYPE&nbsp;saplane-weight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_tankcap&nbsp;&nbsp;TYPE&nbsp;saplane-tankcap<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype.<br />
+<br />
+ENDCLASS.                    "lcl_airplane DEFINITION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_airplane&nbsp;IMPLEMENTATION&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<br />
+*------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_airplane IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;class_constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;saplane&nbsp;INTO&nbsp;TABLE&nbsp;gt_planetypes.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"class_constructor<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;iv_name.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_planetype&nbsp;=&nbsp;iv_planetype.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;get_technical_attributes(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_type&nbsp;=&nbsp;iv_planetype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_weight&nbsp;&nbsp;=&nbsp;mv_weight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_tankcap&nbsp;=&nbsp;mv_tankcap<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype&nbsp;=&nbsp;1&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;wrong_planetype.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_n_o_airplanes&nbsp;=&nbsp;gv_n_o_airplanes&nbsp;+&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constructor<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;display_attributes.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;icon_ws_plane&nbsp;AS&nbsp;ICON,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'Name&nbsp;of&nbsp;Airplane'(001)&nbsp;,&nbsp;AT&nbsp;c_pos_1&nbsp;mv_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'Type&nbsp;of&nbsp;Airplane:'(002),&nbsp;AT&nbsp;c_pos_1&nbsp;mv_planetype,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'Weight:'(003),&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;c_pos_1&nbsp;mv_weight&nbsp;LEFT-JUSTIFIED,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'Tank&nbsp;capacity:'(004),&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;c_pos_1&nbsp;mv_tankcap&nbsp;LEFT-JUSTIFIED.<br />
+<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"display_attributes<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;display_n_o_airplanes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'Number&nbsp;of&nbsp;airplanes:'(ca1),<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;AT&nbsp;c_pos_1&nbsp;gv_n_o_airplanes&nbsp;LEFT-JUSTIFIED.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"display_n_o_airplanes<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;get_n_o_airplanes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;rv_count&nbsp;=&nbsp;gv_n_o_airplanes.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"get_n_o_airplanes<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;get_technical_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;ls_planetype&nbsp;TYPE&nbsp;saplane.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_planetypes&nbsp;INTO&nbsp;ls_planetype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;TABLE&nbsp;KEY&nbsp;planetype&nbsp;=&nbsp;iv_type<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;weight&nbsp;tankcap.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_weight&nbsp;&nbsp;=&nbsp;ls_planetype-weight.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_tankcap&nbsp;=&nbsp;ls_planetype-tankcap.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;wrong_planetype.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"get_technical_attributes<br />
+<br />
+ENDCLASS.                    "lcl_airplane IMPLEMENTATION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_cargo_plane&nbsp;DEFINITION<br />
+*---------------------------------------------------------------------*<br />
+*<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_cargo_plane DEFINITION INHERITING FROM lcl_airplane.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;TYPE&nbsp;saplane-planetype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_cargo&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;s_plan_car<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attributes&nbsp;REDEFINITION.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_cargo&nbsp;TYPE&nbsp;s_plan_car.<br />
+<br />
+ENDCLASS.                    "lcl_cargo_plane DEFINITION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_cargo_plane&nbsp;IMPLEMENTATION<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_cargo_plane IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;super-&gt;constructor(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;iv_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;=&nbsp;iv_planetype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype&nbsp;=&nbsp;1&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;wrong_planetype.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_cargo&nbsp;=&nbsp;iv_cargo.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constructor<br />
+<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;display_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;super-&gt;display_attributes(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'Max&nbsp;Cargo:'(005),&nbsp;AT&nbsp;c_pos_1&nbsp;mv_cargo&nbsp;LEFT-JUSTIFIED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"display_attributes<br />
+<br />
+ENDCLASS.                    "lcl_cargo_plane IMPLEMENTATION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_passenger_plane&nbsp;DEFINITION<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_passenger_plane DEFINITION INHERITING FROM lcl_airplane.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;TYPE&nbsp;saplane-planetype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_seats&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;s_seatsmax<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attributes&nbsp;REDEFINITION.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_seats&nbsp;TYPE&nbsp;s_seatsmax.<br />
+ENDCLASS.                    "lcl_passenger_plane DEFINITION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_passenger_plane&nbsp;IMPLEMENTATION<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_passenger_plane IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;super-&gt;constructor(<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;iv_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_planetype&nbsp;=&nbsp;iv_planetype<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wrong_planetype&nbsp;=&nbsp;1&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RAISE&nbsp;wrong_planetype.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_seats&nbsp;=&nbsp;iv_seats.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constructor<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;display_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;super-&gt;display_attributes(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/&nbsp;'Max&nbsp;Seats:'(006),&nbsp;AT&nbsp;c_pos_1&nbsp;mv_seats&nbsp;LEFT-JUSTIFIED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"display_attributes<br />
+ENDCLASS.                    "lcl_passenger_plane IMPLEMENTATION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_carrier&nbsp;DEFINITION<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_carrier DEFINITION.<br />
+<br />
+&nbsp;&nbsp;PUBLIC&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTERFACES:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lif_partner.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;constructor&nbsp;IMPORTING&nbsp;iv_name&nbsp;TYPE&nbsp;string,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_attributes,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;add_airplane&nbsp;IMPORTING&nbsp;io_plane&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_airplane.<br />
+<br />
+&nbsp;&nbsp;PRIVATE&nbsp;SECTION.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mt_airplanes&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;REF&nbsp;TO&nbsp;lcl_airplane.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;METHODS:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;display_airplanes.<br />
+<br />
+ENDCLASS.                    "lcl_carrier DEFINITION<br />
+<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLASS&nbsp;lcl_carrier&nbsp;IMPLEMENTATION<br />
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+CLASS lcl_carrier IMPLEMENTATION.<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;constructor.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;mv_name&nbsp;=&nbsp;iv_name.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"constructor<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;display_attributes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SKIP&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WRITE:&nbsp;icon_flight&nbsp;AS&nbsp;ICON,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;mv_name.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ULINE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;me-&gt;display_airplanes(&nbsp;).<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"display_attributes<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;add_airplane.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;io_plane&nbsp;TO&nbsp;mt_airplanes.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"add_airplane<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;display_airplanes.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DATA:&nbsp;lo_plane&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;lcl_airplane.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;mt_airplanes&nbsp;INTO&nbsp;lo_plane.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lo_plane-&gt;display_attributes(&nbsp;).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"display_airplanes<br />
+<br />
+&nbsp;&nbsp;METHOD&nbsp;lif_partner~display_partner.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;me-&gt;display_attributes(&nbsp;).<br />
+&nbsp;&nbsp;ENDMETHOD.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"lif_partner~display_partner<br />
+<br />
+ENDCLASS.                    "lcl_carrier IMPLEMENTATION<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>
