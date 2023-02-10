@@ -48,7 +48,7 @@ E_column : RECORD의 FIELD 정보가 담긴 STRUCTURE
         PUBLIC SECTION.
             CLASS-METHODS : on_double_click
                 for EVENT double_click
-                of cl_gui)alv_grid
+                of cl_gui_alv_grid
                 IMPORTIG es_row_no e_column.
         ```
     ENDCLASS
