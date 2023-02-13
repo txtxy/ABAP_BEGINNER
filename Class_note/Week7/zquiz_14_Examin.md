@@ -244,7 +244,7 @@ lvc_fieldcatalig_merge
     LOOP AT gt_FCAT into ls_fcat.                           " 기타 설정이 필요한 사항은 반복문을 통해 설정
         case ls_fcat-fieldname.
             WHEN 'CUSTOMID'.
-                ls_FAT-hotspot = 'X'.
+                ls_FcAT-hotspot = 'X'.
             WHEN 'CANCELLED'.
                 ls_FCAT-icon = 'X'.
                 ls_FCAT-COLTEXT = 'Cancelled'.
