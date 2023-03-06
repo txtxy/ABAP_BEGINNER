@@ -42,7 +42,7 @@ E_column : RECORD의 FIELD 정보가 담긴 STRUCTURE
 
 - 예시 구문
 ```ABAP
-    data : go_alv_grid type ref to CL_gui_alv_frid.
+    data : go_alv_grid type ref to CL_gui_alv_Grid.
 
     class lcl_event_handler DEFINITION.             " 클래스 정의부
         PUBLIC SECTION.
