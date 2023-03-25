@@ -29,7 +29,7 @@ ZABAP_E01_046
 
 # Field Symbol
 
-- 적절한 GEBERIC DATA TYPE을 이용하여 형변환을 자유롭게 사용하는    
+- 적절한 GENERIC DATA TYPE을 이용하여 형변환을 자유롭게 사용하는    
   특별한 변수를 선언할 수 있는 방법이 있다.
 
 - 동적인 데이터 처리를 위한 방법이다.
