@@ -80,8 +80,8 @@ ZABAP_E01_047
 
 ```ABAP
     gv_name = 'GV_CARRID'
-    ASSIGN (gv_name) to <fs>  " 'GV_CARRID'를 포인팅한다.
-    ASSIGN gv_name to <fs>  " gv_name을 포인팅한다.
+    ASSIGN (gv_name) to <fs>  " 'GV_CARRID'변수가 가진 값을 포인팅한다.
+    ASSIGN gv_name to <fs>  " 문자열'gv_name'을 포인팅한다.
 ```
 ![](../screenShot/Week8/Dynamic_Access.png)
 
