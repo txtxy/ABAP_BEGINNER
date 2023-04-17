@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>SAPMZCBC_ARINV</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: SAPMZCBC_ARINV</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;Pool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SAPMZCBC_BILLING<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+INCLUDE SAPMZCBC_ARINVTOP                      .    " Global Data<br />
+include SAPMZCBC_ARINVC01                      .<br />
+&nbsp;INCLUDE&nbsp;SAPMZCBC_ARINVF01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;&nbsp;"&nbsp;FORM-Routines<br />
+&nbsp;INCLUDE&nbsp;SAPMZCBC_ARINVI01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;&nbsp;"&nbsp;PAI-Modules<br />
+&nbsp;INCLUDE&nbsp;SAPMZCBC_ARINVO01&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;&nbsp;"&nbsp;PBO-Modules<br />
+<br />
+   </div>
+   <div class="codeComment">
+*<br />
+*REPORT&nbsp;zcbc_pp_batch.<br />
+*<br />
+*<br />
+*&nbsp;ㅂ불용창고에서&nbsp;리사이클업체로&nbsp;판매하는&nbsp;CRUD&nbsp;생성&nbsp;필요<br />
+*<br />
+*<br />
+*구매&nbsp;처별&nbsp;가능한&nbsp;구매&nbsp;자재가&nbsp;나눠지게<br />
+*<br />
+*자재&nbsp;BP&nbsp;단가&nbsp;연결&nbsp;테이블&nbsp;생성&nbsp;필요.<br />
+*<br />
+*1.&nbsp;첫번째&nbsp;조회화면<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;a.&nbsp;아이템&nbsp;총금액&nbsp;추가<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;b.&nbsp;거래처&nbsp;유형&nbsp;텍스트&nbsp;추가<br />
+*2.&nbsp;ALV&nbsp;그리드&nbsp;기본&nbsp;그리드&nbsp;툴바&nbsp;제거하기.<br />
+*3.&nbsp;매출확정&nbsp;버튼&nbsp;클릭&nbsp;후&nbsp;200번&nbsp;스크린&nbsp;이동<br />
+*4.&nbsp;조회&nbsp;조건&nbsp;&nbsp;좀&nbsp;더&nbsp;예쁘게&nbsp;만들기<br />
+<br />
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;T100&nbsp;--&gt;&nbsp;매출&nbsp;청구&nbsp;요청&nbsp;문서&nbsp;조회<br />
+*&nbsp;T200&nbsp;--&gt;&nbsp;매출&nbsp;전표&nbsp;생성<br />
+*&nbsp;T300&nbsp;--&gt;&nbsp;AR&nbsp;송장&nbsp;발행<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;AR송장을&nbsp;발행할&nbsp;문서를&nbsp;선택해주세요.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

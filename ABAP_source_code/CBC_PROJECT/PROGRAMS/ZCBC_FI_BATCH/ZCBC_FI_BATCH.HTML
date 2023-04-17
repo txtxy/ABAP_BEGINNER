@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZCBC_FI_BATCH</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZCBC_FI_BATCH</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZCBC_FI_BATCH<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;강민구<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT zcbc_fi_batch.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;BATCH&nbsp;JOB&nbsp;Create&nbsp;-&nbsp;SM36<br />
+*&nbsp;BATCH&nbsp;JOB&nbsp;Overview&nbsp;-&nbsp;SM37<br />
+*&nbsp;매일&nbsp;01:50에&nbsp;수행<br />
+*&nbsp;구매&nbsp;확정&nbsp;전표&nbsp;생성&nbsp;후&nbsp;3일&nbsp;경과시<br />
+*&nbsp;해당&nbsp;전표를&nbsp;원천&nbsp;문서로&nbsp;현금&nbsp;마이너스&nbsp;차변/&nbsp;외상&nbsp;매입금&nbsp;마이너스&nbsp;대변<br />
+*&nbsp;전표를&nbsp;생성<br />
+*&nbsp;구매확정&nbsp;전표의&nbsp;원천&nbsp;구매오더&nbsp;문서를&nbsp;참조하여&nbsp;구매한&nbsp;물품을&nbsp;자재창고에&nbsp;추가.<br />
+<br />
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ITAB&nbsp;선언<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA : gt_chith TYPE TABLE OF ztc_fi_chit_h,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_chith&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_chith,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_chiti&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_fi_chit_i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_chiti,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_mmh&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_mm_h,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_mmh&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;&nbsp;gt_mmh,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_mmi&nbsp;&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_mm_i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_mmi&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;&nbsp;gt_mmi.<br />
+<br />
+<br />
+DATA : gs_inv TYPE ztc_wm_inv,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_inv&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;gs_inv.<br />
+<br />
+DATA : BEGIN OF gs_imsi ,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_stf_id&nbsp;TYPE&nbsp;ztc_wm_inv-inv_id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_qty&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_wm_inv-inv_qty,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_imsi,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_imsi&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;gs_imsi.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;사용&nbsp;일반&nbsp;변수<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA : gv_std_date TYPE sy-datum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-datum.<br />
+<br />
+DATA : lv_value TYPE scal-indicator,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_day&nbsp;&nbsp;&nbsp;TYPE&nbsp;t5a4a-dlydy&nbsp;VALUE&nbsp;'03'.<br />
+<br />
+DATA : gv_cost TYPE zsc_pro_cost-pp_price.<br />
+<br />
+CONSTANTS cv_comp TYPE ztc_fi_chit_h-bp_id VALUE '1010000000'.<br />
+DATA : ev_chit_num TYPE ztc_fi_chit_h-chit_doc_num.<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본&nbsp;DATA&nbsp;조회<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+CALL FUNCTION 'DATE_COMPUTE_DAY'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;=&nbsp;sy-datum<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;day&nbsp;&nbsp;=&nbsp;lv_value.<br />
+<br />
+IF lv_value  = 1 OR lv_value  = 7 .<br />
+<br />
+&nbsp;&nbsp;LEAVE&nbsp;PROGRAM.<br />
+<br />
+ELSEIF lv_value = 2.<br />
+<br />
+&nbsp;&nbsp;DO&nbsp;3&nbsp;TIMES.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_CALC_DATE_IN_INTERVAL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_day<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;months&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signum&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'-'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;years&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calc_date&nbsp;=&nbsp;gv_std_date.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;&nbsp;@gs_chith<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_fi_chit_h&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~post_day&nbsp;EQ&nbsp;@gv_std_date&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~doc_num&nbsp;LIKE&nbsp;'4_________'&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_mmi<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_mm_i<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;mm_doc_num&nbsp;=&nbsp;gs_chith-doc_num.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_imsi-gv_stf_id&nbsp;=&nbsp;gs_mmi-stuff_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_imsi-gv_qty&nbsp;=&nbsp;gs_mmi-req_qty.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_imsi&nbsp;&nbsp;TO&nbsp;gt_imsi.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;&nbsp;:&nbsp;gs_imsi.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_chith&nbsp;TO&nbsp;gt_chith.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_chith.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDSELECT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;1&nbsp;TO&nbsp;lv_day.<br />
+&nbsp;&nbsp;ENDDO.<br />
+<br />
+<br />
+ELSE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_CALC_DATE_IN_INTERVAL'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_day<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;months&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signum&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'-'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;years&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calc_date&nbsp;=&nbsp;gv_std_date.<br />
+clear: gt_chiti,gt_chith,gt_imsi.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;&nbsp;@gs_chith<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_fi_chit_h&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~post_day&nbsp;EQ&nbsp;@gv_std_date&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~doc_num&nbsp;LIKE&nbsp;'4%'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_mmi<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_mm_i<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;mm_doc_num&nbsp;=&nbsp;gs_chith-doc_num.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_imsi-gv_stf_id&nbsp;=&nbsp;gs_mmi-stuff_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_imsi-gv_qty&nbsp;=&nbsp;gs_mmi-req_qty.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_imsi&nbsp;&nbsp;TO&nbsp;gt_imsi.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;&nbsp;:&nbsp;gs_imsi.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDSELECT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;gs_chith&nbsp;TO&nbsp;gt_chith.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gs_chith.<br />
+<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;자재&nbsp;창고&nbsp;입고처리<br />
+**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_imsi&nbsp;INTO&nbsp;gs_imsi.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_inv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_wm_inv<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;inv_id&nbsp;=&nbsp;gs_imsi-gv_stf_id.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_inv-inv_qty&nbsp;=&nbsp;gs_inv-inv_qty&nbsp;+&nbsp;gs_imsi-gv_qty.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;ztc_wm_inv&nbsp;FROM&nbsp;gs_inv.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;전표&nbsp;생성<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;&nbsp;gt_chith&nbsp;INTO&nbsp;gs_chith.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;ev_chit_num.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;make_chith&nbsp;USING&nbsp;gs_chith-chit_doc_num<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_chit_num.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;make_chiti&nbsp;USING&nbsp;ev_chit_num<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_chith-doc_num.<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDIF.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;make_chit<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GS_CHITH_CHIT_DOC_NUM<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM make_chith  USING    pv_chit_num<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_new_chit_num.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_chith&nbsp;LIKE&nbsp;gs_chith.<br />
+clear: pv_new_chit_num.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;사업장<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_chith-bp_id&nbsp;=&nbsp;cv_comp.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;FI-year<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_chith-fi_year&nbsp;=&nbsp;sy-datum(4).<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;전표&nbsp;유형<br />
+*&nbsp;iv_doc_tp_id로&nbsp;지정<br />
+*&nbsp;원청문서<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_chith-doc_num&nbsp;=&nbsp;pv_chit_num.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;작성&nbsp;정보<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;ernam&nbsp;co_cen<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(&nbsp;ls_chith-ernam,&nbsp;ls_chith-co_cen&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_fi_chit_h<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;chit_doc_num&nbsp;=&nbsp;pv_chit_num.<br />
+<br />
+&nbsp;&nbsp;ls_chith-erdat&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;ls_chith-erzet&nbsp;=&nbsp;sy-timlo.<br />
+&nbsp;&nbsp;ls_chith-post_day&nbsp;=&nbsp;ls_chith-erdat.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;원청문서&nbsp;생성일<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_chith-prf_day&nbsp;=&nbsp;ls_chith-erdat.<br />
+&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'NUMBER_GET_NEXT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nr_range_nr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'07'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZCBC_RANG'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBOBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOYEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum(4)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IGNORE_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_new_chit_num<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURNCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval_not_found&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number_range_not_intern&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;object_not_found&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quantity_is_0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quantity_is_not_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval_overflow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer_overflow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;7<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'문서번호&nbsp;생성에&nbsp;실패하였습니다.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ls_chith-chit_doc_num&nbsp;=&nbsp;pv_new_chit_num.<br />
+<br />
+ls_chith-brief = '구매 확정 매입 외상 변재 입금 전표'.<br />
+<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;ztc_fi_chit_h&nbsp;FROM&nbsp;ls_chith.<br />
+<br />
+CALL FUNCTION 'ZFM_ORDER_REGI'<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;iv_doc_num&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;ls_chith-chit_doc_num&nbsp;&nbsp;"&nbsp;문서번호<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;iv_doc_tp_id&nbsp;=&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;오더&nbsp;유형_ID<br />
+   </div>
+   <div class="code">
+.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;make_chiti<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;EV_CHIT_NUM<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GS_CHITH_CHIT_DOC_NUM<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM make_chiti  USING    pv_new_chit_num<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_doc_num.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_chith&nbsp;LIKE&nbsp;gs_chith,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_chiti&nbsp;LIKE&nbsp;gs_chiti,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lt_chiti&nbsp;LIKE&nbsp;gt_chiti,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_cocen&nbsp;TYPE&nbsp;ztc_md_emp-dept_id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_bp&nbsp;TYPE&nbsp;ztc_md_bp-bp_id.<br />
+<br />
+clear : lt_chiti.<br />
+MOVE-CORRESPONDING gs_chith to ls_chith.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_mmh&nbsp;into&nbsp;gs_mmh&nbsp;WITH&nbsp;KEY&nbsp;mm_doc_num&nbsp;=&nbsp;pv_doc_num.<br />
+<br />
+&nbsp;gv_cost&nbsp;&nbsp;=&nbsp;&nbsp;gs_mmh-total_cost.<br />
+lv_bp = gs_chiti-bp_for.<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;dept_id&nbsp;FROM&nbsp;ztc_md_emp&nbsp;INTO&nbsp;lv_cocen&nbsp;WHERE&nbsp;emp_id&nbsp;=&nbsp;gs_MMH-ernam.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제품&nbsp;재고&nbsp;및&nbsp;매출원가&nbsp;처리<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ls_chiti-line_num&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;ls_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;ls_chiti-right_acc&nbsp;=&nbsp;'0010010102'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;현금<br />
+&nbsp;&nbsp;ls_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen&nbsp;.<br />
+<br />
+&nbsp;&nbsp;ls_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;ls_chiti-ebit_amt&nbsp;=&nbsp;-&nbsp;gv_cost&nbsp;.<br />
+<br />
+&nbsp;&nbsp;ls_chiti-briefs&nbsp;=&nbsp;lv_bp&nbsp;&&&nbsp;&nbsp;'&nbsp;매입&nbsp;외상금&nbsp;출금&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_chiti&nbsp;TO&nbsp;lt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_chiti.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_chiti-line_num&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;ls_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;ls_chiti-right_acc&nbsp;=&nbsp;'0020010101'.&nbsp;&nbsp;&nbsp;"&nbsp;외상&nbsp;매입금<br />
+&nbsp;&nbsp;ls_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_chiti-cred_amt&nbsp;&nbsp;=&nbsp;-&nbsp;gv_cost&nbsp;.<br />
+&nbsp;&nbsp;ls_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+&nbsp;&nbsp;ls_chiti-briefs&nbsp;=&nbsp;'&nbsp;매입&nbsp;외상금&nbsp;변제'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_chiti&nbsp;TO&nbsp;lt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_chiti.<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_chiti-line_num&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;ls_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;ls_chiti-right_acc&nbsp;=&nbsp;'0050010102'.&nbsp;&nbsp;&nbsp;"&nbsp;비용<br />
+&nbsp;&nbsp;ls_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_chiti-cred_amt&nbsp;&nbsp;=&nbsp;gv_cost&nbsp;.<br />
+&nbsp;&nbsp;ls_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+&nbsp;&nbsp;ls_chiti-briefs&nbsp;=&nbsp;'&nbsp;비용&nbsp;변제'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_chiti&nbsp;TO&nbsp;lt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_chiti.<br />
+<br />
+&nbsp;ls_chiti-line_num&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;ls_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;ls_chiti-right_acc&nbsp;=&nbsp;'0010020103'.&nbsp;&nbsp;&nbsp;"&nbsp;원재료<br />
+&nbsp;&nbsp;ls_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_chiti-cred_amt&nbsp;&nbsp;=&nbsp;gv_cost&nbsp;.<br />
+&nbsp;&nbsp;ls_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+&nbsp;&nbsp;ls_chiti-briefs&nbsp;=&nbsp;'&nbsp;원재료&nbsp;변제'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_chiti&nbsp;TO&nbsp;lt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;ls_chiti.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;&nbsp;lt_chiti&nbsp;INTO&nbsp;ls_chiti.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_chiti-chit_num&nbsp;=&nbsp;&nbsp;pv_new_chit_num.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_chiti-bp_id&nbsp;=&nbsp;cv_comp&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_chiti-bp_for&nbsp;=&nbsp;lv_bp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_chiti-ernam&nbsp;=&nbsp;gs_mmh-ernam.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_chiti-erdat&nbsp;=&nbsp;gs_mmh-erdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_chiti-erzet&nbsp;=&nbsp;gs_mmh-erzet.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_chiti-fi_year&nbsp;=&nbsp;gs_mmh-erdat(4).<br />
+<br />
+MODIFY ztc_fi_Chit_i from ls_chiti.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+clear :ls_chiti,lt_chiti.<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;Hard&nbsp;coded<br />
+*&nbsp;&nbsp;&nbsp;문서번호&nbsp;생성에&nbsp;실패하였습니다.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

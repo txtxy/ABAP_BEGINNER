@@ -1,0 +1,403 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZCBC_MD_DEPT_CRUDF01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZCBC_MD_DEPT_CRUDF01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCBC_MD_dept_CRUDF01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_layo<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_layo .<br />
+<br />
+&nbsp;&nbsp;gs_layo-cwidth_opt&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;gs_layo-sel_mode&nbsp;=&nbsp;'B'.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_fcat<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_fcat .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_fcat&nbsp;TYPE&nbsp;lvc_s_fcat.&nbsp;&nbsp;&nbsp;"&nbsp;WA&nbsp;생성.<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='DEPT_ID'.<br />
+&nbsp;&nbsp;ls_fcat-ref_table&nbsp;=&nbsp;'ZTC_MD_DEPT_T'.<br />
+&nbsp;&nbsp;ls_fcat-ref_field&nbsp;=&nbsp;'DEPT_ID'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='DEPT_NAME'.<br />
+&nbsp;&nbsp;ls_fcat-ref_table&nbsp;=&nbsp;'ZTC_MD_DEPT_T'.<br />
+&nbsp;&nbsp;ls_fcat-ref_field&nbsp;=&nbsp;'DEPT_NAME'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='DEL_FLAG'.<br />
+&nbsp;&nbsp;ls_fcat-ref_table&nbsp;=&nbsp;'ZTC_MD_DEPT'.<br />
+&nbsp;&nbsp;ls_fcat-ref_field&nbsp;=&nbsp;'DEL_FLAG'.<br />
+&nbsp;&nbsp;ls_fcat-col_pos&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+&nbsp;&nbsp;ls_fcat-fieldname&nbsp;='LANGU'.<br />
+&nbsp;&nbsp;ls_fcat-ref_table&nbsp;=&nbsp;'ZTC_MD_DEPT_T'.<br />
+&nbsp;&nbsp;ls_fcat-ref_field&nbsp;=&nbsp;'LANGU'.<br />
+&nbsp;&nbsp;ls_fcat-tech&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;APPEND&nbsp;ls_fcat&nbsp;TO&nbsp;gt_fcat.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:ls_fcat.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_dept<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_dept .<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;pa_del.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_md_dept&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;ztc_md_dept_t&nbsp;&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~dept_id&nbsp;=&nbsp;b~dept_id&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~langu&nbsp;=&nbsp;sy-langu<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~dept_id&nbsp;IN&nbsp;so_id&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~dept_name&nbsp;IN&nbsp;so_name.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;space.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;a~dept_id&nbsp;AS&nbsp;dept_id&nbsp;b~dept_name&nbsp;AS&nbsp;dept_name&nbsp;a~del_flag&nbsp;as&nbsp;del_flag<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~langu&nbsp;as&nbsp;langu<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_md_dept&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;ztc_md_dept_t&nbsp;&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~dept_id&nbsp;=&nbsp;b~dept_id&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;b~langu&nbsp;=&nbsp;sy-langu<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;a~dept_id&nbsp;IN&nbsp;so_id&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;b~dept_name&nbsp;IN&nbsp;so_name&nbsp;AND<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;a~del_flag&nbsp;=&nbsp;space.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DELETE<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM delete .<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_CONFIRM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_question&nbsp;&nbsp;=&nbsp;'data&nbsp;will&nbsp;be&nbsp;Delete.&nbsp;Cancel?'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_1&nbsp;&nbsp;=&nbsp;'Yes'(yes)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_button_2&nbsp;&nbsp;=&nbsp;'No'(non)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;answer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gv_answer<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text_not_found&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;gv_answer&nbsp;=&nbsp;'1'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;DELETE&nbsp;ztc_md_dept&nbsp;FROM&nbsp;gs_data&nbsp;.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_data-del_flag&nbsp;=&nbsp;'X'.<br />
+<br />
+MOVE-CORRESPONDING gs_data to gs_dept .<br />
+&nbsp;MOVE-CORRESPONDING&nbsp;gs_data&nbsp;to&nbsp;gs_dept_t&nbsp;.<br />
+<br />
+&nbsp;&nbsp;modify&nbsp;ztc_md_dept&nbsp;FROM&nbsp;gs_dept.<br />
+&nbsp;&nbsp;modify&nbsp;ztc_md_dept_t&nbsp;FROM&nbsp;gs_dept_t.<br />
+clear : gs_dept,gs_dept_t.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;Form&nbsp;CALL_CHANGE<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;text<br />
+**&---------------------------------------------------------------------*<br />
+**&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+**&---------------------------------------------------------------------*<br />
+*FORM&nbsp;change&nbsp;.<br />
+*<br />
+*&nbsp;&nbsp;IF&nbsp;gv_screen_mod&nbsp;IS&nbsp;INITIAL&nbsp;AND&nbsp;ok_code&nbsp;=&nbsp;'CHANGE'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_screen_mod&nbsp;=&nbsp;'X'.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'SEL'.&nbsp;&nbsp;&nbsp;"&nbsp;그룹을&nbsp;기준으로&nbsp;변경할때<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;1.&nbsp;&nbsp;&nbsp;"&nbsp;입력&nbsp;가능한지를&nbsp;변화시키고&nbsp;싶을때<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+*<br />
+*&nbsp;&nbsp;ELSEIF&nbsp;&nbsp;gv_screen_mod&nbsp;=&nbsp;'X'&nbsp;AND&nbsp;ok_code&nbsp;=&nbsp;'CHANGE'.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;gv_screen_mod&nbsp;=&nbsp;space.<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;screen-group1&nbsp;=&nbsp;'SEL'.&nbsp;&nbsp;&nbsp;"&nbsp;그룹을&nbsp;기준으로&nbsp;변경할때<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;screen-input&nbsp;=&nbsp;0.&nbsp;&nbsp;&nbsp;"&nbsp;입력&nbsp;가능한지를&nbsp;변화시키고&nbsp;싶을때<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;SCREEN.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+*<br />
+*&nbsp;&nbsp;ENDIF.<br />
+*ENDFORM.<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;SEL_ROW<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM sel_row .<br />
+<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;go_alv-&gt;get_current_cell<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_row&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gv_row<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_value&nbsp;&nbsp;&nbsp;=&nbsp;gv_value<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_col&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gv_col<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;es_row_id&nbsp;=&nbsp;gs_row_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;es_col_id&nbsp;=&nbsp;gs_col_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;es_row_no&nbsp;=&nbsp;gs_row_no.<br />
+<br />
+&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_data&nbsp;INTO&nbsp;gs_data&nbsp;INDEX&nbsp;gv_row.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;APPEND_DATA<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM append_data .<br />
+&nbsp;MOVE-CORRESPONDING&nbsp;gs_data&nbsp;to&nbsp;gs_dept&nbsp;.<br />
+&nbsp;MOVE-CORRESPONDING&nbsp;gs_data&nbsp;to&nbsp;gs_dept_t&nbsp;.<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;ztc_md_dept&nbsp;FROM&nbsp;gs_dept.<br />
+&nbsp;&nbsp;MODIFY&nbsp;ztc_md_dept_t&nbsp;FROM&nbsp;gs_dept_t.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;CHECK_ID<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM check_id USING pv_field<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_so.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;IF&nbsp;S_OBJID&nbsp;IS&nbsp;NOT&nbsp;INITIAL.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;gt_data&nbsp;IS&nbsp;INITIAL.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;gt_data<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_md_dept&nbsp;AS&nbsp;a<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;JOIN&nbsp;ztc_md_dept_t&nbsp;AS&nbsp;b<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;a~dept_id&nbsp;=&nbsp;b~dept_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;b~langu&nbsp;=&nbsp;sy-langu.<br />
+<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;EQ&nbsp;0.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;SEARCH&nbsp;HELP&nbsp;FOR&nbsp;QUALIFICATION.<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'F4IF_INT_TABLE_VALUE_REQUEST'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DDIC_STRUCTURE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;retfield&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_field<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PVALKEY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynpprog&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-repid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynpnr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-dynnr<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;dynprofield&nbsp;=&nbsp;pv_so<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;STEPL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WINDOW_TITLE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;VALUE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value_org&nbsp;&nbsp;&nbsp;=&nbsp;'S'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MULTIPLE_CHOICE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISPLAY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALLBACK_PROGRAM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALLBACK_FORM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MARK_TAB&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USER_RESET&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value_tab&nbsp;&nbsp;&nbsp;=&nbsp;gt_data<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FIELD_TAB&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURN_TAB&nbsp;&nbsp;=&nbsp;RETURN_TAB<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DYNPFLD_MAPPING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PARAMETER_ERROR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NO_VALUES_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;ID&nbsp;SY-MSGID&nbsp;TYPE&nbsp;SY-MSGTY&nbsp;NUMBER&nbsp;SY-MSGNO<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WITH&nbsp;SY-MSGV1&nbsp;SY-MSGV2&nbsp;SY-MSGV3&nbsp;SY-MSGV4.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

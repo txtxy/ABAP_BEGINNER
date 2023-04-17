@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZCBC_MM_ORD_CRUD_MK1TOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZCBC_MM_ORD_CRUD_MK1TOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCBC_MM_ORD_CRUD_MK1TOP<br />
+*&---------------------------------------------------------------------*<br />
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;테이블&nbsp;변수<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+TABLES: sscrfields  , ztc_mm_ing_h, ztc_mm_ing_i.<br />
+<br />
+DATA : BEGIN OF gs_mm_h.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="ztc_mm_ing_h/dictionary-ztc_mm_ing_h.html">ztc_mm_ing_h</a>.<br />
+DATA :   ord_tp_name TYPE zec_ord_tp_nam,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ernam_text&nbsp;&nbsp;TYPE&nbsp;zec_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aenam_text&nbsp;&nbsp;TYPE&nbsp;zec_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;wh_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zec_text,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WH_ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ZEC_WH_ID.<br />
+<br />
+DATA : END OF  gs_mm_h,<br />
+gt_mm_h LIKE TABLE OF gs_mm_h.<br />
+<br />
+DATA : BEGIN OF gs_mm_i.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="ztc_mm_ing_i/dictionary-ztc_mm_ing_i.html">ztc_mm_ing_i</a>.<br />
+DATA :   stuff_name     TYPE ztc_md_stf-stf_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_md_bp-bp_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total_price&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zec_msrp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total_currency&nbsp;LIKE&nbsp;gs_mm_i-currency,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_style&nbsp;TYPE&nbsp;lvc_t_styl.<br />
+DATA : END OF  gs_mm_i,<br />
+gt_mm_i LIKE TABLE OF gs_mm_i.<br />
+<br />
+DATA : gt_emp TYPE TABLE OF ztc_md_emp WITH HEADER LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_ord&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_ord&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_wh&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_wh_t&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_stf&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_stf&nbsp;WITH&nbsp;HEADER&nbsp;LINE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_bp&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_bp&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;글로벌&nbsp;오브젝트<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA : go_headcon  TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_itemcon&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_custom_container,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_headalv&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_itemalv&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_cretcont&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_custom_alv_grid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_cretalv&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본&nbsp;변수<br />
+**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+DATA : gv_num     TYPE num10,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ok_code&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;sy-ucomm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_exclude&nbsp;TYPE&nbsp;ui_functions,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sort&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_sort,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sorti&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_sort,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_style&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_styl.<br />
+<br />
+<br />
+DATA : gs_layoh TYPE lvc_s_layo,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcath&nbsp;TYPE&nbsp;lvc_t_fcat.<br />
+DATA : gs_layoi TYPE lvc_s_layo,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcati&nbsp;TYPE&nbsp;lvc_t_fcat.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기타&nbsp;변수<br />
+**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+DATA :gv_line TYPE i.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELETION&nbsp;SCREEN<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF BLOCK blk1 WITH FRAME TITLE TEXT-t01.<br />
+<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;so_co_do&nbsp;FOR&nbsp;gs_mm_h-conf_doc_num&nbsp;.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;SKIP&nbsp;1.<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;so_stat&nbsp;FOR&nbsp;gs_mm_h-status&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;SKIP&nbsp;1.<br />
+&nbsp;&nbsp;SELECT-OPTIONS:&nbsp;so_ernam&nbsp;FOR&nbsp;gs_mm_h-ernam&nbsp;NO-EXTENSION&nbsp;NO&nbsp;INTERVALS,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;so_date&nbsp;FOR&nbsp;gs_mm_h-erdat&nbsp;.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;SKIP&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;&nbsp;pa_delck&nbsp;AS&nbsp;CHECKBOX&nbsp;.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK blk1.<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

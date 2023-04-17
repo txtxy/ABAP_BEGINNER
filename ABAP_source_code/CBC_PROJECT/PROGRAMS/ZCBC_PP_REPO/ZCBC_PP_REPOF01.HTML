@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZCBC_PP_REPOF01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZCBC_PP_REPOF01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCBC_PP_REPOF01<br />
+*&---------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;build_hierarchy_header<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;L_HIERARCHY_HEADER<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM build_hierarchy_header  CHANGING p_hierarchy_header  TYPE treev_hhdr.<br />
+<br />
+&nbsp;&nbsp;p_hierarchy_header-heading&nbsp;=&nbsp;'생산년도/생산월'(300).<br />
+&nbsp;&nbsp;p_hierarchy_header-tooltip&nbsp;=&nbsp;'년도별&nbsp;생산&nbsp;실적'(400).<br />
+&nbsp;&nbsp;p_hierarchy_header-width&nbsp;=&nbsp;25.<br />
+&nbsp;&nbsp;p_hierarchy_header-width_pix&nbsp;=&nbsp;space.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;set_fcat<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM set_fcat .<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_fcat&nbsp;TYPE&nbsp;lvc_s_fcat.<br />
+<br />
+&nbsp;&nbsp;CLEAR:&nbsp;gt_fcat.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'LVC_FIELDCATALOG_MERGE'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BUFFER_ACTIVE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_structure_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZSC_PP_YEAR'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_CLIENT_NEVER_DISPLAY&nbsp;=&nbsp;'X'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_BYPASSING_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;I_INTERNAL_TABNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ct_fieldcat&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_fcat<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inconsistent_interface&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;program_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.ENDIF.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_fcat&nbsp;INTO&nbsp;ls_fcat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CASE&nbsp;ls_fcat-fieldname.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'PLANT_ID'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-no_out&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'ERDAT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-no_out&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN'SKU_ID'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-H_COL_KEY&nbsp;=&nbsp;'SKU_ID'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-no_out&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'SKU_NAME'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-H_COL_KEY&nbsp;=&nbsp;'SKU_NAME'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'SKU명'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;30.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'FIX_QTY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-H_COL_KEY&nbsp;=&nbsp;'FIX_QTY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-no_out&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'TOTAL_FIX_QTY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-h_ftype&nbsp;=&nbsp;'SUM'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-emphasize&nbsp;=&nbsp;'C510'.<br />
+ls_fcat-H_COL_KEY = 'TOTAL_FIX_QTY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'총생산수량'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;&nbsp;&nbsp;'UNIT'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'단위'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DOM_QTY'.<br />
+<br />
+ls_fcat-H_COL_KEY = 'DOM_QTY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-do_sum&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'국내생산수량'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-h_ftype&nbsp;=&nbsp;'SUM'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'DOM_UNIT'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'단위'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-do_sum&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;&nbsp;'DOM_PER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-H_COL_KEY&nbsp;=&nbsp;'DOM_PER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'국내&nbsp;판매&nbsp;비율'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-h_ftype&nbsp;=&nbsp;'AVG'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'INT_QTY'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-H_COL_KEY&nbsp;=&nbsp;'INT_QTY'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-do_sum&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;10.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;&nbsp;=&nbsp;'해외생산수량'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-h_ftype&nbsp;=&nbsp;'SUM'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'INT_UNIT'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'단위'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;&nbsp;'INT_PER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-H_COL_KEY&nbsp;=&nbsp;'INT_PER'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-do_sum&nbsp;=&nbsp;'X'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-coltext&nbsp;=&nbsp;'수출&nbsp;판매&nbsp;비율'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-outputlen&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_fcat-h_ftype&nbsp;=&nbsp;'AVG'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;gt_fcat&nbsp;FROM&nbsp;ls_fcat.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;create_hierarchy<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM create_hierarchy .<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_sku&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_sku,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ym(6)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ym_last(6)&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_sku&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;ls_sku-sku_id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_sku_last&nbsp;&nbsp;&nbsp;LIKE&nbsp;ls_sku-sku_id.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:lv_month_key&nbsp;TYPE&nbsp;lvc_nkey,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_sku_key&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_nkey,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_last_key&nbsp;&nbsp;TYPE&nbsp;lvc_nkey.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LT_PP_YEAR&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;zsc_pp_year,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_PP_YEAR&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;lt_pp_year.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;wh_id,&nbsp;sku_id,&nbsp;batch,SUM(&nbsp;real_qty&nbsp;)&nbsp;AS&nbsp;real_qty,&nbsp;end_date<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_pp_end_list<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;@gt_ppend<br />
+&nbsp;&nbsp;&nbsp;&nbsp;GROUP&nbsp;BY&nbsp;wh_id,&nbsp;sku_id,&nbsp;batch,&nbsp;end_date&nbsp;.<br />
+<br />
+&nbsp;&nbsp;SORT&nbsp;gt_ppend&nbsp;BY&nbsp;erdat&nbsp;ASCENDING&nbsp;sku_id&nbsp;ASCENDING&nbsp;.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;gt_ppend&nbsp;INTO&nbsp;gs_ppend.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_ppend-end_date&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONTINUE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;Lt_pp_year&nbsp;INTO&nbsp;Ls_pp_year&nbsp;WITH&nbsp;KEY&nbsp;sku_id&nbsp;=&nbsp;gs_ppend-sku_id&nbsp;erdat&nbsp;=&nbsp;gs_ppend-end_date&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;=&nbsp;4.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**********************************************************************<br />
+*&nbsp;&nbsp;case&nbsp;initial&nbsp;line.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ls_pp_year-unit&nbsp;=&nbsp;'EA'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;Gs_ppend-real_qty&nbsp;TO&nbsp;Ls_pp_year-total_fix_qty.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_sku&nbsp;INTO&nbsp;ls_sku&nbsp;&nbsp;WITH&nbsp;KEY&nbsp;sku_id&nbsp;=&nbsp;gs_ppend-sku_id&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;ls_sku-sku_id&nbsp;TO&nbsp;Ls_pp_year-sku_id&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;ls_sku-sku_name&nbsp;TO&nbsp;Ls_pp_year-sku_name&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ls_sku.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MOVE&nbsp;gs_ppend-end_date&nbsp;TO&nbsp;Ls_pp_year-erdat&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ls_pp_year-dom_unit&nbsp;=&nbsp;'EA'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ls_pp_year-int_unit&nbsp;=&nbsp;'EA'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_ppend-wh_id&nbsp;=&nbsp;'0000002000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;gs_ppend-real_qty&nbsp;TO&nbsp;Ls_pp_year-dom_qty.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;gs_ppend-real_qty&nbsp;TO&nbsp;Ls_pp_year-int_qty.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ls_pp_year-dom_per&nbsp;=&nbsp;(&nbsp;Ls_pp_year-dom_qty&nbsp;/&nbsp;Ls_pp_year-total_fix_qty&nbsp;)&nbsp;*&nbsp;100&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ls_pp_year-int_per&nbsp;=&nbsp;(&nbsp;Ls_pp_year-int_qty&nbsp;/&nbsp;Ls_pp_year-total_fix_qty&nbsp;)&nbsp;*&nbsp;100&nbsp;.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;Ls_pp_year&nbsp;TO&nbsp;LT_pp_year.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**********************************************************************<br />
+*&nbsp;case&nbsp;exist&nbsp;line.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;gs_ppend-real_qty&nbsp;TO&nbsp;Ls_pp_year-total_fix_qty.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;gs_ppend-wh_id&nbsp;=&nbsp;'0000002000'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;gs_ppend-real_qty&nbsp;TO&nbsp;Ls_pp_year-dom_qty.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ADD&nbsp;gs_ppend-real_qty&nbsp;TO&nbsp;Ls_pp_year-int_qty.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ls_pp_year-dom_per&nbsp;=&nbsp;(&nbsp;Ls_pp_year-dom_qty&nbsp;/&nbsp;Ls_pp_year-total_fix_qty&nbsp;)&nbsp;*&nbsp;100&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ls_pp_year-int_per&nbsp;=&nbsp;(&nbsp;Ls_pp_year-int_qty&nbsp;/&nbsp;Ls_pp_year-total_fix_qty&nbsp;)&nbsp;*&nbsp;100&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;LT_pp_year&nbsp;FROM&nbsp;Ls_pp_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TRANSPORTING&nbsp;dom_per&nbsp;int_per&nbsp;dom_qty&nbsp;int_qty&nbsp;total_fix_qty<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;sku_id&nbsp;=&nbsp;Ls_pp_year-sku_id&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;Ls_pp_year.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+SORT LT_pp_year BY erdat(6) ASCENDING sku_id ASCENDING erdat+6(2) ASCENDING  .<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_pp_year&nbsp;INTO&nbsp;Ls_pp_year.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_ym&nbsp;&nbsp;=&nbsp;Ls_pp_year-erdat(6).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_sku&nbsp;=&nbsp;Ls_pp_year-sku_id.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;&nbsp;lv_ym&nbsp;&lt;&gt;&nbsp;lv_ym_last.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_ym_last&nbsp;=&nbsp;lv_ym.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_month&nbsp;USING&nbsp;lv_ym<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;''<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ls_pp_year<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;lv_month_key.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;lv_sku_last.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;lv_sku&nbsp;&lt;&gt;&nbsp;lv_sku_last.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_sku_last&nbsp;=&nbsp;lv_sku.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_sku_line&nbsp;USING&nbsp;Ls_pp_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_month_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;lv_sku_key.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_complete_line&nbsp;USING&nbsp;Ls_pp_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_sku_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;lv_last_key.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;add_month<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LV_YM<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;LV_MONTH_KEY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM add_month  USING    pv_ym TYPE c<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_relat_key&nbsp;TYPE&nbsp;lvc_nkey<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_PP_YEAR&nbsp;TYPE&nbsp;ZSC_PP_YEAR<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;pv_node_key&nbsp;TYPE&nbsp;&nbsp;lvc_nkey.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_node_text&nbsp;TYPE&nbsp;lvc_value,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_PP_YEAR&nbsp;TYPE&nbsp;ZSC_PP_YEAR,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_month(15)&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;PERFORM&nbsp;get_month&nbsp;USING&nbsp;pv_ym<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;lv_month.<br />
+<br />
+<br />
+<br />
+ls_pp_year-int_unit = 'EA'.<br />
+ls_pp_year-dom_unit = 'EA'.<br />
+<br />
+&nbsp;&nbsp;lv_node_text&nbsp;=&nbsp;lv_month.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;add_node<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relat_node_key&nbsp;=&nbsp;pv_relat_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relationship&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;relat_last_child<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_outtab_line&nbsp;&nbsp;&nbsp;=&nbsp;Ls_pp_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_node_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_node_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_new_node_key&nbsp;&nbsp;&nbsp;=&nbsp;pv_node_key.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_MONTH<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;PV_YM<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;LV_MONTH<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_month  USING    pv_ym<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;pv_month.<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lv_month_digit(2)&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;lv_month_digit&nbsp;=&nbsp;pv_ym+4(2).<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;lv_month_digit.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'1월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'02'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'2월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'03'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'3월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'04'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'4월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'05'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'5월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'06'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'6월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'07'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'7월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'08'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'8월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'09'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'9월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'10월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'11'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'11월'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_month&nbsp;=&nbsp;'12월'.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;CONCATENATE&nbsp;pv_ym+0(4)&nbsp;'년-'&nbsp;pv_month&nbsp;INTO&nbsp;pv_month.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;add_sku_line<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;Ls_pp_year<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LV_MONTH_KEY<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;LV_SKU_KEY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM add_sku_line  USING    ps_pp_year TYPE zsc_pp_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_RELAT_KEY&nbsp;TYPE&nbsp;LVC_NKEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;pv_sku_key.<br />
+<br />
+DATA : LV_NODE_TEXT TYPE lvc_value,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_PP_YEAR&nbsp;TYPE&nbsp;zsc_pp_year.<br />
+<br />
+lv_node_text = Ps_pp_year-sku_id.<br />
+<br />
+<br />
+CALL METHOD g_alv_tree-&gt;add_node<br />
+&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;i_relat_node_key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_relat_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;i_relationship&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;relat_last_child<br />
+&nbsp;&nbsp;&nbsp;&nbsp;is_outtab_line&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Ps_pp_year<br />
+&nbsp;&nbsp;&nbsp;&nbsp;i_node_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_node_text<br />
+&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;e_new_node_key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_sku_key<br />
+.<br />
+<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;add_complete_line<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;Ls_pp_year<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LV_SKU_KEY<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;LV_LAST_KEY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM add_complete_line  USING    ps_pp_year TYPE ZSC_PP_YEAR<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_sku_key&nbsp;TYPE&nbsp;LVC_NKEY<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;pv_last_key&nbsp;TYPE&nbsp;LVC_NKEY.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;LV_NODE_TEXT&nbsp;TYPE&nbsp;lvc_value.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;ps_pp_year-ERDAT&nbsp;TO&nbsp;lv_node_text&nbsp;MM/DD/YYYY.<br />
+<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;add_node<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relat_node_key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_sku_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relationship&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;relat_last_child<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_outtab_line&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;ps_pp_year<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_node_layout&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_node_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lv_node_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_new_node_key&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_last_key<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;relat_node_not_found&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node_not_found&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;others&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+<br />
+<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

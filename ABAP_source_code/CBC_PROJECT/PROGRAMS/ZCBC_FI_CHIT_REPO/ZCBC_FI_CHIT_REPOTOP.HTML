@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZCBC_FI_CHIT_REPOTOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZCBC_FI_CHIT_REPOTOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCBC_FI_CHIT_REPOTOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ztc_fi_chit_h, ztc_fi_chit_i.<br />
+<br />
+CONTROLS: my_tab TYPE TABSTRIP.<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본&nbsp;ALV&nbsp;변수<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA : go_con_chith TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv_chith&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layoh&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_layo,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcath&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_fcat,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_con_chiti&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv_chiti&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layoi&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_s_layo,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcati&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;lvc_t_fcat.<br />
+<br />
+DATA : go_con_doch TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv_doch&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid,<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_con_doci&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv_doci&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+<br />
+DATA: gt_fcat_doch  TYPE lvc_t_fcat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_fcat_doci&nbsp;TYPE&nbsp;lvc_t_fcat.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;주요&nbsp;인터널&nbsp;테이블&nbsp;변수<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA : gs_chiti TYPE ztc_fi_chit_i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_chiti&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;gs_chiti,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_chith&nbsp;TYPE&nbsp;&nbsp;ztc_fi_chit_h,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_chith&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;gs_chith.<br />
+<br />
+<br />
+DATA : BEGIN OF gs_disph .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="ztc_fi_chit_h/dictionary-ztc_fi_chit_h.html">ztc_fi_chit_h</a>.<br />
+DATA :   chit_tp_name TYPE ztc_fi_chit_tp-chit_tp_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ername&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_md_emp-name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_md_emp-name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_disph.<br />
+DATA :gt_disph LIKE TABLE OF gs_disph.<br />
+<br />
+DATA : BEGIN OF  gs_dispi .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="ztc_fi_chit_i/dictionary-ztc_fi_chit_i.html">ztc_fi_chit_i</a>.<br />
+DATA :   post_key_name(15) TYPE c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_for_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_md_bp-bp_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;right_acc_name&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_md_coa-acc_name,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ebit_display(20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;credit_display(20)&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;c,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ername&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_md_emp-name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;aename&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_md_emp-name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;gs_dispi.<br />
+DATA : gt_dispi LIKE TABLE OF gs_dispi.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기반&nbsp;데이터&nbsp;인터널&nbsp;테이블&nbsp;변수<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA : gt_bp  TYPE TABLE OF ztc_md_bp,<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_sku&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_sku,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_msrp&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_msrp,<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_odr&nbsp;&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_ord,<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_emp&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_emp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_ctp&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_fi_chit_tp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_coa&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_coa<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_dept&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_dept.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;기본&nbsp;변수<br />
+**********************************************************************<br />
+   </div>
+   <div class="code">
+DATA : ok_code  TYPE sy-ucomm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_dynnr&nbsp;TYPE&nbsp;sy-dynnr.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;필드&nbsp;심벌<br />
+**********************************************************************<br />
+<br />
+   </div>
+   <div class="code">
+DATA: gr_data    TYPE REF TO data,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lr_data&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;data,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_tabname&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gr_table&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;data.<br />
+DATA : lv_htabname TYPE string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_itabname&nbsp;TYPE&nbsp;string,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_bp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;string.<br />
+<br />
+FIELD-SYMBOLS: &lt;fs_table&gt;  TYPE ANY TABLE,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;fs_struth&gt;&nbsp;TYPE&nbsp;any,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;fs_struti&gt;&nbsp;TYPE&nbsp;any,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;fs_bp&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;any,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;fs_sku&gt;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;any.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;셀렉션&nbsp;스크린<br />
+*--------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+SELECTION-SCREEN BEGIN OF SCREEN 1100 AS SUBSCREEN.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;blk1&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PARAMETERS&nbsp;pa_year&nbsp;TYPE&nbsp;ztc_fi_chit_h-fi_year&nbsp;OBLIGATORY&nbsp;&nbsp;DEFAULT&nbsp;sy-datum(4)&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_chit&nbsp;FOR&nbsp;gs_chith-chit_doc_num&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_post&nbsp;FOR&nbsp;gs_chith-post_day&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_prf&nbsp;FOR&nbsp;gs_chith-prf_day&nbsp;NO-EXTENSION.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;blk1&nbsp;.<br />
+SELECTION-SCREEN END OF SCREEN 1100.<br />
+<br />
+SELECTION-SCREEN BEGIN OF SCREEN 1200 AS SUBSCREEN.<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;BEGIN&nbsp;OF&nbsp;BLOCK&nbsp;blk2&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_bp&nbsp;FOR&nbsp;gs_chiti-bp_for&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_cocen&nbsp;FOR&nbsp;gs_chith-co_cen&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_chtp&nbsp;FOR&nbsp;gs_chith-chit_type&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_doc&nbsp;FOR&nbsp;gs_chith-doc_num&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+<br />
+&nbsp;&nbsp;SELECTION-SCREEN&nbsp;END&nbsp;OF&nbsp;BLOCK&nbsp;blk2&nbsp;.<br />
+SELECTION-SCREEN END OF SCREEN 1200.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

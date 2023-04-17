@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>LZFG_MD_ORDLISTTOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: LZFG_MD_ORDLISTTOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&nbsp;regenerated&nbsp;at&nbsp;2023.04.08&nbsp;19:10:37<br />
+   </div>
+   <div class="code">
+FUNCTION-POOL ZFG_MD_ORDLIST             MESSAGE-ID SV.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;INCLUDE&nbsp;LZFG_MD_ORDLISTD...&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;Local&nbsp;class&nbsp;definition<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ztc_mm_i,ztc_pp_i.<br />
+<br />
+DATA : gt_chiti TYPE TABLE OF ztc_fi_chit_i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_chiti,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_chith&nbsp;TYPE&nbsp;ztc_fi_chit_h.<br />
+<br />
+DATA : gv_cost TYPE zsc_pro_cost-pp_price.<br />
+<br />
+DATA : gv_doc TYPE ztc_md_ord_list-ord_doc_num.<br />
+<br />
+DATA : gt_saf TYPE TABLE OF ztc_pp_i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_saf&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_saf,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_safh&nbsp;TYPE&nbsp;ztc_pp_h,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_bac&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_sd_rtn_ord,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_bac&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_bac,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_delh&nbsp;TYPE&nbsp;&nbsp;ztc_wm_out_h,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_deli&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_wm_out_i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_deli&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_deli,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_ordh&nbsp;TYPE&nbsp;ztc_sd_ord_h,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_ordi&nbsp;TYPE&nbsp;ztc_sd_ord_i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_ordi&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;gs_ordi,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_msrp&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_md_msrp,<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_buy&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;ztc_mm_i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_buy&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_buy,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_BUYH&nbsp;TYPE&nbsp;ztc_MM_h.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CONSTANTS&nbsp;cv_company&nbsp;TYPE&nbsp;ztc_md_bp-bp_id&nbsp;VALUE&nbsp;'1010000000'.<br />
+&nbsp;&nbsp;INCLUDE&nbsp;LSVIMDAT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;"general&nbsp;data&nbsp;decl.<br />
+&nbsp;&nbsp;INCLUDE&nbsp;LZFG_MD_ORDLISTT00&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.&nbsp;"view&nbsp;rel.&nbsp;data&nbsp;dcl.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZFMC_FI_BP_LIMIT</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for function ZFMC_FI_BP_LIMIT</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="code">
+FUNCTION zfmc_fi_bp_limit.<br />
+   </div>
+   <div class="codeComment">
+*"----------------------------------------------------------------------<br />
+*"*"Local Interface:<br />
+*"  TABLES<br />
+*"      SHLP_TAB TYPE  SHLP_DESCT<br />
+*"      RECORD_TAB STRUCTURE  SEAHLPRES<br />
+*"  CHANGING<br />
+*"     REFERENCE(SHLP) TYPE  SHLP_DESCR<br />
+*"     REFERENCE(CALLCONTROL) TYPE  DDSHF4CTRL<br />
+*"----------------------------------------------------------------------<br />
+
+<div class="codeComment">*       <a href ="global-zfmc_fi_bp_limit.html">Global data declarations</a></div><br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;BEGIN&nbsp;OF&nbsp;ls_bp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_id&nbsp;&nbsp;&nbsp;TYPE&nbsp;&nbsp;zec_bp_id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_name&nbsp;TYPE&nbsp;&nbsp;zec_bp_nm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_type&nbsp;&nbsp;TYPE&nbsp;zec_bp_type,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;END&nbsp;OF&nbsp;ls_bp.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lt_bp&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ls_bp&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lt_bp_tmp&nbsp;LIKE&nbsp;TABLE&nbsp;OF&nbsp;ls_bp&nbsp;WITH&nbsp;HEADER&nbsp;LINE.<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;ls_shlp_tab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;shlp_desct,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_shlp_fielddescr&nbsp;TYPE&nbsp;LINE&nbsp;OF&nbsp;shlp_descr-fielddescr,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_shlp_interface&nbsp;&nbsp;TYPE&nbsp;LINE&nbsp;OF&nbsp;shlp_descr-interface,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_shlp_selopt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;LINE&nbsp;OF&nbsp;shlp_descr-selopt.<br />
+DATA : lv_lines TYPE i.<br />
+<br />
+IF  callcontrol-step = 'SELECT'.<br />
+&nbsp;&nbsp;&nbsp;SELECT&nbsp;bp_id&nbsp;bp_name&nbsp;bp_type<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;into&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_bp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from&nbsp;ztc_md_bp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;where&nbsp;bp_type&nbsp;&lt;&gt;&nbsp;'S'&nbsp;and<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;del_flag&nbsp;eq&nbsp;space&nbsp;.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'F4UT_RESULTS_MAP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;APPLY_RESTRICTIONS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shlp_tab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;shlp_tab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;record_tab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;record_tab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;source_tab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lt_bp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shlp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;shlp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callcontrol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;callcontrol<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ILLEGAL_STRUCTURE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'F4UT_OPTIMIZE_COLWIDTH'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shlp_tab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;shlp_tab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;record_tab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;record_tab<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;shlp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;shlp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;callcontrol&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;callcontrol.<br />
+<br />
+DESCRIBE TABLE record_tab lines lv_lines.<br />
+&nbsp;IF&nbsp;lv_lines&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;&nbsp;callcontrol-step&nbsp;=&nbsp;'RETURN'.<br />
+&nbsp;&nbsp;&nbsp;else.<br />
+&nbsp;&nbsp;&nbsp;callcontrol-step&nbsp;=&nbsp;'DISP'.<br />
+&nbsp;ENDIF.<br />
+<br />
+<br />
+<br />
+ENDIF.<br />
+<br />
+&nbsp;&nbsp;endfunction.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+* Message class: AM<br />
+*287   주소를 유지보수할 수 없습니다. 테이블 TSADRV의 엔트리가 누락되었습니다.<br />
+*290   TSADRV에 엔트리가 누락되었습니다.신규 주소 유지보수를 호출할 수 없습니다.<br />
+*291   TSADRV에 엔트리가 누락되었습니다.신규 주소 유지보수를 호출할 수 없습니다.<br />
+*298   주소 그룹 &을(를) 정의하지 않았습니다. 주소의 삭제 플래그가 불가능합니다.<br />
+*<br />
+* Message class: EC<br />
+*089   내부 오류: 화면데이타를 읽을 수 없습니다<br />
+*<br />
+* Message class: Hard coded<br />
+*   문서번호 생성에 실패하였습니다.<br />
+*<br />
+* Message class: SCPR<br />
+*026   테이블너비가 너무 크기 때문에, 처리할 수 없습니다.<br />
+*028   관련뷰는 테이블 TVDIR &에 엔트리가 없습니다<br />
+*035   Dictionary 인터페이스의 내부 실패: SAP 통지<br />
+*<br />
+* Message class: SV<br />
+*001   선택한 기능을 지원하지 않습니다<br />
+*002   검색된 엔트리 수: &<br />
+*004   선택 기준에 맞는 엔트리가 없습니다.<br />
+*005   하나의 엔트리만 선택했습니다.<br />
+*006   선택한 엔트리 수: &<br />
+*007   이전 엔트리가 없습니다.<br />
+*008   다음 엔트리가 없습니다.<br />
+*009   동일한 키를 가진 엔트리가 이미 있습니다.<br />
+*010   현재 키가 있는 엔트리에 삭제표시를 했습니다<br />
+*011   삭제한 엔트리 수: &<br />
+*012   변경한 엔트리 수: &<br />
+*013   엔트리가 삭제되었습니다.<br />
+*014   복사된 엔트리수: &<br />
+*015   대상키는 원시키와 달라야 합니다<br />
+*016   재설정한 엔트리 수: &<br />
+*017   엔트리를 재설정했습니다<br />
+*018   데이터를 저장했습니다.<br />
+*019   허용된 네임스페이스에서 키를 선택하십시오.<br />
+*024   대상엔트리를 지정하십시오<br />
+*025   대상 엔트리를 지정하십시오.<br />
+*026   기능을 수행하기 전에 엔트리를 선택하십시오.<br />
+*028   DDIC에 테이블 &가(이) 없습니다<br />
+*032   알맞은 엔트리에 커서를 놓으십시오<br />
+*033   작업영역내에서 키를 지정하십시오<br />
+*037   &에 대한 유지보수 다이얼로그를 완료하지 않거나 정의하지 않았습니다<br />
+*039   테이블 &에 관련 필드가 없습니다<br />
+*040   & 엔트리 재설정.&원본과 &신규엔트리는 여전히 표시되어 있습니다.<br />
+*041   & 엔트리를 재설정했습니다. & 원본 엔트리는 여전히 표시되고 있습니다.<br />
+*042   & 엔트리 재설정, & 신규 엔트리는 아직 표시되어 있습니다<br />
+*043   데이터가 이미 저장되었습니다.<br />
+*044   읽기 접근만 가능합니다.<br />
+*045   시작일은 종료일보다 이전이어야 합니다.<br />
+*046   종료일은 시작일보다 나중이어야 합니다.<br />
+*047   중첩레코드를 삭제하거나 한계를 결정합니다<br />
+*049   & 사용자가 데이터를 잠갔습니다(조회 전용).<br />
+*050   시스템 오류: 테이블/뷰 &을(를) 잠글 수 없습니다<br />
+*051   데이터를 변경할 권한이 없습니다(조회만 가능).<br />
+*053   요청한 데이터에 대한 조회 권한이 없습니다.<br />
+*054   현재 클라이언트 &에서 데이타 유지보수를 허용하지 않았습니다<br />
+*055   오브젝트 &의 주소를 찾지 못했습니다<br />
+*056   이 기능을 선택하기 전에 하나 이상의 엔트리를 선택하십시오.<br />
+*057   선택한 엔트리는 신규이고, 원상태가 아닙니다.<br />
+*058   선택한 엔트리는 신규이고, 원상태가 아닙니다.<br />
+*059   선택한 엔트리는 원상태입니다<br />
+*060   선택한 엔트리는 원상태입니다<br />
+*061   & 엔트리는 원상태이고, & 신규 엔트리는 원상태가 아닙니다.<br />
+*065   엔트리가 없습니다. 설명을 보려면 더블클릭하십시오.<br />
+*066   블럭끝을 선택하십시오.<br />
+*084   조회할 수 있는 값이 없습니다.<br />
+*092   변경 태스크 &을(를) 처리중입니다<br />
+*095   변경 태스크 &을(를) 변경할 때 시스템 오류가 발생했습니다<br />
+*096   태스크 &을(를) 변경했습니다<br />
+*098   & 태스크의 엔트리에 포함 표시를 했습니다.<br />
+*099   엔트리에 태스크 &의 삭제 플래그가 표시되어 있습니다<br />
+*105   & 엔트리에 태스크 &의 포함 플래그가 표시되어 있습니다<br />
+*106   & 엔트리에 태스크 &에 대한 삭제 플래그가 표시되어 있습니다<br />
+*107   엔트리는 이미 태스크 &에 있습니다<br />
+*108   & 엔트리는 이미 태스크 &에 있습니다<br />
+*109   & 엔트리를 포함하고, & 엔트리에 포함되어 있습니다: &<br />
+*110   엔트리는 태스크 &에 없습니다<br />
+*111   & 엔트리는 삭제했고, & 엔트리는 포함하고 있지 않습니다: &<br />
+*112   & 엔트리는 태스크 &에 없습니다<br />
+*113   엔트리를 검색할 수 없습니다<br />
+*114   & 엔트리를 검색할 수 없습니다<br />
+*115   엔트리를 삭제할 수 없습니다<br />
+*116   & 엔트리를 삭제할 수 없습니다.<br />
+*117   어떤 변경도 수행하지 마십시오(SAP 엔트리).<br />
+*120   필요한 경우 다른 엔트리를 가져와서 수정합니다.<br />
+*121   삭제한 엔트리는 복구 및 변경됩니다<br />
+*122   엔트리의 한계를 결정했습니다<br />
+*123   보호된 엔트리 수: &<br />
+*124   구분된 엔트리를 처리하십시오.<br />
+*125   구분된 엔트리를 처리하십시오.<br />
+*127   유효 영역의 한계를 결정하십시오.<br />
+*128   전송 클래스 &에 대한 전송이 불가능합니다.<br />
+*129   다양한 태스크와 관련된 오브젝트입니다<br />
+*130   클라이언트 &는(은) 로컬이고, 전송은 불가능합니다<br />
+*132   태스크 &1, 사용자 &2에 대해 잠긴 오브젝트입니다(조회만 가능).<br />
+*134   오브젝트 정의에 불일치가 있습니다(조회만 가능).<br />
+*136   변경중 주의하십시오. 엔트리는 고객 엔트리입니다.<br />
+*138   유지보수 오브젝트 &1을(를) 점검하거나 함수 그룹 &2을(를) 업데이트합니다.<br />
+*139   비교 중에 주소 데이터가 전송되지 않습니다.<br />
+*140   &1개의 엔트리가 삭제되었으며 &2개의 엔트리가 추가되었습니다.<br />
+*141   엔트리가 변경 요청에 개별적으로 추가되지 않았습니다.<br />
+*142   지정한 데이타에 대한 전송이 불가능합니다<br />
+*153   언어를 선택하지 않았습니다<br />
+*160   설치된 시스템 코드 페이지에서 다른 언어는 허용되지 않습니다.<br />
+*161   서식이름에 커서를 놓으십시오<br />
+*162   오브젝트 &1 &2 &3을(를) 요청에 지정할 수 없습니다<br />
+*164   테이블/뷰 &1가(이) Dictionary에 없습니다<br />
+*173   &1 기능 그룹이 일치하지 않습니다.<br />
+*174   키 필드가 아닌 필드의 작업 영역에 값을 입력하십시오.<br />
+*175   선택한 BC 세트 기능은 지원되지 않습니다.<br />
+*177   데이터 레코드에는 BC 세트의 고정 값이 있으므로 이를 삭제할 수 없습니다.<br />
+*183   중앙 Customizing Distribution 시스템에 원격 접근 중 오류가 발생했습니다.<br />
+*184   데이터 레코드에는 BC 세트의 고정 값이 있으므로 이를 변경할 수 없습니다.<br />
+*193   DB 저장이 롤백되었습니다.<br />
+*202   고정 BC 세트값을 가진 필드를 변경할 권한이 없습니다<br />
+*306   테이블/뷰 &는(은) 활성 상태가 아닙니다.<br />
+*413   선택엔트리 &을(를) 삭제할 수 없습니다<br />
+*538   뷰 클러스터에서 드롭다운 리스트가 지원되지 않습니다.<br />
+*757   해당 테이블키에 대한 유지보수권한이 없습니다<br />
+*763   조회한 데이타레코드에 대한 유지보수권한이 없습니다<br />
+*764   데이터 레코드 선택이 변경되었습니다.<br />
+*766   데이터세트의 조회가 제한되었습니다.<br />
+*808   테이블의 전체열을 리스트에서 조회할 수 없습니다<br />
+*810   &1 뷰의 길이가 1000자를 초과합니다.<br />
+*818   &2개의 비즈니스 구성 세트 엔트리 중 &1개가 임포트되었습니다.<br />
+*819   비즈니스 구성 세트를 임포트했습니다.<br />
+*830   최종 선택된 엔트리 입니다<br />
+*831   최초 선택된 엔트리입니다<br />
+*863   복사한 엔트리 수(번역 포함): &<br />
+*<br />
+* Message class: TB<br />
+*109   클라이언트 간 테이블에 대한 유지보수 권한이 없습니다(도움말 참조).<br />
+*<br />
+* Message class: TK<br />
+*430   클라이언트 &1는(은) 상태 '수정 불가능'에 있습니다<br />
+*729   저장소오브젝트의 변경사항을 현재 클라이언트에서 허용하지 않습니다<br />
+*730   저장소나 클라이언트간 커스터마이징에 대한 변경사항을 허용하지 않습니다<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,721 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZCBC_PP_EXAM</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZCBC_PP_EXAM</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZCBC_PP_EXAM<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZCBC_PP_EXAM.<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_sflight&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;qmsm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_sflight&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;lt_sflight,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_yyyymm&nbsp;TYPE&nbsp;qmsm-qmnum,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"year&nbsp;and&nbsp;month&nbsp;of&nbsp;sflight-fldate<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_yyyymm_last&nbsp;TYPE&nbsp;qmsm-qmnum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carrid&nbsp;LIKE&nbsp;qmsm-qmnum,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carrid_last&nbsp;LIKE&nbsp;qmsm-qmnum.<br />
+<br />
+DATA: gt_pp_year TYPE TABLE OF zsc_pp_year,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_pp_year&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_pp_year.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;§1a.&nbsp;Define&nbsp;reference&nbsp;variables<br />
+   </div>
+   <div class="code">
+&nbsp;DATA:&nbsp;g_alv_tree&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_tree,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_custom_container&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_custom_container.<br />
+<br />
+DATA: gt_sflight      TYPE qmsm OCCURS 0,      "Output-Table<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ok_code&nbsp;LIKE&nbsp;sy-ucomm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;save_ok&nbsp;LIKE&nbsp;sy-ucomm,&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"OK-Code<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;g_max&nbsp;TYPE&nbsp;i&nbsp;VALUE&nbsp;255.<br />
+<br />
+END-OF-SELECTION.<br />
+<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;SCREEN&nbsp;100.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;PBO&nbsp;&nbsp;OUTPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process&nbsp;before&nbsp;output<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;MODULE&nbsp;pbo&nbsp;OUTPUT.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PF-STATUS&nbsp;'MAIN100'.<br />
+&nbsp;&nbsp;&nbsp;SET&nbsp;TITLEBAR&nbsp;'MAINTITLE'.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;g_alv_tree&nbsp;IS&nbsp;INITIAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;init_tree.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;cl_gui_cfw=&gt;flush<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_system_error&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;NE&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'POPUP_TO_INFORM'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;titel&nbsp;=&nbsp;'Automation&nbsp;Queue&nbsp;failure'(801)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txt1&nbsp;&nbsp;=&nbsp;'Internal&nbsp;error:'(802)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txt2&nbsp;&nbsp;=&nbsp;'A&nbsp;method&nbsp;in&nbsp;the&nbsp;automation&nbsp;queue'(803)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txt3&nbsp;&nbsp;=&nbsp;'caused&nbsp;a&nbsp;failure.'(804).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDMODULE.                             " PBO  OUTPUT<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Module&nbsp;&nbsp;PAI&nbsp;&nbsp;INPUT<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;process&nbsp;after&nbsp;input<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;MODULE&nbsp;pai&nbsp;INPUT.<br />
+&nbsp;&nbsp;&nbsp;save_ok&nbsp;=&nbsp;ok_code.<br />
+&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ok_code.<br />
+<br />
+&nbsp;&nbsp;CASE&nbsp;save_ok.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'EXIT'&nbsp;OR&nbsp;'BACK'&nbsp;OR&nbsp;'CANC'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;exit_program.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;§6.&nbsp;Call&nbsp;dispatch&nbsp;to&nbsp;process&nbsp;toolbar&nbsp;functions<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;cl_gui_cfw=&gt;dispatch.<br />
+<br />
+&nbsp;&nbsp;ENDCASE.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;cl_gui_cfw=&gt;flush.<br />
+&nbsp;ENDMODULE.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;PAI&nbsp;&nbsp;INPUT<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;init_tree<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;init_tree.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;§1b.&nbsp;Create&nbsp;ALV&nbsp;Tree&nbsp;Control&nbsp;and&nbsp;corresponding&nbsp;Container.<br />
+<br />
+*&nbsp;create&nbsp;container&nbsp;for&nbsp;alv-tree<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;DATA:&nbsp;l_tree_container_name(30)&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;l_tree_container_name&nbsp;=&nbsp;'CCONTAINER1'.<br />
+<br />
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;g_custom_container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;container_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_tree_container_name<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_system_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifetime_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifetime_dynpro_dynpro_link&nbsp;=&nbsp;5.<br />
+&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;x208(00)&nbsp;WITH&nbsp;'ERROR'(100).<br />
+&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;create&nbsp;tree&nbsp;control<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;g_alv_tree<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;parent&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;g_custom_container<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;node_selection_mode&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;node_sel_mode_single<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;item_selection&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no_html_header&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'X'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no_toolbar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;''<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cntl_system_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lifetime_error&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;illegal_node_selection_mode&nbsp;=&nbsp;5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;failed&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;illegal_column_name&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;7.<br />
+&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;x208(00)&nbsp;WITH&nbsp;'ERROR'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"#EC&nbsp;NOTEXT<br />
+&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;§2.&nbsp;Create&nbsp;Hierarchy-header<br />
+*&nbsp;The&nbsp;simple&nbsp;ALV&nbsp;Tree&nbsp;uses&nbsp;the&nbsp;text&nbsp;of&nbsp;the&nbsp;fields&nbsp;which&nbsp;were&nbsp;used<br />
+*&nbsp;for&nbsp;sorting&nbsp;to&nbsp;define&nbsp;this&nbsp;header.&nbsp;When&nbsp;you&nbsp;use<br />
+*&nbsp;the&nbsp;'normal'&nbsp;ALV&nbsp;Tree&nbsp;the&nbsp;hierarchy&nbsp;is&nbsp;build&nbsp;up&nbsp;freely<br />
+*&nbsp;by&nbsp;the&nbsp;programmer&nbsp;this&nbsp;is&nbsp;not&nbsp;possible,&nbsp;so&nbsp;he&nbsp;has&nbsp;to&nbsp;define&nbsp;it<br />
+*&nbsp;himself.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;DATA&nbsp;l_hierarchy_header&nbsp;TYPE&nbsp;treev_hhdr.<br />
+&nbsp;&nbsp;&nbsp;PERFORM&nbsp;build_hierarchy_header&nbsp;CHANGING&nbsp;l_hierarchy_header.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;§3.&nbsp;Create&nbsp;empty&nbsp;Tree&nbsp;Control<br />
+*&nbsp;IMPORTANT:&nbsp;Table&nbsp;'gt_sflight'&nbsp;must&nbsp;be&nbsp;empty.&nbsp;Do&nbsp;not&nbsp;change&nbsp;this&nbsp;table<br />
+*&nbsp;(even&nbsp;after&nbsp;this&nbsp;method&nbsp;call).&nbsp;You&nbsp;can&nbsp;change&nbsp;data&nbsp;of&nbsp;your&nbsp;table<br />
+*&nbsp;by&nbsp;calling&nbsp;methods&nbsp;of&nbsp;CL_GUI_ALV_TREE.<br />
+*&nbsp;Furthermore,&nbsp;the&nbsp;output&nbsp;table&nbsp;'gt_outtab'&nbsp;must&nbsp;be&nbsp;global&nbsp;and&nbsp;can<br />
+*&nbsp;only&nbsp;be&nbsp;used&nbsp;for&nbsp;one&nbsp;ALV&nbsp;Tree&nbsp;Control.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;set_table_for_first_display<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_structure_name&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZSC_PP_YEAR'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_hierarchy_header&nbsp;=&nbsp;l_hierarchy_header<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;it_outtab&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gt_pp_year.&nbsp;"table&nbsp;must&nbsp;be&nbsp;empty&nbsp;!<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;§4.&nbsp;Create&nbsp;hierarchy&nbsp;(nodes&nbsp;and&nbsp;leaves)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;PERFORM&nbsp;create_hierarchy.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;§5.&nbsp;Send&nbsp;data&nbsp;to&nbsp;frontend.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;frontend_update.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;wait&nbsp;for&nbsp;automatic&nbsp;flush&nbsp;at&nbsp;end&nbsp;of&nbsp;pbo<br />
+   </div>
+   <div class="code">
+&nbsp;ENDFORM.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;init_tree<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;build_hierarchy_header<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;build&nbsp;hierarchy-header-information<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_L_HIERARCHY_HEADER&nbsp;&nbsp;strucxture&nbsp;for&nbsp;hierarchy-header<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;build_hierarchy_header&nbsp;CHANGING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_hierarchy_header&nbsp;TYPE&nbsp;treev_hhdr.<br />
+<br />
+&nbsp;&nbsp;p_hierarchy_header-heading&nbsp;=&nbsp;'Notification'(300).<br />
+&nbsp;&nbsp;&nbsp;p_hierarchy_header-tooltip&nbsp;=&nbsp;'number'(400).<br />
+&nbsp;&nbsp;&nbsp;p_hierarchy_header-width&nbsp;=&nbsp;40.<br />
+&nbsp;&nbsp;&nbsp;p_hierarchy_header-width_pix&nbsp;=&nbsp;'&nbsp;'.<br />
+<br />
+ENDFORM.                               " build_hierarchy_header<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;exit_program<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;free&nbsp;object&nbsp;and&nbsp;leave&nbsp;program<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;exit_program.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_custom_container-&gt;free.<br />
+&nbsp;&nbsp;&nbsp;LEAVE&nbsp;PROGRAM.<br />
+<br />
+ENDFORM.                               " exit_program<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;create_hierarchy<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;create_hierarchy.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_month_key&nbsp;TYPE&nbsp;lvc_nkey,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_monthkey&nbsp;TYPE&nbsp;lvc_nkey,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carrid_key&nbsp;TYPE&nbsp;lvc_nkey,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carridkey&nbsp;TYPE&nbsp;lvc_nkey,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_last_key&nbsp;TYPE&nbsp;lvc_nkey,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_lastkey&nbsp;TYPE&nbsp;lvc_nkey.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;lt_qmma&nbsp;TYPE&nbsp;STANDARD&nbsp;TABLE&nbsp;OF&nbsp;qmma&nbsp;,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_qmma&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;lt_qmma.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;§4a.&nbsp;Select&nbsp;data<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_sflight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;qmsm."WHERE&nbsp;qmnum&nbsp;=&nbsp;'000200000006&nbsp;'.&nbsp;"UP&nbsp;TO&nbsp;g_max&nbsp;ROWS.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;SORT&nbsp;lt_sflight&nbsp;BY&nbsp;qmnum&nbsp;.<br />
+*&nbsp;Note:&nbsp;The&nbsp;top&nbsp;level&nbsp;nodes&nbsp;do&nbsp;not&nbsp;correspond&nbsp;to&nbsp;a&nbsp;field&nbsp;of&nbsp;the<br />
+*&nbsp;output&nbsp;table.&nbsp;Instead&nbsp;we&nbsp;use&nbsp;data&nbsp;of&nbsp;the&nbsp;table&nbsp;to&nbsp;invent&nbsp;another<br />
+*&nbsp;hierarchy&nbsp;level&nbsp;above&nbsp;the&nbsp;levels&nbsp;that&nbsp;can&nbsp;be&nbsp;build&nbsp;by&nbsp;sorting.<br />
+<br />
+*&nbsp;§4c.&nbsp;Add&nbsp;data&nbsp;to&nbsp;tree<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_sflight&nbsp;INTO&nbsp;ls_sflight.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Prerequesite:&nbsp;The&nbsp;table&nbsp;is&nbsp;sorted.<br />
+*&nbsp;You&nbsp;add&nbsp;a&nbsp;node&nbsp;everytime&nbsp;the&nbsp;values&nbsp;of&nbsp;a&nbsp;sorted&nbsp;field&nbsp;changes.<br />
+*&nbsp;Finally,&nbsp;the&nbsp;complete&nbsp;line&nbsp;is&nbsp;added&nbsp;as&nbsp;a&nbsp;leaf&nbsp;below&nbsp;the&nbsp;last<br />
+*&nbsp;node.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_yyyymm&nbsp;=&nbsp;ls_sflight-qmnum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carrid&nbsp;=&nbsp;ls_sflight-qmnum."ls_sflight-mncod.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Top&nbsp;level&nbsp;nodes:<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;l_yyyymm&nbsp;&lt;&gt;&nbsp;l_yyyymm_last.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"on&nbsp;change&nbsp;of&nbsp;l_yyyymm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_yyyymm_last&nbsp;=&nbsp;l_yyyymm.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*Providing&nbsp;no&nbsp;key&nbsp;means&nbsp;that&nbsp;the&nbsp;node&nbsp;is&nbsp;added&nbsp;on&nbsp;top&nbsp;level:<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_month&nbsp;USING&nbsp;l_yyyymm&nbsp;ls_sflight&nbsp;space<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;l_month_key.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;The&nbsp;month&nbsp;changed,&nbsp;thus,&nbsp;there&nbsp;is&nbsp;no&nbsp;predecessor&nbsp;carrier<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;l_carrid_last.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Carrier&nbsp;nodes:<br />
+*&nbsp;(always&nbsp;inserted&nbsp;as&nbsp;child&nbsp;of&nbsp;the&nbsp;last&nbsp;month<br />
+*&nbsp;&nbsp;which&nbsp;is&nbsp;identified&nbsp;by&nbsp;'l_month_key')<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;l_carrid&nbsp;&lt;&gt;&nbsp;l_carrid_last.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"on&nbsp;change&nbsp;of&nbsp;l_carrid<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carrid_last&nbsp;=&nbsp;l_carrid.<br />
+   </div>
+   <div class="codeComment">
+*Folder&nbsp;Task<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_carrid_line&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;ls_sflight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_month_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;l_carrid_key.<br />
+   </div>
+   <div class="codeComment">
+*Folder&nbsp;Activity<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carrid_last&nbsp;=&nbsp;l_carrid.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_carridline&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_sflight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_month_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;l_carridkey.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**&nbsp;Leaf:<br />
+**&nbsp;(always&nbsp;inserted&nbsp;as&nbsp;child&nbsp;of&nbsp;the&nbsp;last&nbsp;carrier<br />
+**&nbsp;&nbsp;which&nbsp;is&nbsp;identified&nbsp;by&nbsp;'l_carrid_key')<br />
+*Folder&nbsp;Task&nbsp;Item<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_complete_line&nbsp;USING&nbsp;&nbsp;ls_sflight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carrid_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;l_last_key.<br />
+   </div>
+   <div class="codeComment">
+*Folder&nbsp;Activity&nbsp;Item<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ON&nbsp;CHANGE&nbsp;OF&nbsp;ls_sflight-qmnum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SELECT&nbsp;*&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;TABLE&nbsp;lt_qmma&nbsp;FROM&nbsp;qmma&nbsp;WHERE&nbsp;qmnum&nbsp;=&nbsp;ls_sflight-qmnum.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;lt_qmma&nbsp;INTO&nbsp;ls_qmma.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;add_completeline&nbsp;USING&nbsp;&nbsp;ls_qmma<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_carridkey<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;&nbsp;&nbsp;l_lastkey.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDON.<br />
+&nbsp;&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+ENDFORM.                               " create_hierarchy<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;add_month<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;add_month&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_yyyymm&nbsp;TYPE&nbsp;qmnum<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_flight&nbsp;&nbsp;TYPE&nbsp;qmsm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_relat_key&nbsp;TYPE&nbsp;lvc_nkey<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;p_node_key&nbsp;TYPE&nbsp;lvc_nkey.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_node_text&nbsp;TYPE&nbsp;lvc_value,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_sflight&nbsp;TYPE&nbsp;qmsm,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;l_month(15)&nbsp;TYPE&nbsp;c.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"output&nbsp;string&nbsp;for&nbsp;month<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;get&nbsp;month&nbsp;name&nbsp;for&nbsp;node&nbsp;text<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;PERFORM&nbsp;get_month&nbsp;USING&nbsp;p_yyyymm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;l_month.<br />
+&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'Notification'&nbsp;'-&gt;'&nbsp;p_yyyymm&nbsp;INTO&nbsp;l_node_text&nbsp;.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;add&nbsp;node:<br />
+*&nbsp;ALV&nbsp;Tree&nbsp;firstly&nbsp;inserts&nbsp;this&nbsp;node&nbsp;as&nbsp;a&nbsp;leaf&nbsp;if&nbsp;you&nbsp;do&nbsp;not&nbsp;provide<br />
+*&nbsp;IS_NODE_LAYOUT&nbsp;with&nbsp;field&nbsp;ISFOLDER&nbsp;set.&nbsp;In&nbsp;form&nbsp;'add_carrid_line'<br />
+*&nbsp;the&nbsp;leaf&nbsp;gets&nbsp;a&nbsp;child&nbsp;and&nbsp;thus&nbsp;ALV&nbsp;converts&nbsp;it&nbsp;to&nbsp;a&nbsp;folder<br />
+*&nbsp;automatically.<br />
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;add_node<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relat_node_key&nbsp;=&nbsp;p_relat_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relationship&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;relat_last_child<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_node_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_node_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_outtab_line&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;p_flight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_new_node_key&nbsp;&nbsp;&nbsp;=&nbsp;p_node_key.<br />
+<br />
+ENDFORM.                               " add_month<br />
+   </div>
+   <div class="codeComment">
+*--------------------------------------------------------------------<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;add_carrid_line&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ps_sflight&nbsp;TYPE&nbsp;qmsm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_relat_key&nbsp;TYPE&nbsp;lvc_nkey<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;p_node_key&nbsp;TYPE&nbsp;lvc_nkey.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_node_text&nbsp;TYPE&nbsp;lvc_value,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_sflight&nbsp;TYPE&nbsp;qmsm.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;add&nbsp;node<br />
+*&nbsp;ALV&nbsp;Tree&nbsp;firstly&nbsp;inserts&nbsp;this&nbsp;node&nbsp;as&nbsp;a&nbsp;leaf&nbsp;if&nbsp;you&nbsp;do&nbsp;not&nbsp;provide<br />
+*&nbsp;IS_NODE_LAYOUT&nbsp;with&nbsp;field&nbsp;ISFOLDER&nbsp;set.&nbsp;In&nbsp;form&nbsp;'add_carrid_line'<br />
+*&nbsp;the&nbsp;leaf&nbsp;gets&nbsp;a&nbsp;child&nbsp;and&nbsp;thus&nbsp;ALV&nbsp;converts&nbsp;it&nbsp;to&nbsp;a&nbsp;folder<br />
+*&nbsp;automatically.<br />
+*<br />
+*&nbsp;&nbsp;l_node_text&nbsp;=&nbsp;&nbsp;ps_sflight-mncod.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'Task'&nbsp;''&nbsp;INTO&nbsp;l_node_text.<br />
+&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;add_node<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relat_node_key&nbsp;=&nbsp;p_relat_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relationship&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;relat_last_child<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_node_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_node_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_outtab_line&nbsp;&nbsp;&nbsp;=&nbsp;ls_sflight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_new_node_key&nbsp;&nbsp;&nbsp;=&nbsp;p_node_key.<br />
+<br />
+ENDFORM.                               " add_carrid_line<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;add_carridline<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;PS_SFLIGHT&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_RELAT_KEY&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_NODE_KEY&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;add_carridline&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ps_sflight&nbsp;TYPE&nbsp;qmsm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_relat_key&nbsp;TYPE&nbsp;lvc_nkey<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;p_node_key&nbsp;TYPE&nbsp;lvc_nkey.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_node_text&nbsp;TYPE&nbsp;lvc_value,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_sflight&nbsp;TYPE&nbsp;qmsm.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;add&nbsp;node<br />
+*&nbsp;ALV&nbsp;Tree&nbsp;firstly&nbsp;inserts&nbsp;this&nbsp;node&nbsp;as&nbsp;a&nbsp;leaf&nbsp;if&nbsp;you&nbsp;do&nbsp;not&nbsp;provide<br />
+*&nbsp;IS_NODE_LAYOUT&nbsp;with&nbsp;field&nbsp;ISFOLDER&nbsp;set.&nbsp;In&nbsp;form&nbsp;'add_carrid_line'<br />
+*&nbsp;the&nbsp;leaf&nbsp;gets&nbsp;a&nbsp;child&nbsp;and&nbsp;thus&nbsp;ALV&nbsp;converts&nbsp;it&nbsp;to&nbsp;a&nbsp;folder<br />
+*&nbsp;automatically.<br />
+*<br />
+*&nbsp;&nbsp;l_node_text&nbsp;=&nbsp;&nbsp;ps_sflight-mncod.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;'Activity'&nbsp;''&nbsp;INTO&nbsp;l_node_text.<br />
+&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;add_node<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relat_node_key&nbsp;=&nbsp;p_relat_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relationship&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;relat_last_child<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_node_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_node_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_outtab_line&nbsp;&nbsp;&nbsp;=&nbsp;ls_sflight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_new_node_key&nbsp;&nbsp;&nbsp;=&nbsp;p_node_key.<br />
+<br />
+ENDFORM.                               " add_carrid_line<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;add_complete_line<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;add_completeline&nbsp;USING&nbsp;&nbsp;&nbsp;ps_sflight&nbsp;TYPE&nbsp;qmma<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_relat_key&nbsp;TYPE&nbsp;lvc_nkey<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;p_node_key&nbsp;TYPE&nbsp;lvc_nkey.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_node_text&nbsp;TYPE&nbsp;lvc_value.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;ps_sflight-manum&nbsp;TO&nbsp;l_node_text&nbsp;MM/DD/YYYY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;add&nbsp;leaf:<br />
+*&nbsp;ALV&nbsp;Tree&nbsp;firstly&nbsp;inserts&nbsp;this&nbsp;node&nbsp;as&nbsp;a&nbsp;leaf&nbsp;if&nbsp;you&nbsp;do&nbsp;not&nbsp;provide<br />
+*&nbsp;IS_NODE_LAYOUT&nbsp;with&nbsp;field&nbsp;ISFOLDER&nbsp;set.<br />
+*&nbsp;Since&nbsp;these&nbsp;nodes&nbsp;will&nbsp;never&nbsp;get&nbsp;children&nbsp;they&nbsp;stay&nbsp;leaves<br />
+*&nbsp;(as&nbsp;intended).<br />
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;add_node<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relat_node_key&nbsp;=&nbsp;p_relat_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relationship&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;relat_last_child<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_outtab_line&nbsp;&nbsp;&nbsp;=&nbsp;ps_sflight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_node_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_node_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_new_node_key&nbsp;&nbsp;&nbsp;=&nbsp;p_node_key.<br />
+<br />
+ENDFORM.                               " add_complete_line<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;add_complete_line<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;PS_SFLIGHT&nbsp;&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_RELAT_KEY&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_NODE_KEY&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;GET_MONTH<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_P_YYYYMM&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_L_MONTH&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;get_month&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;p_yyyymm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;p_month.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Returns&nbsp;the&nbsp;name&nbsp;of&nbsp;month&nbsp;according&nbsp;to&nbsp;the&nbsp;digits&nbsp;in&nbsp;p_yyyymm<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;DATA:&nbsp;l_monthdigits(2)&nbsp;TYPE&nbsp;c.<br />
+<br />
+&nbsp;&nbsp;l_monthdigits&nbsp;=&nbsp;p_yyyymm+4(2).<br />
+&nbsp;&nbsp;&nbsp;CASE&nbsp;l_monthdigits.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'01'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'January'(701).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'02'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'February'(702).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'03'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'March'(703).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'04'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'April'(704).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'05'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'May'(705).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'06'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'June'(706).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'07'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'July'(707).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'08'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'August'(708).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'09'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'September'(709).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'10'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'October'(710).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'11'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'November'(711).<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'12'.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_month&nbsp;=&nbsp;'December'(712).<br />
+&nbsp;&nbsp;&nbsp;ENDCASE.<br />
+&nbsp;&nbsp;&nbsp;CONCATENATE&nbsp;p_yyyymm+0(4)&nbsp;'-&gt;'&nbsp;p_month&nbsp;INTO&nbsp;p_month.<br />
+<br />
+ENDFORM.                               " GET_MONTH<br />
+   </div>
+   <div class="codeComment">
+*-----------------------------------------------------------------------<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Form&nbsp;&nbsp;ADD_COMPLETE_LINE<br />
+*&---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_LS_SFLIGHT&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;P_L_CARRID_KEY&nbsp;&nbsp;text<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--P_L_LAST_KEY&nbsp;&nbsp;text<br />
+*----------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+&nbsp;FORM&nbsp;add_complete_line&nbsp;USING&nbsp;&nbsp;&nbsp;ps_sflight&nbsp;TYPE&nbsp;qmsm<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;p_relat_key&nbsp;TYPE&nbsp;lvc_nkey<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;&nbsp;p_node_key&nbsp;TYPE&nbsp;lvc_nkey.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;l_node_text&nbsp;TYPE&nbsp;lvc_value.<br />
+<br />
+&nbsp;&nbsp;WRITE&nbsp;ps_sflight-mncod&nbsp;TO&nbsp;l_node_text&nbsp;MM/DD/YYYY.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;add&nbsp;leaf:<br />
+*&nbsp;ALV&nbsp;Tree&nbsp;firstly&nbsp;inserts&nbsp;this&nbsp;node&nbsp;as&nbsp;a&nbsp;leaf&nbsp;if&nbsp;you&nbsp;do&nbsp;not&nbsp;provide<br />
+*&nbsp;IS_NODE_LAYOUT&nbsp;with&nbsp;field&nbsp;ISFOLDER&nbsp;set.<br />
+*&nbsp;Since&nbsp;these&nbsp;nodes&nbsp;will&nbsp;never&nbsp;get&nbsp;children&nbsp;they&nbsp;stay&nbsp;leaves<br />
+*&nbsp;(as&nbsp;intended).<br />
+*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;g_alv_tree-&gt;add_node<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relat_node_key&nbsp;=&nbsp;p_relat_key<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_relationship&nbsp;&nbsp;&nbsp;=&nbsp;cl_gui_column_tree=&gt;relat_last_child<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;is_outtab_line&nbsp;&nbsp;&nbsp;=&nbsp;ps_sflight<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;i_node_text&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;l_node_text<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e_new_node_key&nbsp;&nbsp;&nbsp;=&nbsp;p_node_key.<br />
+<br />
+<br />
+ENDFORM.                    " ADD_COMPLETE_LINE<br />
+<br />
+   </div>
+   <div class="codeComment">
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;MAINTITLE&nbsp;--&gt;&nbsp;Rlqhs<br />
+<br />
+<br />
+*Messages<br />
+*----------------------------------------------------------<br />
+*<br />
+*&nbsp;Message&nbsp;class:&nbsp;00<br />
+*208&nbsp;&nbsp;&nbsp;&<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

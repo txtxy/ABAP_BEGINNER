@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZCBC_MD_DEPT_CRUDTOP</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZCBC_MD_DEPT_CRUDTOP</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Include&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCBC_MD_dept_CRUDTOP<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+TABLES : ztc_md_dept, ztc_md_dept_t.<br />
+<br />
+TYPES : BEGIN OF tt_dept.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;include&nbsp;structure&nbsp;<a&nbsp;href&nbsp;="ztc_md_dept/dictionary-ztc_md_dept.html">ztc_md_dept</a>.<br />
+TYPES :   dept_name TYPE ztc_md_dept_t-dept_name,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;langu&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_md_dept_t-langu.<br />
+TYPES : END OF tt_dept.<br />
+<br />
+<br />
+DATA : gt_data TYPE TABLE OF tt_dept,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_data&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_data,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_detp&nbsp;TYPE&nbsp;TABLE&nbsp;of&nbsp;ztc_md_dept,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dept&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_detp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gt_dept_t&nbsp;TYPE&nbsp;TABLE&nbsp;of&nbsp;ztc_md_dept_t,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_dept_t&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_dept_t.<br />
+<br />
+DATA : go_cont TYPE REF TO cl_gui_custom_container,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;go_alv&nbsp;&nbsp;TYPE&nbsp;REF&nbsp;TO&nbsp;cl_gui_alv_grid.<br />
+<br />
+DATA : ok_code TYPE sy-ucomm.<br />
+<br />
+DATA : gt_fcat TYPE lvc_t_fcat,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_layo&nbsp;TYPE&nbsp;lvc_s_layo.<br />
+<br />
+<br />
+DATA : gv_answer(1) TYPE c.<br />
+<br />
+<br />
+DATA: gv_row    TYPE i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_value&nbsp;&nbsp;TYPE&nbsp;c,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gv_col&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;i,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_row_id&nbsp;TYPE&nbsp;lvc_s_row,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_col_id&nbsp;TYPE&nbsp;lvc_s_col,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gs_row_no&nbsp;TYPE&nbsp;lvc_s_roid.<br />
+<br />
+DATA : gv_screen_mod TYPE I VALUE 1.<br />
+<br />
+DATA : gv_cnt TYPE i.<br />
+DATA: gv_mod(1) TYPE c.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK blk1 WITH FRAME TITLE TEXT-tit.<br />
+<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_id&nbsp;FOR&nbsp;ztc_md_dept-dept_id&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;SELECT-OPTIONS&nbsp;so_name&nbsp;FOR&nbsp;ztc_md_dept_t-dept_name&nbsp;NO&nbsp;INTERVALS&nbsp;NO-EXTENSION.<br />
+&nbsp;&nbsp;PARAMETERS&nbsp;:&nbsp;pa_del&nbsp;LIKE&nbsp;gs_data-del_flag&nbsp;AS&nbsp;CHECKBOX&nbsp;.<br />
+<br />
+SELECTION-SCREEN END OF BLOCK blk1 .<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

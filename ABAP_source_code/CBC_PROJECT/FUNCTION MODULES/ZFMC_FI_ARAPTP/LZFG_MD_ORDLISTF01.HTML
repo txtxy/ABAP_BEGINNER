@@ -1,0 +1,900 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>LZFG_MD_ORDLISTF01</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: LZFG_MD_ORDLISTF01</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*----------------------------------------------------------------------*<br />
+***INCLUDE&nbsp;LZFG_MD_ORDLISTF01.<br />
+*----------------------------------------------------------------------*<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_pp<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_pp.<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gv_cost,&nbsp;gs_chiti,GT_SAF,gs_saf,gt_chiti.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;gv_pp_doc&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_pp_h-pp_doc_num,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_msrp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_msrp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_proco_tmp&nbsp;TYPE&nbsp;zsc_pro_cost-pp_price,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_proco&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zsc_pro_cost-pp_price,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_sdord&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_sd_ord_h.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lv_cocen&nbsp;TYPE&nbsp;ztc_md_emp-dept_id.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ztc_pp_h<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_safh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;pp_doc_num&nbsp;&nbsp;=&nbsp;gv_doc.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ztc_pp_i<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_saf<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;&nbsp;pp_doc_num&nbsp;=&nbsp;gv_doc.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zfmc_co_procost/zfmc_co_procost.html">'ZFMC_CO_PROCOST'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_skuid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_saf-sku_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_batch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_saf-batch<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_product_cost&nbsp;=&nbsp;lv_proco_tmp.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_proco&nbsp;=&nbsp;lv_proco&nbsp;+&nbsp;(&nbsp;lv_proco_tmp&nbsp;*&nbsp;gs_saf-real_qty&nbsp;).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;TABLE&nbsp;gt_saf&nbsp;FROM&nbsp;gs_saf.<br />
+<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;dept_id&nbsp;FROM&nbsp;ztc_md_emp&nbsp;INTO&nbsp;lv_cocen&nbsp;WHERE&nbsp;emp_id&nbsp;=&nbsp;gs_safh-ernam.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제품&nbsp;재고&nbsp;및&nbsp;매출원가&nbsp;처리<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0010020105'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;제품<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;lv_proco&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;'&nbsp;제품'&nbsp;&&&nbsp;&nbsp;'&nbsp;재고&nbsp;인식&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0050010101'.&nbsp;&nbsp;&nbsp;"&nbsp;재료&nbsp;원가<br />
+&nbsp;&nbsp;gs_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;&nbsp;=&nbsp;&nbsp;lv_proco&nbsp;.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;'&nbsp;생산&nbsp;원가&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;&nbsp;gt_chiti&nbsp;INTO&nbsp;gs_chiti.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-chit_num&nbsp;=&nbsp;gs_chith-chit_doc_num.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_id&nbsp;=&nbsp;cv_company&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-ernam&nbsp;=&nbsp;gs_safh-ernam.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erdat&nbsp;=&nbsp;gs_safh-erdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erzet&nbsp;=&nbsp;gs_safh-erzet.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-fi_year&nbsp;=&nbsp;gs_safh-erdat(4).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ztc_fi_chit_i&nbsp;FROM&nbsp;gs_chiti&nbsp;.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_mm<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GV_DOC<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GT_BUY<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;--&nbsp;GS_BUY<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_mm.<br />
+<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gv_cost,&nbsp;gs_chiti.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ls_msrp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_msrp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_proco_tmp&nbsp;TYPE&nbsp;zsc_pro_cost-pp_price,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_proco&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zsc_pro_cost-pp_price.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lv_cocen&nbsp;TYPE&nbsp;ztc_md_emp-dept_id.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ztc_mm_h<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_buyh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;mm_doc_num&nbsp;&nbsp;=&nbsp;gv_doc.<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ztc_mm_i<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_buy<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;mm_doc_num&nbsp;=&nbsp;gv_doc.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_cost&nbsp;=&nbsp;gv_cost&nbsp;+&nbsp;(&nbsp;gs_buy-price&nbsp;*&nbsp;gs_buy-req_qty&nbsp;).<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;TABLE&nbsp;gt_buy&nbsp;FROM&nbsp;gs_buy.<br />
+<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;dept_id&nbsp;FROM&nbsp;ztc_md_emp&nbsp;INTO&nbsp;lv_cocen&nbsp;WHERE&nbsp;emp_id&nbsp;=&nbsp;gs_buyh-ernam.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제품&nbsp;재고&nbsp;및&nbsp;매출원가&nbsp;처리<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0050010102'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;재료비<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;gv_cost&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_deli-sku_id&nbsp;&&&nbsp;'&nbsp;자재&nbsp;'&nbsp;&&&nbsp;gs_buy-bp_id&nbsp;&&&nbsp;&nbsp;'&nbsp;출고&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0020010101'.&nbsp;&nbsp;&nbsp;"&nbsp;외상&nbsp;매입금<br />
+&nbsp;&nbsp;gs_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;&nbsp;=&nbsp;&nbsp;gv_cost&nbsp;.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_deli-sku_id&nbsp;&&&nbsp;'&nbsp;자재&nbsp;'&nbsp;&&&nbsp;gs_buy-bp_id&nbsp;&&&nbsp;&nbsp;'&nbsp;제품&nbsp;원가&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;&nbsp;gt_chiti&nbsp;INTO&nbsp;gs_chiti.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-chit_num&nbsp;=&nbsp;gs_chith-chit_doc_num.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_id&nbsp;=&nbsp;cv_company&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_for&nbsp;=&nbsp;gs_buy-bp_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-ernam&nbsp;=&nbsp;gs_buyh-ernam.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erdat&nbsp;=&nbsp;gs_buyh-erdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erzet&nbsp;=&nbsp;gs_buyh-erzet.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-fi_year&nbsp;=&nbsp;gs_buyh-erdat(4).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ztc_fi_chit_i&nbsp;FROM&nbsp;gs_chiti&nbsp;.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+   </div>
+   <div class="codeComment">
+**********************************************************************<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;매입&nbsp;확정&nbsp;후&nbsp;입고&nbsp;처리<br />
+**********************************************************************<br />
+*&nbsp;&nbsp;DATA&nbsp;:&nbsp;.<br />
+*&nbsp;CALL&nbsp;FUNCTION&nbsp;'RP_CALC_DATE_IN_INTERVAL'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;days&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;0<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;months&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_month<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signum&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'-'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;years&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;pv_year<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;calc_date&nbsp;=&nbsp;lv_date.<br />
+*<br />
+**메소드로&nbsp;특정&nbsp;일자부터&nbsp;3일&nbsp;후의&nbsp;날짜를&nbsp;구하거나,&nbsp;단순히&nbsp;+3일&nbsp;더해&nbsp;date_from,&nbsp;date_to&nbsp;구함<br />
+*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'HOLIDAY_GET'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;holiday_calendar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'KR'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factory_calendar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'KR'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_from&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_conf_h-v_start_day<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_to&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_conf_h-v_end_day<br />
+**&nbsp;IMPORTING<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR_OF_VALID_FROM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;YEAR_OF_VALID_TO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+**&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURNCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;holidays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;lt_holidays<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;factory_calendar_not_found&nbsp;=&nbsp;1<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;holiday_calendar_not_found&nbsp;=&nbsp;2<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_has_invalid_format&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;date_inconsistency&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5.<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+**&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+*<br />
+*<br />
+<br />
+   </div>
+   <div class="code">
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_del<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_del .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gv_cost,&nbsp;gs_chiti,gt_chiti,gs_delh,gs_ordh,gs_deli.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;gv_out_doc&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_wm_out_h-out_doc_num,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_msrp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_msrp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_proco_tmp&nbsp;TYPE&nbsp;zsc_pro_cost-pp_price,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_proco&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zsc_pro_cost-pp_price.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lv_cocen&nbsp;TYPE&nbsp;ztc_md_emp-dept_id.<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ztc_wm_out_h<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_delh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;out_doc_num&nbsp;&nbsp;=&nbsp;gv_doc.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ztc_sd_ord_h<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_ordh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ord_doc_num&nbsp;=&nbsp;gs_delh-ord_doc_num.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;&nbsp;*&nbsp;FROM&nbsp;ztc_wm_out_i<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;&nbsp;&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_deli<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;out_doc_num&nbsp;=&nbsp;gv_doc.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_msrp&nbsp;INTO&nbsp;ls_msrp&nbsp;WITH&nbsp;KEY&nbsp;sku_id&nbsp;=&nbsp;gs_deli-sku_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;batch&nbsp;=&nbsp;gs_deli-batch<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_id&nbsp;=&nbsp;gs_ordh-bp_id.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_cost&nbsp;=&nbsp;gv_cost&nbsp;+&nbsp;(&nbsp;ls_msrp-price&nbsp;*&nbsp;gs_deli-out_qty&nbsp;).<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zfmc_co_procost/zfmc_co_procost.html">'ZFMC_CO_PROCOST'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_skuid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_deli-sku_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_batch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_deli-batch<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_product_cost&nbsp;=&nbsp;lv_proco_tmp.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;lv_proco&nbsp;=&nbsp;lv_proco&nbsp;+&nbsp;(&nbsp;lv_proco_tmp&nbsp;*&nbsp;gs_deli-out_qty&nbsp;).<br />
+<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;dept_id&nbsp;FROM&nbsp;ztc_md_emp&nbsp;INTO&nbsp;lv_cocen&nbsp;WHERE&nbsp;emp_id&nbsp;=&nbsp;gs_delh-ernam.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;매출&nbsp;및&nbsp;매출외상금&nbsp;처리<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0040010101'.&nbsp;&nbsp;&nbsp;"&nbsp;제품&nbsp;매출&nbsp;수익<br />
+&nbsp;&nbsp;gs_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;&nbsp;gv_cost.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_deli-sku_id&nbsp;&&&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;gs_ordh-bp_id&nbsp;&&&nbsp;'&nbsp;업체&nbsp;매출&nbsp;수익'&nbsp;.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0010010105'.&nbsp;&nbsp;&nbsp;"&nbsp;외상매출금<br />
+<br />
+&nbsp;&nbsp;gs_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;=&nbsp;&nbsp;gv_cost.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_deli-sku_id&nbsp;&&&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;gs_ordh-bp_id&nbsp;&&&nbsp;'&nbsp;업체&nbsp;외상&nbsp;매출금'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제품&nbsp;재고&nbsp;및&nbsp;매출원가&nbsp;처리<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0010020105'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;제품<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;lv_proco&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_deli-sku_id&nbsp;&&&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;gs_ordh-bp_id&nbsp;&&&nbsp;&nbsp;'&nbsp;출고&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0050010101'.&nbsp;&nbsp;&nbsp;"&nbsp;재료&nbsp;원가<br />
+&nbsp;&nbsp;gs_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;&nbsp;=&nbsp;&nbsp;lv_proco&nbsp;.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_deli-sku_id&nbsp;&&&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;gs_ordh-bp_id&nbsp;&&&nbsp;&nbsp;'&nbsp;제품&nbsp;원가&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;&nbsp;gt_chiti&nbsp;INTO&nbsp;gs_chiti.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-chit_num&nbsp;=&nbsp;gs_chith-chit_doc_num.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_id&nbsp;=&nbsp;cv_company&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_for&nbsp;=&nbsp;gs_ordh-bp_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-ernam&nbsp;=&nbsp;gs_delh-ernam.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erdat&nbsp;=&nbsp;gs_delh-erdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erzet&nbsp;=&nbsp;gs_delh-erzet.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-fi_year&nbsp;=&nbsp;gs_delh-erdat(4).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ztc_fi_chit_i&nbsp;FROM&nbsp;gs_chiti&nbsp;.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_bac<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_bac .<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gv_cost,&nbsp;gs_chiti,gs_bac,gt_chiti.<br />
+&nbsp;&nbsp;DATA&nbsp;lv_cocen&nbsp;TYPE&nbsp;ztc_md_emp-dept_id.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ztc_sd_rtn_ord<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_bac<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;rtn_doc_num&nbsp;=&nbsp;gv_doc&nbsp;and<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status&nbsp;=&nbsp;3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"*<br />
+<br />
+IF gs_bac-currency = 'USD'.<br />
+gs_bac-currency = 'KRW'.<br />
+gs_bac-msrp = gs_bac-msrp * 10.<br />
+ENDIF.<br />
+<br />
+&nbsp;&nbsp;gv_cost&nbsp;=&nbsp;(&nbsp;gs_bac-msrp&nbsp;*&nbsp;gs_bac-real_qty&nbsp;)&nbsp;.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;dept_id&nbsp;FROM&nbsp;ztc_md_emp&nbsp;INTO&nbsp;lv_cocen&nbsp;WHERE&nbsp;emp_id&nbsp;=&nbsp;gs_bac-ernam.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;매출&nbsp;마이너스처리&nbsp;및&nbsp;매출외상금&nbsp;마이너스<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0040010101'.&nbsp;&nbsp;&nbsp;"&nbsp;제품&nbsp;매출&nbsp;수익<br />
+&nbsp;&nbsp;gs_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;-&nbsp;gv_cost.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_bac-sku_id&nbsp;&&&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;gs_bac-bp_id&nbsp;&&&nbsp;'&nbsp;업체&nbsp;반품&nbsp;매출&nbsp;반제'&nbsp;.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0010010105'.&nbsp;&nbsp;&nbsp;"&nbsp;외상매출금<br />
+&nbsp;&nbsp;gs_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;=&nbsp;-&nbsp;gv_cost.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_bac-sku_id&nbsp;&&&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;gs_bac-bp_id&nbsp;&&&nbsp;'&nbsp;업체&nbsp;반품&nbsp;수익&nbsp;반체'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제품&nbsp;재고&nbsp;상승&nbsp;및&nbsp;매출원가&nbsp;마이너스&nbsp;처리<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0010020105'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;제품<br />
+&nbsp;&nbsp;gs_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen&nbsp;.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zfmc_co_procost/zfmc_co_procost.html">'ZFMC_CO_PROCOST'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_skuid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_bac-sku_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_batch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_bac-batch<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_product_cost&nbsp;=&nbsp;gs_chiti-ebit_amt.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;(&nbsp;gs_chiti-ebit_amt&nbsp;*&nbsp;gs_bac-real_qty&nbsp;).<br />
+<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;-&nbsp;gs_chiti-ebit_amt&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_bac-sku_id&nbsp;&&&nbsp;'&nbsp;제고&nbsp;반재&nbsp;'&nbsp;&&&nbsp;gs_bac-bp_id&nbsp;&&&nbsp;'&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;4.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0050010101'.&nbsp;&nbsp;&nbsp;"&nbsp;재료&nbsp;원가<br />
+&nbsp;&nbsp;gs_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+<br />
+&nbsp;&nbsp;call&nbsp;function&nbsp;<a&nbsp;href&nbsp;="zfmc_co_procost/zfmc_co_procost.html">'ZFMC_CO_PROCOST'</a><br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_skuid&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_bac-sku_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;iv_batch&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;gs_bac-batch<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ev_product_cost&nbsp;=&nbsp;gs_chiti-cred_amt.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;=&nbsp;(&nbsp;gs_chiti-cred_amt&nbsp;*&nbsp;gs_bac-real_qty&nbsp;).<br />
+<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;=&nbsp;-&nbsp;gs_chiti-cred_amt&nbsp;.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_bac-sku_id&nbsp;&&&nbsp;'&nbsp;원가&nbsp;반제&nbsp;'&nbsp;&&&nbsp;gs_bac-bp_id&nbsp;&&&nbsp;'&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;&nbsp;gt_chiti&nbsp;INTO&nbsp;gs_chiti.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-chit_num&nbsp;=&nbsp;gs_chith-chit_doc_num.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_id&nbsp;=&nbsp;cv_company&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_for&nbsp;=&nbsp;gs_bac-bp_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-ernam&nbsp;=&nbsp;gs_bac-ernam.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erdat&nbsp;=&nbsp;gs_bac-erdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erzet&nbsp;=&nbsp;gs_bac-erzet.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-fi_year&nbsp;=&nbsp;gs_bac-erdat(4).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ztc_fi_chit_i&nbsp;FROM&nbsp;gs_chiti&nbsp;.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;GET_CHIT_HEADER<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_chit_header USING pv_doc_num<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;pv_chit_num.<br />
+<br />
+&nbsp;&nbsp;CONSTANTS&nbsp;:&nbsp;gv_comp&nbsp;TYPE&nbsp;ztc_md_bp-bp_id&nbsp;VALUE&nbsp;'1010000000'.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;gs_chith&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_fi_chit_h.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chith-brief&nbsp;=&nbsp;sy-datum(4)&nbsp;&&&nbsp;'년'&nbsp;&&&nbsp;sy-datum+4(2)&nbsp;&&&nbsp;'월'&nbsp;&&&nbsp;sy-datum+6(2)&nbsp;&&&nbsp;'일'&nbsp;&&<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'&nbsp;&nbsp;&nbsp;매입&nbsp;확정의&nbsp;건'.<br />
+<br />
+&nbsp;&nbsp;gs_chith-bp_id&nbsp;=&nbsp;gv_comp.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;FI-year<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chith-fi_year&nbsp;=&nbsp;sy-datum(4).<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;전표&nbsp;유형<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chith-chit_type&nbsp;=&nbsp;'KA'.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;원청문서<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chith-doc_num&nbsp;=&nbsp;pv_doc_num.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;작성&nbsp;정보<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;emp_id&nbsp;dept_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;(&nbsp;gs_chith-ernam,&nbsp;gs_chith-co_cen&nbsp;)<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FROM&nbsp;ztc_md_emp<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;login_id&nbsp;=&nbsp;sy-uname.<br />
+<br />
+&nbsp;&nbsp;gs_chith-erdat&nbsp;=&nbsp;sy-datum.<br />
+&nbsp;&nbsp;gs_chith-erzet&nbsp;=&nbsp;sy-timlo.<br />
+&nbsp;&nbsp;gs_chith-post_day&nbsp;=&nbsp;gs_chith-erdat.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;원청문서&nbsp;생성일<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chith-prf_day&nbsp;=&nbsp;gs_chith-erdat.<br />
+&nbsp;&nbsp;.<br />
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'NUMBER_GET_NEXT'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nr_range_nr&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'07'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;object&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZCBC_RANG'<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'1'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SUBOBJECT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TOYEAR&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;sy-datum(4)<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IGNORE_BUFFER&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'&nbsp;'<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;IMPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;Pv_chit_num<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;QUANTITY&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;RETURNCODE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval_not_found&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;number_range_not_intern&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;object_not_found&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quantity_is_0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;4<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;quantity_is_not_1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;5<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;interval_overflow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;6<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;buffer_overflow&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;7<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;8.<br />
+&nbsp;&nbsp;IF&nbsp;sy-subrc&nbsp;&lt;&gt;&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MESSAGE&nbsp;'문서번호&nbsp;생성에&nbsp;실패하였습니다.'&nbsp;TYPE&nbsp;'E'.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;gs_chith-chit_doc_num&nbsp;=&nbsp;Pv_chit_num.<br />
+<br />
+&nbsp;&nbsp;MODIFY&nbsp;ztc_fi_chit_h&nbsp;FROM&nbsp;gs_chith.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_chit_item<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LT_MM_BP<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;IV_DOC_NUM<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LV_CHIT_NUM<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_chit_item  TABLES   pt_mm_bp STRUCTURE ZTC_MM_I<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;&nbsp;&nbsp;&nbsp;pv_doc_num<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pv_chit_num.<br />
+<br />
+CLEAR : GV_COST.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;lv_cocen&nbsp;TYPE&nbsp;ztc_md_emp-dept_id,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PS_MM_BP&nbsp;TYPE&nbsp;ZTC_MM_I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GS_MM_H&nbsp;TYPE&nbsp;ZTC_MM_H,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_bp&nbsp;TYPE&nbsp;ztc_md_bp-bp_id.<br />
+<br />
+LOOP AT PT_MM_BP INTO ps_mm_bp.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_cost&nbsp;=&nbsp;gv_cost&nbsp;+&nbsp;(&nbsp;ps_mm_bp-price&nbsp;*&nbsp;ps_mm_bp-req_qty&nbsp;).<br />
+<br />
+lv_bp = ps_mm_bp-bp_id.<br />
+ENDLOOP.<br />
+<br />
+SELECT single * from ztc_mm_h into gs_mm_h where mm_doc_num = pv_doc_num.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;dept_id&nbsp;FROM&nbsp;ztc_md_emp&nbsp;INTO&nbsp;lv_cocen&nbsp;WHERE&nbsp;emp_id&nbsp;=&nbsp;gs_MM_H-ernam.<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;제품&nbsp;재고&nbsp;및&nbsp;매출원가&nbsp;처리<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;1.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0050010102'.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;재료비<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;gv_cost&nbsp;.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_deli-sku_id&nbsp;&&&nbsp;'&nbsp;자재&nbsp;'&nbsp;&&&nbsp;lv_bp&nbsp;&&&nbsp;&nbsp;'&nbsp;입고&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0020010101'.&nbsp;&nbsp;&nbsp;"&nbsp;외상&nbsp;매입금<br />
+&nbsp;&nbsp;gs_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;&nbsp;=&nbsp;&nbsp;gv_cost&nbsp;.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;gs_deli-sku_id&nbsp;&&&nbsp;'&nbsp;자재&nbsp;'&nbsp;&&&nbsp;lv_bp&nbsp;&&&nbsp;&nbsp;'&nbsp;제품&nbsp;원가&nbsp;'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;&nbsp;gt_chiti&nbsp;INTO&nbsp;gs_chiti.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-chit_num&nbsp;=&nbsp;pv_chit_num.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_id&nbsp;=&nbsp;cv_company&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_for&nbsp;=&nbsp;lv_bp.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-ernam&nbsp;=&nbsp;gs_mm_h-ernam.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erdat&nbsp;=&nbsp;gs_mm_h-erdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erzet&nbsp;=&nbsp;gs_mm_h-erzet.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-fi_year&nbsp;=&nbsp;gs_mm_h-erdat(4).<br />
+<br />
+MODIFY ztc_fi_Chit_i from gs_chiti.<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+clear :gs_chiti,gt_chiti.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;get_redeal<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM get_redeal .<br />
+<br />
+&nbsp;&nbsp;CLEAR&nbsp;:&nbsp;gv_cost,&nbsp;gs_chiti,gt_chiti.<br />
+&nbsp;&nbsp;DATA&nbsp;:&nbsp;gv_out_doc&nbsp;&nbsp;&nbsp;TYPE&nbsp;ztc_wm_out_h-out_doc_num,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ls_msrp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;gt_msrp,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_proco_tmp&nbsp;TYPE&nbsp;zsc_pro_cost-pp_price,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lv_proco&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;zsc_pro_cost-pp_price.<br />
+<br />
+&nbsp;&nbsp;DATA&nbsp;lv_cocen&nbsp;TYPE&nbsp;ztc_md_emp-dept_id.<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ztc_wm_out_h<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_delh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;out_doc_num&nbsp;&nbsp;=&nbsp;gv_doc.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ztc_sd_ord_h<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_ordh<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;ord_doc_num&nbsp;=&nbsp;gs_delh-ord_doc_num.<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;&nbsp;*&nbsp;FROM&nbsp;ztc_wm_out_i<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INTO&nbsp;&nbsp;&nbsp;CORRESPONDING&nbsp;FIELDS&nbsp;OF&nbsp;gs_deli<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHERE&nbsp;out_doc_num&nbsp;=&nbsp;gv_doc.<br />
+<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;gt_msrp&nbsp;INTO&nbsp;ls_msrp&nbsp;WITH&nbsp;KEY&nbsp;sku_id&nbsp;=&nbsp;gs_deli-sku_id<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;batch&nbsp;=&nbsp;gs_deli-batch<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bp_id&nbsp;=&nbsp;gs_ordh-bp_id.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gv_cost&nbsp;=&nbsp;gv_cost&nbsp;+&nbsp;(&nbsp;ls_msrp-price&nbsp;*&nbsp;gs_deli-out_qty&nbsp;).<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+<br />
+<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;dept_id&nbsp;FROM&nbsp;ztc_md_emp&nbsp;INTO&nbsp;lv_cocen&nbsp;WHERE&nbsp;emp_id&nbsp;=&nbsp;gs_delh-ernam.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;매출&nbsp;및&nbsp;매출외상금&nbsp;처리<br />
+<br />
+<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;1.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'D'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;차변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0040010101'.&nbsp;&nbsp;&nbsp;"&nbsp;제품&nbsp;매출&nbsp;수익<br />
+&nbsp;&nbsp;gs_chiti-ebit_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-ebit_amt&nbsp;=&nbsp;&nbsp;gv_cost.<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;lv_cocen.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;gs_ordh-bp_id&nbsp;&&&nbsp;'&nbsp;리사이클&nbsp;매출&nbsp;수익'&nbsp;.<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-line_num&nbsp;=&nbsp;2.<br />
+&nbsp;&nbsp;gs_chiti-post_key&nbsp;=&nbsp;'C'.&nbsp;&nbsp;&nbsp;&nbsp;"&nbsp;대변<br />
+&nbsp;&nbsp;gs_chiti-right_acc&nbsp;=&nbsp;'0010010105'.&nbsp;&nbsp;&nbsp;"&nbsp;외상매출금<br />
+<br />
+&nbsp;&nbsp;gs_chiti-cred_curr&nbsp;=&nbsp;'KRW'.<br />
+&nbsp;&nbsp;gs_chiti-cred_amt&nbsp;=&nbsp;&nbsp;gv_cost.<br />
+<br />
+&nbsp;&nbsp;gs_chiti-co_cen&nbsp;=&nbsp;&nbsp;lv_cocen.<br />
+<br />
+<br />
+&nbsp;&nbsp;gs_chiti-briefs&nbsp;=&nbsp;&nbsp;'&nbsp;제품&nbsp;'&nbsp;&&&nbsp;gs_ordh-bp_id&nbsp;&&&nbsp;'&nbsp;리사이클&nbsp;외상&nbsp;매출금'&nbsp;.<br />
+<br />
+<br />
+&nbsp;&nbsp;APPEND&nbsp;gs_chiti&nbsp;TO&nbsp;gt_chiti&nbsp;.<br />
+&nbsp;&nbsp;CLEAR&nbsp;gs_chiti.<br />
+<br />
+<br />
+<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;&nbsp;gt_chiti&nbsp;INTO&nbsp;gs_chiti.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-chit_num&nbsp;=&nbsp;gs_chith-chit_doc_num.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_id&nbsp;=&nbsp;cv_company&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-bp_for&nbsp;=&nbsp;gs_ordh-bp_id.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-ernam&nbsp;=&nbsp;gs_delh-ernam.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erdat&nbsp;=&nbsp;gs_delh-erdat.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-erzet&nbsp;=&nbsp;gs_delh-erzet.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;gs_chiti-fi_year&nbsp;=&nbsp;gs_delh-erdat(4).<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ztc_fi_chit_i&nbsp;FROM&nbsp;gs_chiti&nbsp;.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

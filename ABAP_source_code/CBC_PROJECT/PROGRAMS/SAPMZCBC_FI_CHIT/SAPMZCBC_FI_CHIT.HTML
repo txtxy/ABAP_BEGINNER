@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>SAPMZCBC_FI_CHIT</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: SAPMZCBC_FI_CHIT</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Module&nbsp;Pool&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ZCBC_FI_CHIT<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+<br />
+   </div>
+   <div class="code">
+INCLUDE SAPMZCBC_FI_CHITTOP.<br />
+INCLUDE SAPMZCBC_FI_CHITC01.<br />
+INCLUDE SAPMZCBC_FI_CHITO01.<br />
+INCLUDE SAPMZCBC_FI_CHITI01.<br />
+INCLUDE SAPMZCBC_FI_CHITF01.<br />
+<br />
+<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;-&nbsp;&nbsp;헤더에&nbsp;존재하는&nbsp;BP&nbsp;는&nbsp;우리&nbsp;회사&nbsp;BP임.<br />
+*&nbsp;-&nbsp;헤더의&nbsp;증빙문서의&nbsp;이름을&nbsp;원천문서로&nbsp;생성.<br />
+<br />
+*&nbsp;USD일&nbsp;경우&nbsp;기준&nbsp;환율에&nbsp;따라&nbsp;환전하여&nbsp;DB&nbsp;저장<br />
+*&nbsp;납품처&nbsp;BP&nbsp;리스트&nbsp;조회&nbsp;불가하도록&nbsp;수정<br />
+*&nbsp;오더목록&nbsp;삭제&nbsp;오더조회&nbsp;불가하도록&nbsp;수정<br />
+*&nbsp;거래처&nbsp;최초&nbsp;입력시&nbsp;고정되도록&nbsp;수정<br />
+<br />
+<br />
+<br />
+<br />
+*&nbsp;추가사항&nbsp;&nbsp;bp별로&nbsp;사용&nbsp;게정과목을&nbsp;넣을&nbsp;수&nbsp;있는&nbsp;테이블&nbsp;하나&nbsp;만들면&nbsp;좋다.<br />
+<br />
+<br />
+*BDC&nbsp;데이터&nbsp;업로드&nbsp;확인하고<br />
+*스프레드&nbsp;시트에&nbsp;확인할&nbsp;것.<br />
+*<br />
+*창고&nbsp;아이디로&nbsp;가져와라<br />
+*<br />
+*자재&nbsp;아이디&nbsp;가져올&nbsp;것<br />
+*<br />
+*에디<br />
+<br />
+*GUI&nbsp;Texts<br />
+*----------------------------------------------------------<br />
+*&nbsp;T100&nbsp;--&gt;&nbsp;전표&nbsp;헤더&nbsp;생성<br />
+*&nbsp;T200&nbsp;--&gt;&nbsp;전표&nbsp;아이템&nbsp;입력&nbsp;화면<br />
+*&nbsp;T300&nbsp;--&gt;&nbsp;원천문서&nbsp;조회&nbsp;화면<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

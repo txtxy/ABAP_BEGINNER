@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>ZCBC_TEMPLATE_EXCEL</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: ZCBC_TEMPLATE_EXCEL</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Report&nbsp;ZTEMPLATE_01<br />
+*&---------------------------------------------------------------------*<br />
+*&<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+REPORT ZCBC_TEMPLATE_EXCEL.<br />
+<br />
+TABLES: SSCRFIELDS.<br />
+<br />
+DATA: GO_APPLICATION TYPE OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_BOOKS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_WBOOK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_BOOK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_SHEETS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_SHEET&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CELLS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_CELL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_RANGE&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_FONT&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GO_ROW&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;OLE2_OBJECT,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_PATH&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;STRING,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GV_NUM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TYPE&nbsp;I.<br />
+<br />
+SELECTION-SCREEN BEGIN OF BLOCK BLK1 WITH FRAME.<br />
+&nbsp;&nbsp;PARAMETERS:&nbsp;PA_TABNM&nbsp;TYPE&nbsp;DD02T-TABNAME.<br />
+SELECTION-SCREEN END OF BLOCK BLK1.<br />
+<br />
+SELECTION-SCREEN FUNCTION KEY 1.<br />
+<br />
+INITIALIZATION.<br />
+&nbsp;&nbsp;SSCRFIELDS-FUNCTXT_01&nbsp;=&nbsp;'Template&nbsp;Download'.<br />
+<br />
+AT SELECTION-SCREEN.<br />
+&nbsp;&nbsp;CASE&nbsp;SSCRFIELDS-UCOMM.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;WHEN&nbsp;'FC01'.<br />
+<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DOWNLOAD_EXCEL.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;DOWNLOAD_EXCEL<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;--&gt;&nbsp;&nbsp;p1&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&&nbsp;&lt;--&nbsp;&nbsp;p2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DOWNLOAD_EXCEL .<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LT_TAB&nbsp;TYPE&nbsp;TABLE&nbsp;OF&nbsp;DFIES,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LS_TAB&nbsp;LIKE&nbsp;LINE&nbsp;OF&nbsp;LT_TAB.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_VISIBLE&nbsp;TYPE&nbsp;I,<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LV_INDEX&nbsp;&nbsp;&nbsp;TYPE&nbsp;SY-TABIX.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;테이블의&nbsp;필드&nbsp;취득<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;FUNCTION&nbsp;'DDIF_FIELDINFO_GET'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TABNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;PA_TABNM<br />
+&nbsp;&nbsp;&nbsp;&nbsp;TABLES<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DFIES_TAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;LT_TAB<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXCEPTIONS<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NOT_FOUND&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;1<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;INTERNAL_ERROR&nbsp;=&nbsp;2<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OTHERS&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;3.<br />
+<br />
+&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;Implement&nbsp;suitable&nbsp;error&nbsp;handling&nbsp;here<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;OLE&nbsp;OBJECT&nbsp;생성&nbsp;&&nbsp;실행<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CREATE&nbsp;OBJECT&nbsp;GO_APPLICATION&nbsp;'Excel.Application'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;화면&nbsp;DISPLAY&nbsp;설정&nbsp;(1을&nbsp;설정하면&nbsp;DISPLAY)<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_APPLICATION&nbsp;'Visible'&nbsp;=&nbsp;1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;WORKBOOK&nbsp;및&nbsp;WORKBOOK&nbsp;설정&nbsp;&&nbsp;OPEN<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_APPLICATION&nbsp;'Workbooks'&nbsp;=&nbsp;GO_WBOOK.<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_WBOOK&nbsp;'Add'.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;최초&nbsp;실행&nbsp;SHEET는&nbsp;첫번째<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_APPLICATION&nbsp;'Worksheets'&nbsp;=&nbsp;GO_SHEET<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1&nbsp;=&nbsp;1.<br />
+<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;Active&nbsp;Sheet<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;GO_SHEET&nbsp;'Activate'.<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;GO_SHEET&nbsp;'Name'&nbsp;=&nbsp;'Sheet1'.<br />
+<br />
+&nbsp;&nbsp;LOOP&nbsp;AT&nbsp;LT_TAB&nbsp;INTO&nbsp;LS_TAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;LV_INDEX&nbsp;=&nbsp;SY-TABIX.<br />
+   </div>
+   <div class="codeComment">
+*&nbsp;&nbsp;&nbsp;컬럼(셀)&nbsp;헤더&nbsp;데이터&nbsp;설정.<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;GO_APPLICATION&nbsp;1&nbsp;LV_INDEX&nbsp;LS_TAB-FIELDNAME.<br />
+<br />
+&nbsp;&nbsp;ENDLOOP.<br />
+<br />
+   </div>
+   <div class="codeComment">
+**&nbsp;Or.....<br />
+<br />
+*&nbsp;&nbsp;PERFORM&nbsp;FILL_CELL&nbsp;USING&nbsp;GO_APPLICATION&nbsp;01:&nbsp;01&nbsp;'사원번호',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;02&nbsp;'프로젝트&nbsp;ID',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;03&nbsp;'Module',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;04&nbsp;'투입월',<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;05&nbsp;'종료월'.<br />
+<br />
+*&nbsp;EXCEL&nbsp;과&nbsp;연결된&nbsp;Object들&nbsp;Release<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;FREE:&nbsp;GO_APPLICATION,&nbsp;GO_WBOOK,&nbsp;GO_SHEET.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;Form&nbsp;FILL_CELL<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;text<br />
+*&---------------------------------------------------------------------*<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;GO_APPLICATION<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;P_1<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LV_INDEX<br />
+*&&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;--&gt;&nbsp;LS_TAB_FIELDNAME<br />
+*&---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM FILL_CELL  USING    PV_APPLICATION<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_COL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PV_VALUE.<br />
+<br />
+&nbsp;&nbsp;DATA:&nbsp;LV_ECELL&nbsp;TYPE&nbsp;OLE2_OBJECT.<br />
+<br />
+&nbsp;&nbsp;CALL&nbsp;METHOD&nbsp;OF&nbsp;PV_APPLICATION&nbsp;'Cells'&nbsp;=&nbsp;LV_ECELL<br />
+&nbsp;&nbsp;&nbsp;&nbsp;EXPORTING<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#1&nbsp;=&nbsp;PV_ROW<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#2&nbsp;=&nbsp;PV_COL.<br />
+<br />
+&nbsp;&nbsp;SET&nbsp;PROPERTY&nbsp;OF&nbsp;LV_ECELL&nbsp;'Value'&nbsp;=&nbsp;PV_VALUE.<br />
+<br />
+ENDFORM.<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>

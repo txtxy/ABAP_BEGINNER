@@ -1,0 +1,490 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8" />
+<title>LZFG_MD_ORDLISTF00</title>
+<style type="text/css">
+.code{ font-family:"Courier New", Courier, monospace; color:#000; font-size:14px; background-color:#F2F4F7 }
+  .codeComment {font-family:"Courier New", Courier, monospace; color:#0000F0; font-size:14px; background-color:#F2F4F7 }
+  .normalBold{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; font-weight:800 }
+  .normalBoldLarge{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+</style>
+<style type="text/css">
+  .normal{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px }
+  .footer{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:12px; text-align: center }
+  h2{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:16px; font-weight:800 }
+  h3{ font-family:Arial, Helvetica, sans-serif; color:#000; font-size:14px; font-weight:800 }
+  .outerTable{
+   background-color:#E0E7ED;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-right-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+  .innerTable{
+   background-color:#F2F4F7;
+   width:100%;
+   border-top-width: thin;
+   border-right-width: thin;
+   border-bottom-width: thin;
+   border-left-width: thin;
+   border-top-style: solid;
+   border-right-style: solid;
+   border-bottom-style: solid;
+   border-left-style: solid;
+  }
+</style>
+</head>
+<body>
+<table class="outerTable">
+  <tr class="normalBoldLarge">
+     <td><h2>Code listing for: LZFG_MD_ORDLISTF00</h2>
+<h3> Description: </h3></td>
+   </tr>
+  <tr>
+     <td>
+     <table class="innerTable">
+       <tr>
+          <td>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*&nbsp;&nbsp;&nbsp;&nbsp;view&nbsp;related&nbsp;FORM&nbsp;routines<br />
+*&nbsp;&nbsp;&nbsp;generation&nbsp;date:&nbsp;2023.04.12&nbsp;at&nbsp;10:19:36<br />
+*&nbsp;&nbsp;&nbsp;view&nbsp;maintenance&nbsp;generator&nbsp;version:&nbsp;#001407#<br />
+*---------------------------------------------------------------------*<br />
+*...processing:&nbsp;ZVC_MD_BP_MT....................................*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA_ZVC_MD_BP_MT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;VIM_FILL_WHERETAB.<br />
+   </div>
+   <div class="codeComment">
+*.read&nbsp;data&nbsp;from&nbsp;database.............................................*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;REFRESH&nbsp;TOTAL.<br />
+&nbsp;&nbsp;CLEAR&nbsp;&nbsp;&nbsp;TOTAL.<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZTC_MD_BP&nbsp;WHERE<br />
+(VIM_WHERETAB) .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ZVC_MD_BP_MT&nbsp;.<br />
+ZVC_MD_BP_MT-MANDT =<br />
+ZTC_MD_BP-MANDT .<br />
+ZVC_MD_BP_MT-BP_ID =<br />
+ZTC_MD_BP-BP_ID .<br />
+ZVC_MD_BP_MT-BP_NAME =<br />
+ZTC_MD_BP-BP_NAME .<br />
+ZVC_MD_BP_MT-BP_NUM =<br />
+ZTC_MD_BP-BP_NUM .<br />
+ZVC_MD_BP_MT-BP_CEO =<br />
+ZTC_MD_BP-BP_CEO .<br />
+ZVC_MD_BP_MT-POST_CODE =<br />
+ZTC_MD_BP-POST_CODE .<br />
+ZVC_MD_BP_MT-ADDRESS =<br />
+ZTC_MD_BP-ADDRESS .<br />
+ZVC_MD_BP_MT-BANK =<br />
+ZTC_MD_BP-BANK .<br />
+ZVC_MD_BP_MT-ACCOUNT =<br />
+ZTC_MD_BP-ACCOUNT .<br />
+ZVC_MD_BP_MT-MANAGER_NAME =<br />
+ZTC_MD_BP-MANAGER_NAME .<br />
+ZVC_MD_BP_MT-TELEPHONE =<br />
+ZTC_MD_BP-TELEPHONE .<br />
+ZVC_MD_BP_MT-EMAIL =<br />
+ZTC_MD_BP-EMAIL .<br />
+ZVC_MD_BP_MT-COUNTRY =<br />
+ZTC_MD_BP-COUNTRY .<br />
+ZVC_MD_BP_MT-CURRENCY =<br />
+ZTC_MD_BP-CURRENCY .<br />
+ZVC_MD_BP_MT-BP_TYPE =<br />
+ZTC_MD_BP-BP_TYPE .<br />
+ZVC_MD_BP_MT-DEL_FLAG =<br />
+ZTC_MD_BP-DEL_FLAG .<br />
+&lt;VIM_TOTAL_STRUC&gt; = ZVC_MD_BP_MT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;TOTAL.<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+&nbsp;&nbsp;SORT&nbsp;TOTAL&nbsp;BY&nbsp;&lt;VIM_XTOTAL_KEY&gt;.<br />
+&nbsp;&nbsp;&lt;STATUS&gt;-ALR_SORTED&nbsp;=&nbsp;'R'.<br />
+   </div>
+   <div class="codeComment">
+*.check&nbsp;dynamic&nbsp;selectoptions&nbsp;(not&nbsp;in&nbsp;DDIC)...........................*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;X_HEADER-SELECTION&nbsp;NE&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_DYNAMIC_SELECT_OPTIONS.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;X_HEADER-DELMDTFLAG&nbsp;NE&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;BUILD_MAINKEY_TAB.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;REFRESH&nbsp;EXTRACT.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DB_UPD_ZVC_MD_BP_MT .<br />
+   </div>
+   <div class="codeComment">
+*.process&nbsp;data&nbsp;base&nbsp;updates/inserts/deletes.........................*<br />
+   </div>
+   <div class="code">
+LOOP AT TOTAL.<br />
+&nbsp;&nbsp;CHECK&nbsp;&lt;ACTION&gt;&nbsp;NE&nbsp;ORIGINAL.<br />
+MOVE &lt;VIM_TOTAL_STRUC&gt; TO ZVC_MD_BP_MT.<br />
+&nbsp;&nbsp;IF&nbsp;&lt;ACTION&gt;&nbsp;=&nbsp;UPDATE_GELOESCHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ACTION&gt;&nbsp;=&nbsp;GELOESCHT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;CASE&nbsp;&lt;ACTION&gt;.<br />
+&nbsp;&nbsp;&nbsp;WHEN&nbsp;NEUER_GELOESCHT.<br />
+IF STATUS_ZVC_MD_BP_MT-ST_DELETE EQ GELOESCHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;EXTRACT&nbsp;WITH&nbsp;KEY&nbsp;&lt;VIM_XTOTAL_KEY&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;EXTRACT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;TOTAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;X_HEADER-DELMDTFLAG&nbsp;NE&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DELETE_FROM_MAINKEY_TAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;WHEN&nbsp;GELOESCHT.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;FOR&nbsp;UPDATE&nbsp;*&nbsp;FROM&nbsp;ZTC_MD_BP&nbsp;WHERE<br />
+&nbsp;&nbsp;BP_ID&nbsp;=&nbsp;ZVC_MD_BP_MT-BP_ID&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;ZTC_MD_BP&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;STATUS-DELETE&nbsp;EQ&nbsp;GELOESCHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;EXTRACT&nbsp;WITH&nbsp;KEY&nbsp;&lt;VIM_XTOTAL_KEY&gt;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;EXTRACT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;TOTAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;X_HEADER-DELMDTFLAG&nbsp;NE&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DELETE_FROM_MAINKEY_TAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;FOR&nbsp;UPDATE&nbsp;*&nbsp;FROM&nbsp;ZTC_MD_BP&nbsp;WHERE<br />
+&nbsp;&nbsp;BP_ID&nbsp;=&nbsp;ZVC_MD_BP_MT-BP_ID&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.&nbsp;&nbsp;&nbsp;"insert&nbsp;preprocessing:&nbsp;init&nbsp;WA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ZTC_MD_BP.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+ZTC_MD_BP-MANDT =<br />
+ZVC_MD_BP_MT-MANDT .<br />
+ZTC_MD_BP-BP_ID =<br />
+ZVC_MD_BP_MT-BP_ID .<br />
+ZTC_MD_BP-BP_NAME =<br />
+ZVC_MD_BP_MT-BP_NAME .<br />
+ZTC_MD_BP-BP_NUM =<br />
+ZVC_MD_BP_MT-BP_NUM .<br />
+ZTC_MD_BP-BP_CEO =<br />
+ZVC_MD_BP_MT-BP_CEO .<br />
+ZTC_MD_BP-POST_CODE =<br />
+ZVC_MD_BP_MT-POST_CODE .<br />
+ZTC_MD_BP-ADDRESS =<br />
+ZVC_MD_BP_MT-ADDRESS .<br />
+ZTC_MD_BP-BANK =<br />
+ZVC_MD_BP_MT-BANK .<br />
+ZTC_MD_BP-ACCOUNT =<br />
+ZVC_MD_BP_MT-ACCOUNT .<br />
+ZTC_MD_BP-MANAGER_NAME =<br />
+ZVC_MD_BP_MT-MANAGER_NAME .<br />
+ZTC_MD_BP-TELEPHONE =<br />
+ZVC_MD_BP_MT-TELEPHONE .<br />
+ZTC_MD_BP-EMAIL =<br />
+ZVC_MD_BP_MT-EMAIL .<br />
+ZTC_MD_BP-COUNTRY =<br />
+ZVC_MD_BP_MT-COUNTRY .<br />
+ZTC_MD_BP-CURRENCY =<br />
+ZVC_MD_BP_MT-CURRENCY .<br />
+ZTC_MD_BP-BP_TYPE =<br />
+ZVC_MD_BP_MT-BP_TYPE .<br />
+ZTC_MD_BP-DEL_FLAG =<br />
+ZVC_MD_BP_MT-DEL_FLAG .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;ZTC_MD_BP&nbsp;##WARN_OK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZTC_MD_BP&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;EXTRACT&nbsp;WITH&nbsp;KEY&nbsp;&lt;VIM_XTOTAL_KEY&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;XACT&gt;&nbsp;=&nbsp;ORIGINAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;EXTRACT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ACTION&gt;&nbsp;=&nbsp;ORIGINAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;TOTAL.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDLOOP.<br />
+CLEAR: STATUS_ZVC_MD_BP_MT-UPD_FLAG,<br />
+STATUS_ZVC_MD_BP_MT-UPD_CHECKD.<br />
+MESSAGE S018(SV).<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM READ_SINGLE_ZVC_MD_BP_MT.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ZTC_MD_BP&nbsp;WHERE<br />
+BP_ID = ZVC_MD_BP_MT-BP_ID .<br />
+ZVC_MD_BP_MT-MANDT =<br />
+ZTC_MD_BP-MANDT .<br />
+ZVC_MD_BP_MT-BP_ID =<br />
+ZTC_MD_BP-BP_ID .<br />
+ZVC_MD_BP_MT-BP_NAME =<br />
+ZTC_MD_BP-BP_NAME .<br />
+ZVC_MD_BP_MT-BP_NUM =<br />
+ZTC_MD_BP-BP_NUM .<br />
+ZVC_MD_BP_MT-BP_CEO =<br />
+ZTC_MD_BP-BP_CEO .<br />
+ZVC_MD_BP_MT-POST_CODE =<br />
+ZTC_MD_BP-POST_CODE .<br />
+ZVC_MD_BP_MT-ADDRESS =<br />
+ZTC_MD_BP-ADDRESS .<br />
+ZVC_MD_BP_MT-BANK =<br />
+ZTC_MD_BP-BANK .<br />
+ZVC_MD_BP_MT-ACCOUNT =<br />
+ZTC_MD_BP-ACCOUNT .<br />
+ZVC_MD_BP_MT-MANAGER_NAME =<br />
+ZTC_MD_BP-MANAGER_NAME .<br />
+ZVC_MD_BP_MT-TELEPHONE =<br />
+ZTC_MD_BP-TELEPHONE .<br />
+ZVC_MD_BP_MT-EMAIL =<br />
+ZTC_MD_BP-EMAIL .<br />
+ZVC_MD_BP_MT-COUNTRY =<br />
+ZTC_MD_BP-COUNTRY .<br />
+ZVC_MD_BP_MT-CURRENCY =<br />
+ZTC_MD_BP-CURRENCY .<br />
+ZVC_MD_BP_MT-BP_TYPE =<br />
+ZTC_MD_BP-BP_TYPE .<br />
+ZVC_MD_BP_MT-DEL_FLAG =<br />
+ZTC_MD_BP-DEL_FLAG .<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CORR_MAINT_ZVC_MD_BP_MT USING VALUE(CM_ACTION) RC.<br />
+&nbsp;&nbsp;DATA:&nbsp;RETCODE&nbsp;LIKE&nbsp;SY-SUBRC,&nbsp;COUNT&nbsp;TYPE&nbsp;I,&nbsp;TRSP_KEYLEN&nbsp;TYPE&nbsp;SYFLENG.<br />
+&nbsp;&nbsp;FIELD-SYMBOLS:&nbsp;&lt;TAB_KEY_X&gt;&nbsp;TYPE&nbsp;X.<br />
+&nbsp;&nbsp;CLEAR&nbsp;RC.<br />
+MOVE ZVC_MD_BP_MT-BP_ID TO<br />
+ZTC_MD_BP-BP_ID .<br />
+MOVE ZVC_MD_BP_MT-MANDT TO<br />
+ZTC_MD_BP-MANDT .<br />
+&nbsp;&nbsp;CORR_KEYTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;E071K.<br />
+&nbsp;&nbsp;CORR_KEYTAB-OBJNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZTC_MD_BP'.<br />
+&nbsp;&nbsp;IF&nbsp;NOT&nbsp;&lt;vim_corr_keyx&gt;&nbsp;IS&nbsp;ASSIGNED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;CORR_KEYTAB-TABKEY&nbsp;TO&nbsp;&lt;vim_corr_keyx&gt;&nbsp;CASTING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ASSIGN&nbsp;ZTC_MD_BP&nbsp;TO&nbsp;&lt;TAB_KEY_X&gt;&nbsp;CASTING.<br />
+&nbsp;&nbsp;PERFORM&nbsp;VIM_GET_TRSPKEYLEN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'ZTC_MD_BP'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;TRSP_KEYLEN.<br />
+&nbsp;&nbsp;&lt;VIM_CORR_KEYX&gt;(TRSP_KEYLEN)&nbsp;=&nbsp;&lt;TAB_KEY_X&gt;(TRSP_KEYLEN).<br />
+&nbsp;&nbsp;PERFORM&nbsp;UPDATE_CORR_KEYTAB&nbsp;USING&nbsp;CM_ACTION&nbsp;RETCODE.<br />
+&nbsp;&nbsp;ADD:&nbsp;RETCODE&nbsp;TO&nbsp;RC,&nbsp;1&nbsp;TO&nbsp;COUNT.<br />
+&nbsp;&nbsp;IF&nbsp;RC&nbsp;LT&nbsp;COUNT&nbsp;AND&nbsp;CM_ACTION&nbsp;NE&nbsp;PRUEFEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;RC.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+*...processing:&nbsp;ZVC_MD_SKU_MT...................................*<br />
+   </div>
+   <div class="code">
+FORM GET_DATA_ZVC_MD_SKU_MT.<br />
+&nbsp;&nbsp;PERFORM&nbsp;VIM_FILL_WHERETAB.<br />
+   </div>
+   <div class="codeComment">
+*.read&nbsp;data&nbsp;from&nbsp;database.............................................*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;REFRESH&nbsp;TOTAL.<br />
+&nbsp;&nbsp;CLEAR&nbsp;&nbsp;&nbsp;TOTAL.<br />
+&nbsp;&nbsp;SELECT&nbsp;*&nbsp;FROM&nbsp;ZTC_MD_SKU&nbsp;WHERE<br />
+(VIM_WHERETAB) .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ZVC_MD_SKU_MT&nbsp;.<br />
+ZVC_MD_SKU_MT-MANDT =<br />
+ZTC_MD_SKU-MANDT .<br />
+ZVC_MD_SKU_MT-SKU_ID =<br />
+ZTC_MD_SKU-SKU_ID .<br />
+ZVC_MD_SKU_MT-BATCH =<br />
+ZTC_MD_SKU-BATCH .<br />
+ZVC_MD_SKU_MT-BRAND =<br />
+ZTC_MD_SKU-BRAND .<br />
+ZVC_MD_SKU_MT-MODEL_ID =<br />
+ZTC_MD_SKU-MODEL_ID .<br />
+ZVC_MD_SKU_MT-SKU_TYPE =<br />
+ZTC_MD_SKU-SKU_TYPE .<br />
+&lt;VIM_TOTAL_STRUC&gt; = ZVC_MD_SKU_MT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;APPEND&nbsp;TOTAL.<br />
+&nbsp;&nbsp;ENDSELECT.<br />
+&nbsp;&nbsp;SORT&nbsp;TOTAL&nbsp;BY&nbsp;&lt;VIM_XTOTAL_KEY&gt;.<br />
+&nbsp;&nbsp;&lt;STATUS&gt;-ALR_SORTED&nbsp;=&nbsp;'R'.<br />
+   </div>
+   <div class="codeComment">
+*.check&nbsp;dynamic&nbsp;selectoptions&nbsp;(not&nbsp;in&nbsp;DDIC)...........................*<br />
+   </div>
+   <div class="code">
+&nbsp;&nbsp;IF&nbsp;X_HEADER-SELECTION&nbsp;NE&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;CHECK_DYNAMIC_SELECT_OPTIONS.<br />
+&nbsp;&nbsp;ELSEIF&nbsp;X_HEADER-DELMDTFLAG&nbsp;NE&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;BUILD_MAINKEY_TAB.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;REFRESH&nbsp;EXTRACT.<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM DB_UPD_ZVC_MD_SKU_MT .<br />
+   </div>
+   <div class="codeComment">
+*.process&nbsp;data&nbsp;base&nbsp;updates/inserts/deletes.........................*<br />
+   </div>
+   <div class="code">
+LOOP AT TOTAL.<br />
+&nbsp;&nbsp;CHECK&nbsp;&lt;ACTION&gt;&nbsp;NE&nbsp;ORIGINAL.<br />
+MOVE &lt;VIM_TOTAL_STRUC&gt; TO ZVC_MD_SKU_MT.<br />
+&nbsp;&nbsp;IF&nbsp;&lt;ACTION&gt;&nbsp;=&nbsp;UPDATE_GELOESCHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ACTION&gt;&nbsp;=&nbsp;GELOESCHT.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;CASE&nbsp;&lt;ACTION&gt;.<br />
+&nbsp;&nbsp;&nbsp;WHEN&nbsp;NEUER_GELOESCHT.<br />
+IF STATUS_ZVC_MD_SKU_MT-ST_DELETE EQ GELOESCHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;EXTRACT&nbsp;WITH&nbsp;KEY&nbsp;&lt;VIM_XTOTAL_KEY&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;EXTRACT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;TOTAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;X_HEADER-DELMDTFLAG&nbsp;NE&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DELETE_FROM_MAINKEY_TAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;WHEN&nbsp;GELOESCHT.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;FOR&nbsp;UPDATE&nbsp;*&nbsp;FROM&nbsp;ZTC_MD_SKU&nbsp;WHERE<br />
+&nbsp;&nbsp;SKU_ID&nbsp;=&nbsp;ZVC_MD_SKU_MT-SKU_ID&nbsp;AND<br />
+&nbsp;&nbsp;BATCH&nbsp;=&nbsp;ZVC_MD_SKU_MT-BATCH&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;ZTC_MD_SKU&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;STATUS-DELETE&nbsp;EQ&nbsp;GELOESCHT.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;EXTRACT&nbsp;WITH&nbsp;KEY&nbsp;&lt;VIM_XTOTAL_KEY&gt;&nbsp;BINARY&nbsp;SEARCH.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;EXTRACT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;DELETE&nbsp;TOTAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;X_HEADER-DELMDTFLAG&nbsp;NE&nbsp;SPACE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PERFORM&nbsp;DELETE_FROM_MAINKEY_TAB.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;WHEN&nbsp;OTHERS.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;FOR&nbsp;UPDATE&nbsp;*&nbsp;FROM&nbsp;ZTC_MD_SKU&nbsp;WHERE<br />
+&nbsp;&nbsp;SKU_ID&nbsp;=&nbsp;ZVC_MD_SKU_MT-SKU_ID&nbsp;AND<br />
+&nbsp;&nbsp;BATCH&nbsp;=&nbsp;ZVC_MD_SKU_MT-BATCH&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;&lt;&gt;&nbsp;0.&nbsp;&nbsp;&nbsp;"insert&nbsp;preprocessing:&nbsp;init&nbsp;WA<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;ZTC_MD_SKU.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+ZTC_MD_SKU-MANDT =<br />
+ZVC_MD_SKU_MT-MANDT .<br />
+ZTC_MD_SKU-SKU_ID =<br />
+ZVC_MD_SKU_MT-SKU_ID .<br />
+ZTC_MD_SKU-BATCH =<br />
+ZVC_MD_SKU_MT-BATCH .<br />
+ZTC_MD_SKU-BRAND =<br />
+ZVC_MD_SKU_MT-BRAND .<br />
+ZTC_MD_SKU-MODEL_ID =<br />
+ZVC_MD_SKU_MT-MODEL_ID .<br />
+ZTC_MD_SKU-SKU_TYPE =<br />
+ZVC_MD_SKU_MT-SKU_TYPE .<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;=&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;UPDATE&nbsp;ZTC_MD_SKU&nbsp;##WARN_OK.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ELSE.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;INSERT&nbsp;ZTC_MD_SKU&nbsp;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;READ&nbsp;TABLE&nbsp;EXTRACT&nbsp;WITH&nbsp;KEY&nbsp;&lt;VIM_XTOTAL_KEY&gt;.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;IF&nbsp;SY-SUBRC&nbsp;EQ&nbsp;0.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;XACT&gt;&nbsp;=&nbsp;ORIGINAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;EXTRACT&nbsp;INDEX&nbsp;SY-TABIX.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;ACTION&gt;&nbsp;=&nbsp;ORIGINAL.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;MODIFY&nbsp;TOTAL.<br />
+&nbsp;&nbsp;ENDCASE.<br />
+ENDLOOP.<br />
+CLEAR: STATUS_ZVC_MD_SKU_MT-UPD_FLAG,<br />
+STATUS_ZVC_MD_SKU_MT-UPD_CHECKD.<br />
+MESSAGE S018(SV).<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM READ_SINGLE_ZVC_MD_SKU_MT.<br />
+&nbsp;&nbsp;SELECT&nbsp;SINGLE&nbsp;*&nbsp;FROM&nbsp;ZTC_MD_SKU&nbsp;WHERE<br />
+SKU_ID = ZVC_MD_SKU_MT-SKU_ID AND<br />
+BATCH = ZVC_MD_SKU_MT-BATCH .<br />
+ZVC_MD_SKU_MT-MANDT =<br />
+ZTC_MD_SKU-MANDT .<br />
+ZVC_MD_SKU_MT-SKU_ID =<br />
+ZTC_MD_SKU-SKU_ID .<br />
+ZVC_MD_SKU_MT-BATCH =<br />
+ZTC_MD_SKU-BATCH .<br />
+ZVC_MD_SKU_MT-BRAND =<br />
+ZTC_MD_SKU-BRAND .<br />
+ZVC_MD_SKU_MT-MODEL_ID =<br />
+ZTC_MD_SKU-MODEL_ID .<br />
+ZVC_MD_SKU_MT-SKU_TYPE =<br />
+ZTC_MD_SKU-SKU_TYPE .<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+   </div>
+   <div class="code">
+FORM CORR_MAINT_ZVC_MD_SKU_MT USING VALUE(CM_ACTION) RC.<br />
+&nbsp;&nbsp;DATA:&nbsp;RETCODE&nbsp;LIKE&nbsp;SY-SUBRC,&nbsp;COUNT&nbsp;TYPE&nbsp;I,&nbsp;TRSP_KEYLEN&nbsp;TYPE&nbsp;SYFLENG.<br />
+&nbsp;&nbsp;FIELD-SYMBOLS:&nbsp;&lt;TAB_KEY_X&gt;&nbsp;TYPE&nbsp;X.<br />
+&nbsp;&nbsp;CLEAR&nbsp;RC.<br />
+MOVE ZVC_MD_SKU_MT-SKU_ID TO<br />
+ZTC_MD_SKU-SKU_ID .<br />
+MOVE ZVC_MD_SKU_MT-BATCH TO<br />
+ZTC_MD_SKU-BATCH .<br />
+MOVE ZVC_MD_SKU_MT-MANDT TO<br />
+ZTC_MD_SKU-MANDT .<br />
+&nbsp;&nbsp;CORR_KEYTAB&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;&nbsp;E071K.<br />
+&nbsp;&nbsp;CORR_KEYTAB-OBJNAME&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;=&nbsp;'ZTC_MD_SKU'.<br />
+&nbsp;&nbsp;IF&nbsp;NOT&nbsp;&lt;vim_corr_keyx&gt;&nbsp;IS&nbsp;ASSIGNED.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;ASSIGN&nbsp;CORR_KEYTAB-TABKEY&nbsp;TO&nbsp;&lt;vim_corr_keyx&gt;&nbsp;CASTING.<br />
+&nbsp;&nbsp;ENDIF.<br />
+&nbsp;&nbsp;ASSIGN&nbsp;ZTC_MD_SKU&nbsp;TO&nbsp;&lt;TAB_KEY_X&gt;&nbsp;CASTING.<br />
+&nbsp;&nbsp;PERFORM&nbsp;VIM_GET_TRSPKEYLEN<br />
+&nbsp;&nbsp;&nbsp;&nbsp;USING&nbsp;'ZTC_MD_SKU'<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CHANGING&nbsp;TRSP_KEYLEN.<br />
+&nbsp;&nbsp;&lt;VIM_CORR_KEYX&gt;(TRSP_KEYLEN)&nbsp;=&nbsp;&lt;TAB_KEY_X&gt;(TRSP_KEYLEN).<br />
+&nbsp;&nbsp;PERFORM&nbsp;UPDATE_CORR_KEYTAB&nbsp;USING&nbsp;CM_ACTION&nbsp;RETCODE.<br />
+&nbsp;&nbsp;ADD:&nbsp;RETCODE&nbsp;TO&nbsp;RC,&nbsp;1&nbsp;TO&nbsp;COUNT.<br />
+&nbsp;&nbsp;IF&nbsp;RC&nbsp;LT&nbsp;COUNT&nbsp;AND&nbsp;CM_ACTION&nbsp;NE&nbsp;PRUEFEN.<br />
+&nbsp;&nbsp;&nbsp;&nbsp;CLEAR&nbsp;RC.<br />
+&nbsp;&nbsp;ENDIF.<br />
+<br />
+ENDFORM.<br />
+   </div>
+   <div class="codeComment">
+*---------------------------------------------------------------------*<br />
+            </div>
+          </td>
+        </tr>
+      </table>
+      </td>
+      </tr>
+   <tr>
+<td class="footer">Extracted by Mass Download version 1.5.5 - E.G.Mellodew. 1998-2023. Sap Release 754</td>
+   </tr>
+</table>
+</body>
+</html>
