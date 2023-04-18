@@ -405,3 +405,12 @@ HANA DB에 엑세스해서 뷰를 생성할 수 있음
     cast( seatsocc as abap.fltp) / cast(seatsmax as abap.fltp) as ratio
     }
 ```
+
+실습 뷰 
+ZDDL_CONNECT_E01
+ZDDL_INNERJOIN_E01
+ZDDL_LITERAL_E01
+ZDDL_SIMPLE_CASE_E01
+ZE01_ANNOTATIONS
+ZE01_JOIN_AND_SELECTION
+ZE01_SIMPLE
