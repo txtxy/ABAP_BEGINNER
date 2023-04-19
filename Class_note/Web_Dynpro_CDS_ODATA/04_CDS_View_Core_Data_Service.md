@@ -156,6 +156,8 @@ FIELDS 를 통해 선택 필드를 결정할 수 있음
 ```
 
 ## CDS VIEW 생성 실습
+CDS 뷰는 INPUT PARAMETER를 가질 수 있다.
+
 ADT를 통해 DATA Definition을 통해 생성
 
 ADT 에서는 기본적인 템플릿을 제공하고 있음.
@@ -293,10 +295,9 @@ CDS 의 정의부에서는 오더 바이를 사용할 수 없다,
 ## ANNOTATION의 분류
 P.69. ~~ P.83 ------------------------------------------------------------------------------------------
 정리할 것.
-CDS 뷰는 INPUT PARAMETER를 가질 수 있다.
 
 스탠다드 CDS 뷰를 인핸스먼트해서 활용할 수 있다.
- : goto-Append View를 실행한다.
+ : goto-Append_View를 실행한다.
 
 |구분|특이사항|예시|
 |---|---|---|
@@ -322,7 +323,7 @@ CDS 뷰는 INPUT PARAMETER를 가질 수 있다.
 
 Tcode = SE63
 트랜잭션 에디터 프로그램
-라벨 언어를 번역해서 실행할 수 ㅣㅇㅆ음.
+라벨 언어를 번역해서 실행할 수 있음.
 
 
 Cl_dd_DDL_annotation_service=>Get_label_4_element
@@ -340,6 +341,7 @@ P.84.
 ### CASE Distinction
 
 실습 CDS 뷰 : zddl_simple_case_e01
+
 **문법**
 simple 케이스
 ```sql
@@ -405,12 +407,185 @@ HANA DB에 엑세스해서 뷰를 생성할 수 있음
     cast( seatsocc as abap.fltp) / cast(seatsmax as abap.fltp) as ratio
     }
 ```
+## SQl Function 활용
+- 모든 함수는 nesting하여 활용할 수 있따.
+    - 예시 `concat(concat(arg1,''),arg2)`
+### 연산
+1. div(arg1,arg2)
+    - 정수로 반환
+    - 결과값 DATA TYPE은 arg1과 동일
+2. mod(arg1,arg2)
+    - 결과값은 음수일 수 있음
+    - 결과값 DATA TYPE은 arg1과 동일
+3. division(arg1,arg2,dec)
+    - 결과값은 항상 dec와 동일하게 반올림됨
+    - 결과값 dec 길이는 arg1과 동일
 
-실습 뷰 
-ZDDL_CONNECT_E01
-ZDDL_INNERJOIN_E01
-ZDDL_LITERAL_E01
-ZDDL_SIMPLE_CASE_E01
-ZE01_ANNOTATIONS
-ZE01_JOIN_AND_SELECTION
-ZE01_SIMPLE
+### Rounding Function
+1. abs(arg)
+    - 절대값 반환
+2. Floor(arg)
+    - 내림
+3. Ceil(arg)
+    - 올림
+4. round(arg,pos)
+    - 반올림
+    - pos가 음수이면 10의자리부터
+
+### 문자열 함수
+1. concat (arg1,arg2)
+    - Concatenate와 동일
+2. replace(arg1,arg2,arg3)
+    - arg1에 존재하는 모든 arg2를 arg3으로 변경
+3. Substring(arg,pos,len)
+    - 아밥 substring과 동일
+
+### 추가 함수
+1. Concat_with_space(arg1,arg2,count)
+    - 빈칸을 사이에 두고 문자열 합치기
+2. length(arg)
+    - 문자열 길이를 반환
+    - 빈칸은 계산하지 않음
+
+3. left(arg,n) and right(arg,n)
+    - 왼쪽 오른쪽 문자열 자르기
+4. lower(arg) and upper(arg)
+    - 대소문자 변환
+
+
+### 단위 변환
+- 컨버젼 도중 에러 발생할 떄 활용할 수 있어야한다.
+- SET_TO_NULL : 오류 시 null값으로
+- KEEP_UNCONVERTED : 오류 시 무시하고 값을 변경하지 않음.
+- FAIL_ON_ERROR : 오류 시 EXCEPTION 발생
+
+1. QUNT
+    - DB 테이블 t006에서 유닛 컨버젼에 관한 데이터를 관리한다.
+
+```sql
+    define view S4d430_Function_Convertion1 as select 
+      from spfli 
+         { carrid,
+           connid,
+           @Semantics.quantity.unitOfMeasure: 'DISTID'
+           Unit_Conversion( quantity       => distance,
+                            source_unit    => distid,
+                            target_unit    => cast('MI' as abap.unit),
+                            error_handling => 'FAIL_ON_ERROR'
+                          ) as distance, 
+           @Semantics.unitOfMeasure: true
+           cast('MI' as abap.unit) as distid
+         }
+```
+- 시스템 상  `target_unit    => cast('MI' as abap.unit)` MI는 문자열이기에 
+   UNIT으로 형변환을 진행함.
+
+
+2. CURR
+OB08 과 DB 테이블 tcur에서 환율을 관리할 수 있다.
+TCURV 테이블에서 환율 적용 기준에 관한 사항을 확인할 수 있다.
+```sql
+    define view s4d430_Function_Conversion2 as select 
+    from sflight 
+     { carrid,
+       connid,
+       fldate,
+       @Semantics.amount.currencyCode:'CURRENCY'
+       currency_conversion( 
+             amount             => price, 
+             source_currency    => currency, 
+             round              => 'X', 
+             target_currency    => cast( 'USD' as abap.cuky), 
+             exchange_rate_type => 'M',
+             exchange_rate_date => fldate,
+             error_handling     => 'SET_TO_NULL'    
+             ) as price,
+      } 
+
+```
+### 날짜 함수
+기본적인 날짜 포맷은 YYYYMMDD이다.
+1. dats_is_valid(date)
+    - 정상적인 날짜라면 1을 반환 else 0
+2. dats_days_between(date1,date2)
+    - 두 날짜 사이의 일자 수를 계산
+3. dats_add_days(date,count,on_error)
+    - date에 count만큼 일 추가
+4. dats_add_months(date,count,on_error)
+    - date에 count만큼 월 추가
+- on_error 에는 'FAIL', 'NULL','INITIAL','UNCHANGED'만 올 수 있음
+
+FAIL의 경우 exception을 발생시킨다.
+
+
+
+## 집계 함수
+    기본적으로 동일함
+
+1. MIN(operand) or MAX(OPERAND)
+2. SUM(OPERAND)
+3. AVG(OPERAND)
+4. COUNT(*)
+5. COUNT(DISTINCT OPERAND)
+### 집계 예시
+```SQL
+    define view S4d430_Aggregates as select 
+         from sflight 
+      { 
+       min( seatsocc )                   as col_min,
+       max( seatsocc )                   as col_max,
+       sum( seatsocc )                   as col_sum,
+    
+       avg( seatsocc )                   as col_avg,
+       avg( seatsocc as abap.dec(16,2) ) as col_avg_conv,
+    
+       count(*)                          as col_count,
+       count(distinct planetype)         as col_cnt_dist,
+    
+    
+       cast( sum( 1 ) as abap.int4 )     as col_literal, // without cast, result type is int1 
+    
+       sum( 
+         case 
+           when seatsocc > seatsmax then cast( 1 as abap.int4 )
+           else 0 
+         end 
+       )                                  as col_overbooked                              
+    }
+```
+SUM(1)을 INT4로 cast하는 이유는 묵시적으로 INT1로 타입이 적용되기에
+만약 255 초과하는 값이 col_literal에 입력된다면 OVERFLOW가 발생한다.
+이를 방지하기위해 INT4로 CAST하는 것임.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 실습 뷰 
+
+- ZDDL_CONNECT_E01
+- ZDDL_INNERJOIN_E01
+- ZDDL_LITERAL_E01
+- ZDDL_SIMPLE_CASE_E01
+- ZE01_ANNOTATIONS
+- ZE01_BOOKING_AND_CUSTOMER
+- ZE01_BOOKING
+- ZE01_CUSTOMER
+- ZE01_EXPRESSIONS
+- ZE01_FUNCTIONS
+- ZE01_JOIN_AND_SELECTION
+- ZE01_SIMPLE
