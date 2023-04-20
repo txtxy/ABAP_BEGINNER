@@ -558,18 +558,137 @@ SUM(1)을 INT4로 cast하는 이유는 묵시적으로 INT1로 타입이 적용�
 이를 방지하기위해 INT4로 CAST하는 것임.
 
 
+## CDS 뷰 파라미터
+define view with parameter 템플릿을 이용해서 쉽게 생성할 수 있음
+
+select 절에서 `$parameters.` 구문을 사용해서 파라미터 호출
+
+```abap
+    @AbapCatalog.sqlViewName: 'S4D430_PARAM'
+    @AbapCatalog.compiler.compareFilter: true
+    @AccessControl.authorizationCheck: #CHECK
+    @EndUserText.label: 'Demo: CDS View with Parameters'
+    define view S4d430_Parameter
+      with parameters 
+                parameter1: abap.char(10),
+
+                parameter2: s_carr_id,
+
+               @EndUserText.label: 'Discount'
+               @EndUserText.quickInfo: 'Discount Factor for Price '            
+                factor:     abap.dec( 3, 2 ),
+
+                separator:  abap.char( 1 )
+               @<EndUserText.label: 'Separation Character'
+    as select 
+         from sflight 
+            { key carrid,
+              key connid,
+              key fldate,
+                  $parameters.parameter1 as param1,
+                  :parameter2            as param2,           // 권장하지 않는 방법임.
+                  concat( concat( carrid, $parameters.separator ) , connid )  as  Connection_ID,
+                  price,
+                  currency,
+                  price * :factor as discounted_price             
+    } 
+ ```
+
+## CDS View with Association 
+조인말고 어쏘시에이션을 다 씀 매우 중요함!!!!!!
+P.171.
+
+- 예시
+```sql
+        define view S4d430_Association_2 as select 
+     from spfli as c 
+         association[1..1] to scarr as _Carrier
+                on c.carrid = _Carrier.carrid
+       {
+          key c.carrid as CarrierID,
+          key c.connid,
+              c.cityfrom,
+              c.cityto,
+              _Carrier.carrname
+       }
+```    
+### 카디널리티
+카디널리티는 생략할 수 있음
+
+오픈 sQL에서 어쏘시에이션 뷰를 사용하고자한자뎜ㄴ
+C~\_Carr
 
 
+### Association Filter
+P.188
+```SQL
+    define view S4D430_ASSO_FILTER_DEFAULT 
+      with parameters 
+         language : syst_langu @<Environment.systemField: #SYSTEM_LANGUAGE
+    as select 
+     from scarr as a
+          association[*] to tcurt as _Currency        
+                      on $projection.currcode = _Currency.waers
+                      with default filter spras = $parameters.language
+        {
+         carrid,
+         carrname,
+         currcode,
+         $parameters.language as lang,
+         _Currency.ktext                as currency_name,
+         _Currency[1:spras = 'E'].ltext as currency_description
+        }
+```
+필터에서는 왼쪽에는 타겟 어쏘시에이션이와야하고
+우측애는 필드 세션 베리어블 파라미터 리터럴이 올 수 있다.
+
+### 
+@AbapCatalog.compiler.compareFilter : 
+해당 뷰 어노테이션이 FALSE일 경우
+ON 컨디션을 사용할 떄 Join이 여러번 걸리게된다.
+
+만약 True 일 경우 한개 JOIN으로 연결된다.
 
 
+### 실습 P.181. Exercise 12
 
 
+## 스탠다드 CDS 뷰 인핸스먼트
 
+CDS 익스텐드 뷰를 정의해서 해당 SQL 뷰에 확장하는 개념이다.
 
+@AbapCatalog.sqlViewAppendName: 'S4D430_EXTENDA'
+뷰 어노테이션에 APPENDNAME으로 선언하면된디.
+오리지널 소스 코드에서는 해당 뷰가 보이지 않지만
+데이터 이용시 추가되어 Display된다.
 
+추가가능한 요소들
+1. Element List
+2. Associations
+3. Group by (7.51버전 이상)
+4. UNION(ALL 포함) / 7.51버전 이상
+    - 그룹바이한 뷰를 확장하기 위해
 
+익스텐드 뷰 템플릿이 존재한다 해당 템플릿을 사용하면 간편함,
 
+### 권장사항
+1. z나 y는 필수
+### 제한사항
+1. 트랜스포트 이후에 이름을 바꿀 수 없다.
+2. 키필드를 추가할 수 없다.
 
+예시
+```abap
+    @AbapCatalog.sqlViewAppendName: 'ZV_APPEND_E01' " 생성하고자 하는 뷰 
+    @EndUserText.label: 'Connection Extend'
+    extend view zddl_connect_e01 with zddl_ext_e01 { " 확장 대상 뷰이름과 현재 뷰
+      sflight.seatsmax_b as seatsmax_b,
+  sflight.seatsocc_b as seatsocc_b,
+  sflight.seatsmax_f as seatsmax_f,
+  sflight.seatsocc_f as seatsocc_f,
+
+    }
+```
 
 
 
