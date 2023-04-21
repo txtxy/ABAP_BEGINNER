@@ -109,3 +109,48 @@ P.119.
 
 
 /sap/opu/odata/SAP/ZGW100_E01_STUDENT_SRV/PRODUCTSet('AR-FB-1000')/Name/$value
+
+## 엔터티간의 관계설정
+
+어쏘시에이션(관계) 생성
+
+주 엔터티와 보조엔터티 선택
+관계차수 선택
+주 엔터티에서 보조엔터티로의 네비게이션 설정
+PK 설정
+엔터티 이름 설정 확인하고 
+제너레이트 런타임 오브젝트 실행
+
+
+## Filtering 처리
+
+원하는 메쏘드 클래스 빌더로 이동
+
+필터링할 변수 등을 선언하여 사용
+```abap
+        DATA : lt_filter TYPE /iwbep/t_mgw_select_option,
+               ls_filter like LINE OF lt_filter,
+               rt_cityfr TYPE RANGE OF zcl_zgw_flight_e01_mpc=>ts_connection.
+
+        lv_source = io_tech_request_context->get_source_entity_set_name( ).
+
+        lt_filter = io_tech_request_context->get_filter( )->get_filter_select_options( ).
+
+    READ TABLE lt_filter into ls_filter WITH TABLE KEY property = 'CITYFROM'.
+    IF  sy-subrc = 0.
+      MOVE-CORRESPONDING ls_filter-select_options to rt_cityfr.
+ENDIF.
+
+
+```
+
+## CREATE
+
+페이지 185
+
+PUT 은 값이 없는 키는 NULL 값을 가진다.
+
+PATCH와 MERGE는 값이 없는 키는 가지고 있는 값으로 유지????
+
+
+스탠다드 테이블은 BAPI나 등등으로 처리한다.
