@@ -20,10 +20,32 @@ sap.ui.define([
             },
             onButtonPress: function (oEvent) {
                 // alert("오이벤트"+oEvent);
+                let result = 0;
                 let sValue1 = this.byId("idInput1").getValue();
                 let sValue2 = this.byId("idInput2").getValue();
-
-                alert(sValue1 )
+                let select = this.byId("Select1").getSelectedItem();
+                // select = select.key;
+debugger;
+                switch (select.mProperties.key) {
+                    case "plus":
+                        result = Number(sValue1) + Number(sValue2);
+                        break;
+                        case "minus":
+                        result = Number(sValue1) - Number(sValue2);
+                        
+                        break;
+                        case "multiply":
+                        result = Number(sValue1) * Number(sValue2);
+                        
+                        break;
+                        case "divide":
+                        result = Number(sValue1) / Number(sValue2);
+                        
+                        break;
+                    default:
+                        break;
+                }
+                alert(result);
             }
         });
     });
