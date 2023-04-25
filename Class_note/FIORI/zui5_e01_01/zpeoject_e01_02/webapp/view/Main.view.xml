@@ -3,22 +3,23 @@
     xmlns="sap.m"
     xmlns:l="sap.ui.layout">
     <Page id="page" title="{i18n>title}">
-        <!-- sap.ui.layout.VerticalLayout 여기 안에다가 인풋 2개 버튼 1개 셀렉트 1개-->
 
         <content>
         	<l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
-                <Button id= "button1" text="button1"   ></Button>
-                <Input id="_IDGenInput1" editable="true" width="100%"></Input>
-                <Input id="_IDGenInput2" editable="true" width="100%"></Input>
+
+                <Input id="idInput1" editable="true" width="100%"></Input>
                 <Select id = "Select1" enabled="true">
                     <items>
-                        <core:Item  id= "HR" text = "인사팀" />
-                    
+                        <core:Item  key="plus" text = "+" />
+                        <core:Item key= "minus" text = "-" />
+                        <core:Item key= "multiply" text = "*" />
+                        <core:Item key= "divide" text = "/" />
                     </items>
                 </Select>
-	        </l:VerticalLayout>
-    <Text id="text1" text="Hello World" />
+                <Input id="idInput2" editable="true" width="100%"></Input>
+                <Button id= "button1" text="button1" press="onButtonPress"  ></Button>
 
+	        </l:VerticalLayout>
         </content>
     </Page>
 </mvc:View>
