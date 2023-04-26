@@ -4,14 +4,12 @@
 
 UI5 는 부트 스트랩이 가능하다.
 
-[코딩 실습 사이트](https://codepan.io/)
+[코딩 실습 사이트](https://codepen.io/)
 
 해당 사이트에서 실습 진행 예정
 
 ## 주석 처리
 ```js
-document.getElementsByTagName("h1")[0].style./*중간에 주석 가능*/fontSize = "6vw";
-
 /*
 여러 줄 주석
 */
@@ -81,8 +79,6 @@ undefiened : 값이 아예 없음
 ```
 
 ## 배열 Array
-
-
 
 Array 배열  : [30, 'A', true] 
 
@@ -264,3 +260,82 @@ NaN
 2 + 5 === 7 ? console.log("참")
             : console.log('거짓')
 ```
+## 조건문
+
+## 반복문
+### For 문
+for(초기화식; 조건식; 증감식  ) {
+
+실행 로직..
+
+};
+
+for {}안에 let을 지역 변수로 활용 가능함.
+
+
+### While 문
+While() {
+... 로직...
+
+}
+```js
+var a = 1;
+do{
+    console.log(a);
+} While(i<10){i++}
+```
+
+### 과제
+```js
+const list = {커피: 3000, 주스 : 1500, 탄산수 : 1000};
+var drink = prompt(drink);
+
+switch (drink) {
+  case '커피':
+console.log(list.커피 + '원');
+    break;
+  case '주스':
+console.log(list.주스 + '원');
+    break;  
+  case '탄산수':
+console.log(list.탄산수 + '원');
+    break;
+    
+  default:
+    break;
+}
+```
+
+### 과제2 
+```js
+
+function sum() {
+  
+let result = 0;
+  
+while(true){
+  
+  let num = prompt('값을 입력해주세요');
+  
+    if (num==='0'){break;};
+  result += Number(num); 
+};
+alert('합계 : ' + result)
+};
+
+sum();
+```
+### 구구단 과제
+
+```js
+function gugu(num) {
+  num = prompt('몇 단을 외울까?');
+  num = Number(num);
+  let i = 0;
+  for(i = 1;i<10;i++){
+    console.log(`${num} * ${i} = ${num * i}`);
+  }
+}
+gugu();
+```
+
