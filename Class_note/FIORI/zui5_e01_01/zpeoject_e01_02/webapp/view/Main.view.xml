@@ -3,9 +3,29 @@
     xmlns="sap.m"
     xmlns:l="sap.ui.layout">
     <Page id="page" title="{i18n>title}">
+    <content>
+        <Label labelFor="idCustomer" text="Customer"></Label> <!--     --> 
+        <Input id = "idCustomer" required="true"></Input>
+        <Button text="click" press="onClick"></Button>
+    </content>
 
-        <content>
-        	<l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
+
+
+
+
+
+    <!-- <VBox >
+        <Input id ="idInput3"></Input>
+        <CheckBox id = "idCheckbox"></CheckBox>
+        <RadioButtonGroup >
+            <RadioButton id="idRadio1" text="Rdio1" ></RadioButton>
+            <RadioButton id="idRadio2" text="Rdio2"></RadioButton>
+            <RadioButton id="idRadio3" text="Rdio3"></RadioButton>
+    </RadioButtonGroup>
+    <DatePicker ></DatePicker>
+    <DateRangeSelection ></DateRangeSelection>
+    </VBox> -->
+        	<!-- <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
 
                 <Input id="idInput1" editable="true" width="100%"></Input>
                 <Select id = "Select1" enabled="true">
@@ -19,7 +39,7 @@
                 <Input id="idInput2" editable="true" width="100%"></Input>
                 <Button id= "button1" text="button1" press="onButtonPress"  ></Button>
 
-	        </l:VerticalLayout>
-        </content>
+	        </l:VerticalLayout> -->
+        
     </Page>
 </mvc:View>

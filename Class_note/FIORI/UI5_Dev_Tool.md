@@ -189,4 +189,17 @@ Id를 이용해서(byId/메쏘드 of Control) 현재 객체(This)의 Value를 �
 
 onInit에서 초기값 세팅을 주로 한다.
 
-se
+
+VBox는 버티컬 레이아웃과 동일하다.
+
+연습할 때
+1. grid table
+    =>sap.ui.table.Table
+2. responsive table
+    =>sap.m.Table
+
+위주로 연습해봐라
+
+이벤트의 경우
+getSource를 통해 이벤트를 발생시킨 요인을 가져오고
+getParamters를 통해 발생한 객체를 가져온다,
