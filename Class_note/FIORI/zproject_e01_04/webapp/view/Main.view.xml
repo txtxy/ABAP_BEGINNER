@@ -1,0 +1,10 @@
+<mvc:View controllerName="zprojecte0104.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m">
+    <Page id="page" title="{MainModel>/list/0/name}">
+        <content>
+            <Button id= "idButton" text="change" press="onChange"></Button>
+            <Text id="idText"/>
+        </content>
+    </Page>
+</mvc:View>

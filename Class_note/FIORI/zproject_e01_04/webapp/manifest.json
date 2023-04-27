@@ -1,7 +1,7 @@
 {
-  "_version": "1.49.0",
+  "_version": "1.44.0",
   "sap.app": {
-    "id": "zprojectteste0103",
+    "id": "zprojecte0104",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.9.4",
-      "toolsId": "4fe27d75-27d2-411b-8d8c-78dc854d90e8"
+      "toolsId": "55122139-d753-4b4a-880f-2dd152467c79"
     }
   },
   "sap.ui": {
@@ -33,9 +33,9 @@
     }
   },
   "sap.ui5": {
-    "flexEnabled": false,
+    "flexEnabled": true,
     "dependencies": {
-      "minUI5Version": "1.113.0",
+      "minUI5Version": "1.104.0",
       "libs": {
         "sap.m": {},
         "sap.ui.core": {},
@@ -55,7 +55,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "zprojectteste0103.i18n.i18n"
+          "bundleName": "zprojecte0104.i18n.i18n"
         }
       }
     },
@@ -71,7 +71,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "zprojectteste0103.view",
+        "viewPath": "zprojecte0104.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
@@ -96,7 +96,7 @@
       }
     },
     "rootView": {
-      "viewName": "zprojectteste0103.view.App",
+      "viewName": "zprojecte0104.view.App",
       "type": "XML",
       "async": true,
       "id": "App"
