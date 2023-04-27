@@ -3,8 +3,20 @@
     xmlns="sap.m">
     <Page id="page" title="{MainModel>/list/0/name}">
         <content>
-            <Button id= "idButton" text="change" press="onChange"></Button>
-            <Text id="idText"/>
+            <VBox alignContent="Stretch" id="Vbox1">
+                <Button id="idButton" text="change" press="onChange" />
+                <Text id="idText0"
+                    text="name is {MainModel>/list/0/name} and age is {MainModel>/list/0/age} Years old " />
+                <Text id="idText1"
+                    text="name is {MainModel>/list/1/name} and age is {MainModel>/list/1/age} Years old" />
+                <Text id="idText2"
+                    text="name is {MainModel>/list/2/name} and age is {MainModel>/list/2/age} Years old" />
+                <Text id="idText3"
+                    text="name is {MainModel>/list/3/name} and age is {MainModel>/list/3/age} Years old" />
+                <Text id="idText4"
+                    text="name is {MainModel>/list/4/name} and age is {MainModel>/list/4/age} Years old" />
+                <Text id="idText" />
+            </VBox>
         </content>
     </Page>
 </mvc:View>
