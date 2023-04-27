@@ -1,9 +1,12 @@
 <mvc:View controllerName="zprojectodatae0102.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
-    xmlns:tab="sap.ui.table">
+    xmlns:tab="sap.ui.table"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core">
     <Page id="page" title="{i18n>title}">
         <content>
+            
             <tab:Table
                 rows="{/ConnectionSet}"
                 selectionMode="MultiToggle"

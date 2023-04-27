@@ -1,7 +1,9 @@
 <mvc:View controllerName="zprojecte0104.controller.Main"
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
-    xmlns:tab="sap.ui.table">
+    xmlns:tab="sap.ui.table"
+    xmlns:l="sap.ui.layout"
+    xmlns:core="sap.ui.core">
     <Page id="page" title="{MainModel>/title/title}">
         <content>
             <!-- <VBox alignContent="Stretch" id="Vbox1">
@@ -21,6 +23,21 @@
                     text="name is {MainModel>/list/4/name} and age is {MainModel>/list/4/age} Years old" />
                 <Text id="idText" />
             </VBox> --> 
+            <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
+
+                <Input id="idInput1" editable="true" width="11rem"></Input>
+                <Select id="idSelect1" enabled="true">
+                    <items>
+                        <core:Item key="plus" text="+" />
+                        <core:Item key="minus" text="-" />
+                        <core:Item key="multiply" text="*" />
+                        <core:Item key="divide" text="/" />
+                    </items>
+                </Select>
+                <Input id="idInput2" editable="true" width="11rem"></Input>
+                <Button id="idButton1" text="button1" press="onButtonPress"></Button>
+
+            </l:VerticalLayout>
             <tab:Table
 				rows="{MainModel>/list}"  
 				selectionMode="MultiToggle"
@@ -30,20 +47,32 @@
                 <!-- 하위 테이블은 로우즈 바인딩에 연결된다.-->
 				<tab:extension>
 					<OverflowToolbar style="Clear">
-						<Title id="title" text="사람들"/>
+						<Title id="title" text="계산 값"/>
 					</OverflowToolbar>
 				</tab:extension>
 				<tab:columns>
 					<tab:Column >
-						<Label text="Name" />
+						<Label text="First Number" />
 						<tab:template>
-							<Text text="{MainModel>name}" wrapping="false" />
+							<Text text="{MainModel>num1}" wrapping="false" />
 						</tab:template>
 					</tab:Column>
 					<tab:Column >
-						<Label text="Age" />
+						<Label text="Operator" />
 						<tab:template>
-							<Input value="{MainModel>age}" />
+							<Text text="{MainModel>oper}" />
+						</tab:template>
+					</tab:Column>
+                    					<tab:Column >
+						<Label text="Second Number" />
+						<tab:template>
+							<Text text="{MainModel>num2}" wrapping="false" />
+						</tab:template>
+					</tab:Column>
+                    					<tab:Column >
+						<Label text="Result" />
+						<tab:template>
+							<Text text="{MainModel>result}" wrapping="false" />
 						</tab:template>
 					</tab:Column>
 				</tab:columns>
