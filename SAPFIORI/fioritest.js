@@ -33,18 +33,20 @@ F.sleep();
 console.log(F['name']);
 */
 
-const list = {'커피': `3000원`, '주스' : '1500원', '탄산수' : '1000원'};
+// const list = {'커피': `3000원`, '주스' : '1500원', '탄산수' : '1000원'};
 
-var drink = prompt();
+// var drink = prompt();
 
-switch (drink) {
-  case value:
+// switch (drink) {
+//   case value:
     
-    break;
+//     break;
 
-  default:
-    break;
-}
+//   default:
+//     break;
+// }
 
-console.log(list.drink);
+// console.log(list.drink);
 
+var count = prompt("숫자를 입력하세요");
+for (let i = Number(count); i > 0; i--) {console.log("*".repeat(i));}

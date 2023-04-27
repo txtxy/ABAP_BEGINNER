@@ -1,0 +1,38 @@
+<mvc:View controllerName="zprojectodatae0102.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns="sap.m"
+    xmlns:tab="sap.ui.table">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <tab:Table
+                rows="{/ConnectionSet}"
+                selectionMode="MultiToggle"
+                visibleRowCount="7"
+                paste="onPaste"
+                ariaLabelledBy="title">
+                <!-- 하위 테이블은 로우즈 바인딩에 연결된다.-->
+                <tab:extension>
+                    <OverflowToolbar style="Clear">
+                        <Title id="title" text="Flight" />
+                    </OverflowToolbar>
+                </tab:extension>
+                <tab:columns>
+                    <tab:Column>
+                        <Label text="Carr id" />
+                        <tab:template>
+                            <Text text="{Carrid}" wrapping="false" />
+                        </tab:template>
+                    </tab:Column>
+                    <tab:Column>
+                        <Label text="Connection id" />
+                        <tab:template>
+                            <Text text="{Connid}" wrapping="false" />
+                        </tab:template>
+                    </tab:Column>
+                </tab:columns>
+            </tab:Table>
+
+        </content>
+
+    </Page>
+</mvc:View>
