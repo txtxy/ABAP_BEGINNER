@@ -13,38 +13,35 @@ sap.ui.define([
             onInit: function () {
 
 
-
-
                 // 1. 외부 데이터 호출 방식
-                // var oModel = new JSONModel('MainModel');
-                // oModel.loadData(sap.ui.require.toUrl("zprojecte0104/model/data.json"))
-                // //Url경로는 Root Path에서 상대경로임 "Model/data.json"
-                // this.getView().setModel(oModel, 'MainModel')
-                // //   모델객처생성,   모델이름 설정
-
-
-                // 2. 기본 방식
-                //   모델객처생성(어떤 데이터 사용할지?),   모델이름 설정
-                let datas = {
-                    title: {
-                        title: 'Json Title',
-                        subTitle: 'JSON Sub Title'
-                    },
-                    list: [
-                        {
-                            "num1": 30,
-                            "oper": "plus",
-                            "num2": 10,
-                            "result": 40
-                        }
-                    ],
-                    todo: [
-                        { Content: 'test' }
-                    ]
-                }
-                this.getView().setModel(new JSONModel(datas), 'MainModel');
+                var oModel = new JSONModel('MainModel');
+                oModel.loadData(sap.ui.require.toUrl("zprojecte0104/model/data.json"))
+                //Url경로는 Root Path에서 상대경로임 "Model/data.json"
+                this.getView().setModel(oModel, 'MainModel')
                 //   모델객처생성,   모델이름 설정
 
+
+                // // 2. 기본 방식
+                // //   모델객처생성(어떤 데이터 사용할지?),   모델이름 설정
+                // let datas = {
+                //     title: {
+                //         title: 'Json Title',
+                //         subTitle: 'JSON Sub Title'
+                //     },
+                //     list: [
+                //         {
+                //             "num1": 30,
+                //             "oper": "plus",
+                //             "num2": 10,
+                //             "result": 40
+                //         }
+                //     ],
+                //     todo: [
+                //         { Content: 'test' }
+                //     ]
+                // }
+                // this.getView().setModel(new JSONModel(datas), 'MainModel');
+                // //   모델객처생성,   모델이름 설정
 
 
             },
