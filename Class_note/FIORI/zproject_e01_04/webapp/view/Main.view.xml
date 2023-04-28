@@ -81,6 +81,7 @@
                 </tab:columns>
             </tab:Table>
             <tab:Table
+            rowActionCount="1"
                 rows="{MainModel>/todo}"
                 selectionMode="MultiToggle"
                 visibleRowCount="7"
@@ -105,7 +106,17 @@
                     </tab:Column>
 
                 </tab:columns>
+                <tab:rowActionTemplate>
+                    <tab:RowAction >
+                    <tab:items>
+                        <tab:RowActionItem type="Delete" icon="sap-icon://decline" press="onRowDelete"></tab:RowActionItem>
+
+                    </tab:items>
+                    </tab:RowAction>
+                
+                </tab:rowActionTemplate>
             </tab:Table>
+            
         </content>
     </Page>
 
