@@ -12,18 +12,18 @@ sap.ui.define([
         return Controller.extend("zprojecte0104.controller.Main", {
             onInit: function () {
                 let datas = {
-                    list: [
+                    list: new Array([
                         {
                             num1: new Number,
                             oper: new String,
                             num2: new Number,
                             result: new Number
                         }
-                    ]
+                    ])
                 }
                 this.getView().setModel(new JSONModel(datas), 'MainModel')
                 //   모델객처생성,   모델이름 설정
-
+                
             },
             onChange: function () {
                 // // var oModel = this.getView().getModel('MainModel');
