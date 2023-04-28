@@ -235,8 +235,30 @@ sap.ui.define([
             },
             onBeforeOpen: function () {
                 this.byId("addInput").setValue();
+            },
+            onDelete: function () {
+                var oTable = this.byId("todoTable");
+                var oModel = this.getView().getModel("MainModel");
+
+                var aSelectedIndices =   oTable.getSelectedIndices();  //테이블 인덱스 가져오는 함수
+                var aDatas = oModel.getProperty("/todo");  // 데이터 가져오기
+                // 단건 삭제
+                // aDatas.splice(aSelectedIndices[0],1) ;   //(인덱스값, 대체 값)
+                // oModel.setProperty("/todo", aDatas)
+
+
+                // 선택 로우 삭제
+                for (let i = (aSelectedIndices.length-1); i > -1; i--) {
+                    // let element = aSelectedIndices[i];
+                    aDatas.splice(aSelectedIndices[i],1) 
+                    
+                }
+                
+                oModel.setProperty("/todo", aDatas)
+                }
+
             }
-        }
+        
         );
     });
 

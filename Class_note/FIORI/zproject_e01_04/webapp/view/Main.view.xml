@@ -85,7 +85,8 @@
                 selectionMode="MultiToggle"
                 visibleRowCount="7"
                 paste="onPaste"
-                ariaLabelledBy="title">
+                ariaLabelledBy="title"
+                id="todoTable" >
                 <!-- 하위 테이블은 로우즈 바인딩에 연결된다.-->
                 <tab:extension>
                     <OverflowToolbar style="Clear">
