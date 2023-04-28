@@ -22,7 +22,7 @@
                 <Text id="idText4"
                     text="name is {MainModel>/list/4/name} and age is {MainModel>/list/4/age} Years old" />
                 <Text id="idText" />
-            </VBox> --> 
+            </VBox> -->
             <l:VerticalLayout id="_IDGenVerticalLayout1" class="sapUiContentPadding" width="100%">
 
                 <Input id="idInput1" editable="true" width="11rem"></Input>
@@ -39,46 +39,74 @@
 
             </l:VerticalLayout>
             <tab:Table
-				rows="{MainModel>/list}"  
-				selectionMode="MultiToggle"
-				visibleRowCount="7"
-				paste="onPaste"
-				ariaLabelledBy="title">
+                rows="{MainModel>/list}"
+                selectionMode="MultiToggle"
+                visibleRowCount="7"
+                paste="onPaste"
+                ariaLabelledBy="title">
                 <!-- 하위 테이블은 로우즈 바인딩에 연결된다.-->
-				<tab:extension>
-					<OverflowToolbar style="Clear">
-						<Title id="title" text="계산 값"/>
-					</OverflowToolbar>
-				</tab:extension>
-				<tab:columns>
-					<tab:Column >
-						<Label text="First Number" />
-						<tab:template>
-							<Text text="{MainModel>num1}" wrapping="false" />
-						</tab:template>
-					</tab:Column>
-					<tab:Column >
-						<Label text="Operator" />
-						<tab:template>
-							<Text text="{MainModel>oper}" />
-						</tab:template>
-					</tab:Column>
-                    					<tab:Column >
-						<Label text="Second Number" />
-						<tab:template>
-							<Text text="{MainModel>num2}" wrapping="false" />
-						</tab:template>
-					</tab:Column>
-                    					<tab:Column >
-						<Label text="Result" />
-						<tab:template>
-							<Text text="{MainModel>result}" wrapping="false" />
-						</tab:template>
-					</tab:Column>
-				</tab:columns>
-			</tab:Table>
+                <tab:extension>
+                    <OverflowToolbar style="Clear">
+                        <Title text="Calculation" />
+                        <ToolbarSpacer />
+                        <Button text="Add" press="onAdd" />
+                        <Button text="Delete" press="onDelete" />
+                    </OverflowToolbar>
+                </tab:extension>
+                <tab:columns>
+                    <tab:Column>
+                        <Label text="First Number" />
+                        <tab:template>
+                            <Text text="{MainModel>num1}" wrapping="false" />
+                        </tab:template>
+                    </tab:Column>
+                    <tab:Column>
+                        <Label text="Operator" />
+                        <tab:template>
+                            <Text text="{MainModel>oper}" />
+                        </tab:template>
+                    </tab:Column>
+                    <tab:Column>
+                        <Label text="Second Number" />
+                        <tab:template>
+                            <Text text="{MainModel>num2}" wrapping="false" />
+                        </tab:template>
+                    </tab:Column>
+                    <tab:Column>
+                        <Label text="Result" />
+                        <tab:template>
+                            <Text text="{MainModel>result}" wrapping="false" />
+                        </tab:template>
+                    </tab:Column>
+                </tab:columns>
+            </tab:Table>
+            <tab:Table
+                rows="{MainModel>/todo}"
+                selectionMode="MultiToggle"
+                visibleRowCount="7"
+                paste="onPaste"
+                ariaLabelledBy="title">
+                <!-- 하위 테이블은 로우즈 바인딩에 연결된다.-->
+                <tab:extension>
+                    <OverflowToolbar style="Clear">
+                        <Title id="title" text="TO DO LIST" />
+                        <ToolbarSpacer />
+                        <Button text="Add"  icon="sap-icon://add"    press="onAdd" />
+                        <Button  icon="sap-icon://delete" press="onDelete" />
+                    </OverflowToolbar>
+                </tab:extension>
+                <tab:columns>
+                    <tab:Column>
+                        <Label text="Content" />
+                        <tab:template>
+                            <Text text="{MainModel>Content}" wrapping="false" />
+                        </tab:template>
+                    </tab:Column>
+
+                </tab:columns>
+            </tab:Table>
         </content>
     </Page>
-    
+
 
 </mvc:View>

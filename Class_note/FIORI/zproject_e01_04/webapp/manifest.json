@@ -57,6 +57,9 @@
         "settings": {
           "bundleName": "zprojecte0104.i18n.i18n"
         }
+      },
+      "root": {
+        "type": "sap.ui.model.json.JSONModel"
       }
     },
     "resources": {

@@ -1,0 +1,19 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m">
+    <Dialog id="addDialog" title="Add todo list" beforeOpen="onBeforeOpen">
+        <content>
+                <HBox height="60px" alignItems="Center" justifyContent="Center">
+                    <Label text="Content :" class="sapUismallMarginEnd" />
+                    <Input  id="addInput"   value="{root>/Value}" />
+                </HBox>
+                <!-- <Button text="Add" icon="sap-icon://add" press="onAddPress" /> -->
+
+        </content>
+        <endButton>
+            <Button text="close" press=".onClose"></Button>
+            <!--앞에 점 찍힌것은 내가바라보는 컨트롤러에 해당한다는의미 -->
+        </endButton>
+
+    </Dialog>
+</core:FragmentDefinition>

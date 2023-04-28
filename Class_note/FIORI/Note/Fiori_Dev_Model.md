@@ -35,6 +35,26 @@ JSON 과 OData V2;
 뷰와 컨트롤 사이에서 데이터 동기화 혹은 격리를 위해 바인딩이 필요하고
 최종적으로 Commit을 진행할 때 컨트롤에서 DB로 접근을 하는 것이 기본적이다.
 
+## 전역 모델
+manifest.json 에서 선언 한 모델은 전역적으로 사용이 가능하다.
+
+```json
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "zprojecte0104.i18n.i18n"
+        }
+      },
+      "root":{
+        "type": "sap.ui.model.json.JSONModel"
+    }}
+```
+이렇게 선언하면
+<Input  value="{root>/Value}" />
+프로퍼티 경로 설정해서 찾을 수 있당,.
+
+
 
 ## Model Data 수정 
 
@@ -53,3 +73,24 @@ e데이터 호출 방식은 2개
          var oModel = this.getView().getModel('MainModel');
                 oModel.getProperty("/title/subtitle");
     ```
+```js
+    this.getView().setModel(new JSONModel(datas), 'MainModel')
+     //   모델객처생성(어떤 데이터 사용할지?),   모델이름 설정
+    
+     var oModel = this.getView().getModel('MainModel');
+```                
+
+## 모델의 값을 가져오기
+
+oModel.getData(); : 전체 데이터을 모델에서 Get
+oModel.getProperty("/key"); => { key2 : ''}
+
+oModel.setData(세팅 데이터);  : 전체 데이터을 모델로 세팅
+oModel.setProperty("/경로",세팅 데이터);   : 성능 이슈 있음 가능하면 마지막에 한번만 정리하는 것으로 할 것.
+
+## JSON Model 로컬 CRD
+
+모델의 데이터 값을 외부 파일에서 호출이 가능함
+모델 폴더안에 JSON 파일을 생성하여 호출
+
+## create 하기

@@ -11,19 +11,42 @@ sap.ui.define([
 
         return Controller.extend("zprojecte0104.controller.Main", {
             onInit: function () {
+
+
+
+
+                // 1. 외부 데이터 호출 방식
+                // var oModel = new JSONModel('MainModel');
+                // oModel.loadData(sap.ui.require.toUrl("zprojecte0104/model/data.json"))
+                // //Url경로는 Root Path에서 상대경로임 "Model/data.json"
+                // this.getView().setModel(oModel, 'MainModel')
+                // //   모델객처생성,   모델이름 설정
+
+
+                // 2. 기본 방식
+                //   모델객처생성(어떤 데이터 사용할지?),   모델이름 설정
                 let datas = {
-                    list: new Array([
+                    title: {
+                        title: 'Json Title',
+                        subTitle: 'JSON Sub Title'
+                    },
+                    list: [
                         {
-                            num1: new Number,
-                            oper: new String,
-                            num2: new Number,
-                            result: new Number
+                            "num1": 30,
+                            "oper": "plus",
+                            "num2": 10,
+                            "result": 40
                         }
-                    ])
+                    ],
+                    todo: [
+                        { Content: 'test' }
+                    ]
                 }
-                this.getView().setModel(new JSONModel(datas), 'MainModel')
+                this.getView().setModel(new JSONModel(datas), 'MainModel');
                 //   모델객처생성,   모델이름 설정
-                
+
+
+
             },
             onChange: function () {
                 // // var oModel = this.getView().getModel('MainModel');
@@ -111,7 +134,7 @@ sap.ui.define([
                                 num2: inum2,
                                 result: iresult
                             });
-                            oModel.setProperty("/list",aList);
+                            oModel.setProperty("/list", aList);
                         }
 
                     }
@@ -124,9 +147,97 @@ sap.ui.define([
                     initialFocus: null,                                  // default
                     textDirection: sap.ui.core.TextDirection.Inherit     // default
                 });
-            }
+            },
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            onSubmitDialogPress: function () {
+                if (!this.oSubmitDialog) {
+                    this.oSubmitDialog = new Dialog({
+                        type: DialogType.Message,
+                        title: "Confirm",
+                        content: [
+                            new Label({
+                                text: "Do you want to submit this order?",
+                                labelFor: "submissionNote"
+                            }),
+                            new TextArea("submissionNote", {
+                                width: "100%",
+                                placeholder: "Add note (required)",
+                                liveChange: function (oEvent) {
+                                    var sText = oEvent.getParameter("value");
+                                    this.oSubmitDialog.getBeginButton().setEnabled(sText.length > 0);
+                                }.bind(this)
+                            })
+                        ],
+                        beginButton: new Button({
+                            type: ButtonType.Emphasized,
+                            text: "Submit",
+                            enabled: false,
+                            press: function () {
+                                var sText = Core.byId("submissionNote").getValue();
+                                MessageToast.show("Note is: " + sText);
+                                this.oSubmitDialog.close();
+                            }.bind(this)
+                        }),
+                        endButton: new Button({
+                            text: "Cancel",
+                            press: function () {
+                                this.oSubmitDialog.close();
+                            }.bind(this)
+                        })
+                    });
+                }
 
-        });
+                this.oSubmitDialog.open();
+            },
+            /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
+            onAdd: function () {
+                var oDialog = this.byId("addDialog");
+
+
+
+                if (oDialog) {
+                    oDialog.open();
+                } else {
+
+                    this.loadFragment({
+                        name: "zprojecte0104.view.fragment.AddDialog"
+                    }).then((oDialog) => {
+                        oDialog.open();
+                    }, this) // this를 넣어 준것은 현재 바라보고있는 컨트롤러를 바라보도록한것,
+                }
+            },
+            onAddPress: function () {
+                push({
+                    num1: inum1,
+                    oper: operator,
+                    num2: inum2,
+                    result: iresult
+                });
+                oModel.setProperty("/list", aList);
+
+            },
+            onClose: function (oEvent) {
+                var oDialog = oEvent.getSource().getParent();
+                var oModel = this.getView().getModel('MainModel');
+                var aTodos = oModel.getProperty("/todo");
+                //// 1 번째 방법 oDialog에서 직접 값을 가져오는 방법
+                // var sValue = oDialog.getContent()[0].getItems()[1].getValue();
+                //// 2 번째 방법 인풋에다가 root모델을 연결하기
+                //// 바인딩 된 데이터를 sValue에 할당하여 활용하는 방법이다.
+                var sValue = this.getView().getModel("root").getProperty("/Value")
+
+                if (sValue) {
+                    aTodos.unshift({ Content : sValue })
+                    oModel.setProperty("/todo",aTodos);
+
+                }
+                oDialog.close();
+            },
+            onBeforeOpen: function () {
+                this.byId("addInput").setValue();
+            }
+        }
+        );
     });
 
 

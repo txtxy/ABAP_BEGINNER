@@ -23,14 +23,16 @@ sap.ui.define([
             // }
             onHelloPress: function () {
                 var oDialog = this.byId("helloDialog");
-                oDialog.open
+
                 if (oDialog) {
                     oDialog.open();
                     return; // 함수 완전 종료
                 } 
 
             this.loadFragment({
-                name : "zprojectteste0103.view.fragment.HelloDialog"
+                name : "zprojectteste0103.view.fragment.HelloDialog",
+                controller:this
+                
             }).then((oDialog) => {
                 oDialog.open();
             }, this)
