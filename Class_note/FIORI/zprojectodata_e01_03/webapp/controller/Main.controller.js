@@ -5,7 +5,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,Filter) {
+    function (Controller, Filter) {
         "use strict";
 
         return Controller.extend("nt.zprojectodatae0103.controller.Main", {
@@ -29,25 +29,26 @@ sap.ui.define([
             onInit: function () {
 
             },
-            onSearch : function () {
-                
+            onSearch: function () {
+
+                debugger;
                 let oOrderDate = this.byId("idOrderDate").getDateValue();
                 let sInputValue = Number(this.byId("idOrderID").getValue());
-                
+
                 let oFilter = new Filter({
                     filters: [
-                        new Filter({
-                          path: 'OderID',
-                          operator: "EQ",
-                          value1: sInputValue
-                        }),
-                        new Filter({
-                          path: 'OrderDate',
-                          operator: "GE",
-                          value1: oOrderDate
-                        })
-                      ],
-                      and: true
+                        {
+                            path: 'OderID',
+                            operator: "EQ",
+                            value1: sInputValue
+                        },
+                        {
+                            path: 'OrderDate',
+                            operator: "GE",
+                            value1: oOrderDate
+                        }
+                    ],
+                    and: true
                 });
 
                 this.byId("idProductsTable").getBinding("items").filter([oFilter])
@@ -59,7 +60,7 @@ sap.ui.define([
                 //     oFilter = new sap.ui.model.Filter("OrderID","EQ",sInputValue),
                 //     // oFilter = new sap.ui.model.Filter(경로,조건,값),
                 //     aFilter = [];                
-                    
+
                 //     let oODateFilter = new sap.ui.model.Filter("OrderDate","GE",oOrderDate.getDateValue())
 
                 //     aFilter.push(oFilter);
