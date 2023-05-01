@@ -1,21 +1,75 @@
 <mvc:View
 	xmlns:mvc="sap.ui.core.mvc"
 	controllerName="nt.zprojectodatae0103.controller.Main"
+	height="100%"
 	xmlns="sap.uxap"
 	xmlns:m="sap.m"
-	height="100%"
 	xmlns:t="sap.m.table"
 	xmlns:core="sap.ui.core"
-	>
+	xmlns:l="sap.ui.layout"
+>
 	<!-- ObjectPageSection 예시 활용 -->
-	<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false"
+
+	<ObjectPageLayout
+		id="ObjectPageLayout"
+		upperCaseAnchorBar="false"
 		useIconTabBar="true"> <!-- 탭으로 구분되도록함 -->
 		<headerTitle>
 			<ObjectPageHeader objectTitle="Section sample">
+				<actions>
+					<ObjectPageHeaderActionButton
+						icon="sap-icon://search"
+						text="Search"
+						hideText="false"
+						press="onSearch"
+						type="Emphasized"
+					/>
+				</actions>
 			</ObjectPageHeader>
 		</headerTitle>
-
 		<headerContent>
+			<l:Grid containerQuery="true"
+				defaultSpan="XL2 L4 M6 S12">
+				<m:VBox>
+					<m:Label id="label1"  text="Oder ID">
+					</m:Label>
+					<m:Input id = "idOrderID"/>
+						<!-- <m:Input type="Number" 
+						valueState="Error"
+						valueStateText="error occurred"
+						/> -->
+				</m:VBox>
+				<m:VBox>
+					<m:Label id="label2" text="Order Date"/>
+						<m:DatePicker 
+						id="idOrderDate"
+						displayFormat="yyyy-MM-dd"
+						valueFormat="yyyyMMdd"/>
+						 <!-- displayFormat => 보여지는 형식만  -->
+				</m:VBox>
+				<m:VBox>
+					<m:Label id="label3" text="Label 3">
+					</m:Label>
+					<m:Input/>
+						<!-- <m:Input type="Tel"/> -->
+				</m:VBox>
+				<m:VBox>
+					<m:Label id="label4" text="Label 4">
+					</m:Label>
+						<m:Input/>
+				</m:VBox>
+				<m:VBox>
+					<m:Label id="label5" text="Label 5">
+					</m:Label>
+						<m:Input/>
+				</m:VBox>
+				<m:VBox>
+					<m:Label id="label6" text="Label 6">
+					</m:Label>
+						<m:Input/>
+				</m:VBox>
+
+			</l:Grid>
 			<m:ObjectAttribute title=""
 				text="This example explains the rules for the rendering of sections" />
 		</headerContent>
@@ -29,7 +83,9 @@
 							<!-- <m:Text text = "Content 1.3"/> sap.m.Table 가져올것임-->
 							<m:Table id="idProductsTable"
 								inset="false"
-								items="{
+								items="{/Orders}">
+								<!--                           아이템즈 바인딩 
+								{
                                     path : '/Products',
                                     filters : [{
                                         path : 'UnitsOnOrder',
@@ -48,21 +104,20 @@
                                         path : 'UnitsOnOrder',
                                         ascending : true
 									}]
-                                }">
-								<!-- 페스와 필터를 선언하면 어떤 기준으로 필터를 걸것인지 작성해야함
+                                }
+								페스와 필터를 선언하면 어떤 기준으로 필터를 걸것인지 작성해야함
 								패스에는 원하는 컬럼 값
 								오퍼레이터는 필터 조건 예) NE, EQ, GE 등등 
 								value2 는 Bteween 등에 사용됨 
-								1개 조건으로 검색하고자한다면 value2는 디폴트 NUll임-->
+								1개 조건으로 검색하고자한다면 value2는 디폴트 NUll임
+								 items="{/Products}"> model.js에 데이터 모델이름을 없이 생성했기에{이름>}이 없음 -->
 
-								<!-- items="{/Products}"> model.js에 데이터 모델이름을 없이 생성했기에{이름>}이 없음 -->
-
-							<m:headerToolbar>
-								<m:OverflowToolbar>
-									<m:content>
-										<m:Title text="Products" level="H2" />
-										<m:ToolbarSpacer />
-										<!-- <m:ComboBox id="idPopinLayout"
+								<m:headerToolbar>
+									<m:OverflowToolbar>
+										<m:content>
+											<m:Title text="Products" level="H2" />
+											<m:ToolbarSpacer />
+											<!-- <m:ComboBox id="idPopinLayout"
 											placeholder="Popin layout options"
 											change="onPopinLayoutChanged">
 											<m:items>
@@ -84,35 +139,41 @@
 										<ToggleButton id="toggleInfoToolbar"
 											text="Hide/Show InfoToolbar"
 											press="onToggleInfoToolbar" /> -->
-									</m:content>
-								</m:OverflowToolbar>
-							</m:headerToolbar>
-							<!-- <infoToolbar>
+										</m:content>
+									</m:OverflowToolbar>
+								</m:headerToolbar>
+								<!-- <infoToolbar>
 								<OverflowToolbar>
 									<Label text="Wide range of available products" />
 								</OverflowToolbar>
 							</infoToolbar> -->
-							<m:columns>
-								<m:Column
-									width="12em">
-									<m:Text text="Product Name" />
-								</m:Column>
-								<m:Column>
-									<m:Text text="UnitsInStock" />
+								<m:columns>
+									<m:Column
+										width="12em">
+										<m:Text text="OrderID" />
 									</m:Column>
 									<m:Column>
-									<m:Text text="UnitsOnOder" />
-								</m:Column>
+										<m:Text text="CustomerID" />
+									</m:Column>
 									<m:Column>
-									<m:Text text="Custom Sum" />
-								</m:Column>
+										<m:Text text="OrderDate" />
+									</m:Column>
 									<m:Column>
-									<m:Text text="Custom Sum2" />
-								</m:Column>
+										<m:Text text="RequiredDate" />
+									</m:Column>
 									<m:Column>
-									<m:Text text="Result" />
-								</m:Column>
-								<!-- <Column
+										<m:Text text="ShippedDate" />
+									</m:Column>
+									<!-- <m:Column>
+										<m:Text text="Custom Sum" />
+									</m:Column>
+									<m:Column>
+										<m:Text text="Custom Sum2" />
+									</m:Column>
+									<m:Column>
+										<m:Text text="Result" />
+									</m:Column> -->
+									<!-- <Column
 									minScreenWidth="Tablet"
 									demandPopin="true">
 									<Text text="Supplier" />
@@ -133,31 +194,46 @@
 									hAlign="End">
 									<Text text="Price" />
 								</Column> -->
-							</m:columns>
-							<m:items> <!-- 로우즈와 똑같은 것이 상단 테이블의 프로덕트 경로와 바인딩해주는 것임-->
-								<m:ColumnListItem vAlign="Middle">
-									<m:cells>
-										<m:Text	text="{ProductName}" />
-										<m:Text	text="{UnitsInStock}" />
-										<m:Text	text="{UnitsOnOrder}" />
-										<m:Text	text="{
+								</m:columns>
+								<m:items> <!-- 로우즈와 똑같은 것이 상단 테이블의 프로덕트 경로와 바인딩해주는 것임-->
+									<m:ColumnListItem vAlign="Middle">
+										<m:cells>
+											<m:Text text="{OrderID}" />
+											<m:Text text="{CustomerID}" />
+											<m:Text
+												text="{
+											
+												path : 'OrderDate',
+												formatter : '.formatter.dateTime'}" />
+											<m:Text
+												text="{
+												path : 'RequiredDate',
+												formatter : '.formatter.dateTime'}" />
+											<m:Text
+												text="{
+												path : 'ShippedDate',
+												formatter : '.formatter.dateTime'}" />
+											<!--<m:Text
+												text="{
 											parts : [
 											{path : 'UnitsInStock'},
 											{path : 'UnitsOnOrder'}
 											],
 											formatter : '.formatter.onSum'
 										}" />
-										<m:Text	text="{=${UnitsInStock} + ${UnitsOnOrder}}" 
-												visible="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? false : true }"/>
-										 <!-- 표현식을 사용한 집계 값  -->
-										<!--'<' 는 &lt; 유니코드 값을 사용해야함
-											태그인지 아닌지 판별해줘야하기 떄문임 -->
-											<core:Icon src="sap-icon://circle-task-2" 
-														visible="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? true : false}"
-														color="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? #1DDB16 : #FF0000}"/>
-									</m:cells>
-								</m:ColumnListItem>
-							</m:items>
+											<m:Text text = "{UnitsInStock} and {UnitsOnOrder} "/>
+											 text="{=${UnitsInStock} and ${UnitsOnOrder}}"
+											 visible="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? false : true }" /> 
+						표현식을 사용한 집계 값  
+						'<' 는 &lt; 유니코드 값을 사용해야함
+						태그인지 아닌지 판별해줘야하기 떄문임
+						<core:Icon src="sap-icon://circle-task-2"
+							color="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? '#CC3D3D' : '#47C83E'}"
+						/> 
+		visible="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? false : true}" -->
+										</m:cells>
+									</m:ColumnListItem>
+								</m:items>
 							</m:Table>
 						</blocks>
 					</ObjectPageSubSection>
@@ -173,7 +249,6 @@
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
-
 			<ObjectPageSection titleUppercase="false" title="Section 5">
 				<subSections>
 					<ObjectPageSubSection titleUppercase="false">
@@ -183,7 +258,15 @@
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection> -->
-
+			<ObjectPageSection titleUppercase="false" title="Section 4">
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<blocks>
+							<m:Text text="test" />
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
 
 		</sections>
 

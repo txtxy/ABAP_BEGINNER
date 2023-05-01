@@ -214,3 +214,5 @@ sicf sap bc 안에 PING을 찾으면 커넥ㄱ션 테스트 서비스를 누르�
 Name space 를 설정한다면 웹엡의 경로를 
 `nt.zprojectodatae0103.controller.Main` 이런 식으로 지정된다.
 기본 비워놨다면 `zprojectodatae0103.`
+
+
