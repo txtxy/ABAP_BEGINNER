@@ -27,12 +27,16 @@ SAP.m.button
 
 ## 로드 순서
 
-인덱스 html
-컴포넌트 제이에스
-메니페스트 제이슨 (진정한 설정파일)
-    - 루트 뷰를 통해서 순서 확인
+1. Index.html
+2. Component.js
+3. manifest.json (진정한 설정파일)
+    - RootView를 통해서 호출파일 확인
+    - Router에 설정된 초기 URI 뷰 호출
+        1. APP.view.xml -> App.controller.js
     - 첫 URL은 MAIN 뷰로 지정되어있기에
-메인.view를 호출
+        2. Main.view.xml -> Main.controller.js
+
+4. Json Model  혹은 OData Model 데이터 셋 조회
 
 메인 컨트롤러 실행
 컨트롤러에서 라이블로리를 짝국ㅇ인 직접 작성한 컨트롤러 내용을 익스텐드
@@ -47,12 +51,12 @@ SAP.m.button
     index./html 전체 윤곽
 
     manifest.json : 설정파일.App 전체 구성요소를 담당
-    화면이동 경로, RootView 전역모델 설정등을 관리
+        화면이동 경로, RootView 전역모델 설정등을 관리
 
-    \컨트롤러\Component.js
+    \Controller\Component.js
          기준으로 런치패드 구성
 
-    \컨트롤러\메인.컨트롤러/js
+    \Controller\메인.컨트롤러/js
         화면 기능을 담당 기능 구현
 
     \Model\Ddatas.json 화면데이터와 서버데이터 담당
@@ -147,7 +151,7 @@ sap.ui.define([
 
 
 ### 단어
-라우팅 /ㅣ 패아자 앋홍
+라우팅 /페이지 앋홍dkeghd
 ### **라이프 사이클**
 - 따로 설정하지 않아도 자동으로 실행되는 함수
 
@@ -205,4 +209,8 @@ getSource를 통해 이벤트를 발생시킨 요인을 가져오고
 getParamters를 통해 발생한 객체를 가져온다,
 
 
-sicf sap bc 안에 PING을 찾으면 커넥ㄱ션 테스트 서비스를 누르면 URL을 확인할 수 있다.ㅛ
+sicf sap bc 안에 PING을 찾으면 커넥ㄱ션 테스트 서비스를 누르면 URL을 확인할 수 있다.
+
+Name space 를 설정한다면 웹엡의 경로를 
+`nt.zprojectodatae0103.controller.Main` 이런 식으로 지정된다.
+기본 비워놨다면 `zprojectodatae0103.`

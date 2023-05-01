@@ -1,0 +1,191 @@
+<mvc:View
+	xmlns:mvc="sap.ui.core.mvc"
+	controllerName="nt.zprojectodatae0103.controller.Main"
+	xmlns="sap.uxap"
+	xmlns:m="sap.m"
+	height="100%"
+	xmlns:t="sap.m.table"
+	xmlns:core="sap.ui.core"
+	>
+	<!-- ObjectPageSection 예시 활용 -->
+	<ObjectPageLayout id="ObjectPageLayout" upperCaseAnchorBar="false"
+		useIconTabBar="true"> <!-- 탭으로 구분되도록함 -->
+		<headerTitle>
+			<ObjectPageHeader objectTitle="Section sample">
+			</ObjectPageHeader>
+		</headerTitle>
+
+		<headerContent>
+			<m:ObjectAttribute title=""
+				text="This example explains the rules for the rendering of sections" />
+		</headerContent>
+
+		<sections>
+
+			<ObjectPageSection titleUppercase="false" title="Section 3">
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<blocks>
+							<!-- <m:Text text = "Content 1.3"/> sap.m.Table 가져올것임-->
+							<m:Table id="idProductsTable"
+								inset="false"
+								items="{
+                                    path : '/Products',
+                                    filters : [{
+                                        path : 'UnitsOnOrder',
+                                        operator : 'NE',
+                                        value1 : '0'
+                                    },{
+                                        path : 'ProductName',
+                                        operator : 'Contains',
+                                        value1 : 'C'
+                                    }],
+                                    sorter : [{
+                                        path : 'UnitsInStock',
+                                        descending : true
+                                    },
+									{
+                                        path : 'UnitsOnOrder',
+                                        ascending : true
+									}]
+                                }">
+								<!-- 페스와 필터를 선언하면 어떤 기준으로 필터를 걸것인지 작성해야함
+								패스에는 원하는 컬럼 값
+								오퍼레이터는 필터 조건 예) NE, EQ, GE 등등 
+								value2 는 Bteween 등에 사용됨 
+								1개 조건으로 검색하고자한다면 value2는 디폴트 NUll임-->
+
+								<!-- items="{/Products}"> model.js에 데이터 모델이름을 없이 생성했기에{이름>}이 없음 -->
+
+							<m:headerToolbar>
+								<m:OverflowToolbar>
+									<m:content>
+										<m:Title text="Products" level="H2" />
+										<m:ToolbarSpacer />
+										<!-- <m:ComboBox id="idPopinLayout"
+											placeholder="Popin layout options"
+											change="onPopinLayoutChanged">
+											<m:items>
+												<core:Item text="Block"
+													key="Block" />
+												<core:Item text="Grid Large"
+													key="GridLarge" />
+												<core:Item text="Grid Small"
+													key="GridSmall" />
+											</m:items>
+										</m:ComboBox> 
+										 <Label text="Sticky options:" />
+										<CheckBox text="ColumnHeaders"
+											select="onSelect" />
+										<CheckBox text="HeaderToolbar"
+											select="onSelect" />
+										<CheckBox text="InfoToolbar"
+											select="onSelect" />
+										<ToggleButton id="toggleInfoToolbar"
+											text="Hide/Show InfoToolbar"
+											press="onToggleInfoToolbar" /> -->
+									</m:content>
+								</m:OverflowToolbar>
+							</m:headerToolbar>
+							<!-- <infoToolbar>
+								<OverflowToolbar>
+									<Label text="Wide range of available products" />
+								</OverflowToolbar>
+							</infoToolbar> -->
+							<m:columns>
+								<m:Column
+									width="12em">
+									<m:Text text="Product Name" />
+								</m:Column>
+								<m:Column>
+									<m:Text text="UnitsInStock" />
+									</m:Column>
+									<m:Column>
+									<m:Text text="UnitsOnOder" />
+								</m:Column>
+									<m:Column>
+									<m:Text text="Custom Sum" />
+								</m:Column>
+									<m:Column>
+									<m:Text text="Custom Sum2" />
+								</m:Column>
+									<m:Column>
+									<m:Text text="Result" />
+								</m:Column>
+								<!-- <Column
+									minScreenWidth="Tablet"
+									demandPopin="true">
+									<Text text="Supplier" />
+								</Column>
+								<Column
+									minScreenWidth="Desktop"
+									demandPopin="true"
+									hAlign="End">
+									<Text text="Dimensions" />
+								</Column>
+								<Column
+									minScreenWidth="Desktop"
+									demandPopin="true"
+									hAlign="Center">
+									<Text text="Weight" />
+								</Column>
+								<Column
+									hAlign="End">
+									<Text text="Price" />
+								</Column> -->
+							</m:columns>
+							<m:items> <!-- 로우즈와 똑같은 것이 상단 테이블의 프로덕트 경로와 바인딩해주는 것임-->
+								<m:ColumnListItem vAlign="Middle">
+									<m:cells>
+										<m:Text	text="{ProductName}" />
+										<m:Text	text="{UnitsInStock}" />
+										<m:Text	text="{UnitsOnOrder}" />
+										<m:Text	text="{
+											parts : [
+											{path : 'UnitsInStock'},
+											{path : 'UnitsOnOrder'}
+											],
+											formatter : '.formatter.onSum'
+										}" />
+										<m:Text	text="{=${UnitsInStock} + ${UnitsOnOrder}}" 
+												visible="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? false : true }"/>
+										 <!-- 표현식을 사용한 집계 값  -->
+										<!--'<' 는 &lt; 유니코드 값을 사용해야함
+											태그인지 아닌지 판별해줘야하기 떄문임 -->
+											<core:Icon src="sap-icon://circle-task-2" 
+														visible="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? true : false}"
+														color="{=(${UnitsInStock} + ${UnitsOnOrder}) &lt; 50 ? #1DDB16 : #FF0000}"/>
+									</m:cells>
+								</m:ColumnListItem>
+							</m:items>
+							</m:Table>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+			<!-- 
+			<ObjectPageSection>
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<blocks>
+							<m:Text text = "Content 4"/>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" title="Section 5">
+				<subSections>
+					<ObjectPageSubSection titleUppercase="false">
+						<blocks>
+							<m:Text text = "Content 5"/>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection> -->
+
+
+		</sections>
+
+	</ObjectPageLayout>
+</mvc:View>

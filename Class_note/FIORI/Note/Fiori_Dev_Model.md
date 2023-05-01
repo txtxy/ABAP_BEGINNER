@@ -19,7 +19,8 @@ JSON 과 OData V2;
 
 # JSON
 경로 설정이 필요함
-{모델이름>/Key}
+1. {모델이름>/Key}
+2. {이름>/경로/0/경로2}
 
 이렇게 설정하는 것이 Property 바인딩이라고 한다.
 
@@ -39,7 +40,8 @@ JSON 과 OData V2;
 manifest.json 에서 선언 한 모델은 전역적으로 사용이 가능하다.
 
 ```json
-    "models": {
+{    
+  "models": {
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
@@ -48,11 +50,24 @@ manifest.json 에서 선언 한 모델은 전역적으로 사용이 가능하다
       },
       "root":{
         "type": "sap.ui.model.json.JSONModel"
-    }}
+      }
+  }
+}
 ```
 이렇게 선언하면
 <Input  value="{root>/Value}" />
 프로퍼티 경로 설정해서 찾을 수 있당,.
+
+
+## Model 객체 생성
+- setModel 
+  - 신규 데이터 모델 객체 생성 하기    
+```js
+    this.getView().setModel(new JSONModel(datas), 'MainModel')
+      //   모델객처생성(어떤 데이터 사용할지?),   모델이름 설정
+    
+     var oModel = this.getView().getModel('MainModel');
+```                
 
 
 
@@ -73,13 +88,6 @@ e데이터 호출 방식은 2개
          var oModel = this.getView().getModel('MainModel');
                 oModel.getProperty("/title/subtitle");
     ```
-```js
-    this.getView().setModel(new JSONModel(datas), 'MainModel')
-     //   모델객처생성(어떤 데이터 사용할지?),   모델이름 설정
-    
-     var oModel = this.getView().getModel('MainModel');
-```                
-
 ## 모델의 값을 가져오기
 
 oModel.getData(); : 전체 데이터을 모델에서 Get
@@ -97,9 +105,62 @@ oModel.setProperty("/경로",세팅 데이터);   : 성능 이슈 있음 가능�
  
 
 ## Delete 하기
+Class_note\FIORI\zproject_e01_04
 선택한 로우 정보 파악하기
 해당 로우의 Idex를 고려해서 삭제 기능 삽입
 
 1. 단건 삭제
 
 2. 다건 삭제
+
+
+## SAP 제공 샘플 OData
+
+https://services.odata.org/v2/northwind/northwind.svc/
+
+https://services.odata.org/v2/northwind/northwind.svc/Orders?$format=json&$expand=Customer&$filter=OrderID%20eq%2010248
+
+필터를 활용하여 특정 값 가져오기
+
+manifetst.js 내부에 데이터 소스가 존재함
+```js
+    "dataSources": {
+      "mainService": {
+        "uri": "/v2/northwind/northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
+    }
+```
+
+###  뷰에서 설정하는 필터
+sap.ui.model.Filter에서 확인 가능한 샘플 소스 존재
+
+```js
+<m:Table id="idProductsTable"
+								inset="false"
+								items="{
+                                    path : '/Products',
+                                    filters : [{
+                                        path : 'UnitsOnOrder',
+                                        operator : 'NE',
+                                        value1 : '0'
+                                    },{
+                                        path : 'ProductName',
+                                        operator : 'Contains',
+                                        value1 : 'C'
+                                    }],
+                                    sorter : [{
+                                        path : 'UnitsInStock',
+                                        descending : true
+                                    },
+									{
+                                        path : 'UnitsOnOrder',
+                                        ascending : true
+									}]
+                                }">
+```                                

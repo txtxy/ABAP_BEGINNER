@@ -1,7 +1,7 @@
 {
   "_version": "1.49.0",
   "sap.app": {
-    "id": "zprojecte0106",
+    "id": "nt.zprojectodatae0103",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,18 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.9.4",
-      "toolsId": "f178283e-f085-44af-858e-65140fe95c9f"
+      "toolsId": "4da04639-2774-4a98-ba61-e3910d18a606"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/v2/northwind/northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -55,11 +66,13 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "zprojecte0106.i18n.i18n"
+          "bundleName": "nt.zprojectodatae0103.i18n.i18n"
         }
       },
-      "root": {
-        "type": "sap.ui.model.json.JSONModel"
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
       }
     },
     "resources": {
@@ -74,7 +87,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "zprojecte0106.view",
+        "viewPath": "nt.zprojectodatae0103.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
@@ -99,11 +112,10 @@
       }
     },
     "rootView": {
-      "viewName": "zprojecte0106.view.App",
+      "viewName": "nt.zprojectodatae0103.view.App",
       "type": "XML",
       "async": true,
-      "id": "App",
-      "config" : "fullWidth = true"
+      "id": "App"
     }
   }
 }
