@@ -1,0 +1,43 @@
+<core:FragmentDefinition
+    xmlns:core="sap.ui.core"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table">
+    <Dialog id="Dialog" title="ADD Title" beforeOpen="onBeforeOpen" draggable="true" resizable="true">
+        <content>
+			<t:Table
+				rows="{/Customers}"
+				selectionMode="Single"
+				visibleRowCount="7"
+				paste="onPaste"
+				ariaLabelledBy="title"
+                rowSelectionChange="rowSelectionChange">
+				<t:extension>
+					<OverflowToolbar style="Clear">
+						<Title id="title" text="Products"/>
+					</OverflowToolbar>
+				</t:extension>
+				<t:columns>
+					<t:Column>
+						<Label text="CustomerID" />
+                        <t:template>
+                            <Text text="{CustomerID}" wrapping="false" />
+                        </t:template>
+					</t:Column>
+					<t:Column>
+						<Label text="CompanyName" />
+                        <t:template>
+                            <Text text="{CompanyName}" wrapping="false" />
+                        </t:template>
+					</t:Column>
+				</t:columns>
+			</t:Table>
+        </content>
+
+        <endButton> 
+            <Button text="close" press=".onClose"/>
+        </endButton> 
+
+
+    </Dialog> 
+
+</core:FragmentDefinition>

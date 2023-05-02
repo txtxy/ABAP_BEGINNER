@@ -1,7 +1,7 @@
 {
   "_version": "1.49.0",
   "sap.app": {
-    "id": "projecte0107",
+    "id": "zprojectodatae1304",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,18 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:basic",
       "version": "1.9.4",
-      "toolsId": "780b1e58-f607-490e-b735-416d255d25f5"
+      "toolsId": "5d1014de-53a5-466a-8dff-dc72873d986d"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/v2/northwind/northwind.svc/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "2.0"
+        }
+      }
     }
   },
   "sap.ui": {
@@ -55,8 +66,13 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "projecte0107.i18n.i18n"
+          "bundleName": "zprojectodatae1304.i18n.i18n"
         }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {}
       }
     },
     "resources": {
@@ -71,7 +87,7 @@
         "routerClass": "sap.m.routing.Router",
         "viewType": "XML",
         "async": true,
-        "viewPath": "projecte0107.view",
+        "viewPath": "zprojectodatae1304.view",
         "controlAggregation": "pages",
         "controlId": "app",
         "clearControlAggregation": false
@@ -83,10 +99,9 @@
           "target": [
             "TargetMain"
           ]
-        },
-        {
+        },{
           "name": "RouteDetail",
-          "pattern": "detail/{aa}/:bb:",
+          "pattern": "detail/{key}/:option:",     
           "target": [
             "TargetDetail"
           ]
@@ -106,14 +121,16 @@
           "clearControlAggregation": false,
           "viewId": "Detail",
           "viewName": "Detail"
-        }
       }
-    },
+    }
+  },
+    
     "rootView": {
-      "viewName": "projecte0107.view.App",
+      "viewName": "zprojectodatae1304.view.App",
       "type": "XML",
       "async": true,
       "id": "App"
     }
+    }
   }
-}
+

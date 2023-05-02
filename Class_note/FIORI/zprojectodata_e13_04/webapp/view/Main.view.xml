@@ -1,0 +1,99 @@
+<mvc:View controllerName="zprojectodatae1304.controller.Main"
+		xmlns:mvc="sap.ui.core.mvc"
+		xmlns="sap.m"
+        xmlns:core="sap.ui.core"
+		xmlns:f="sap.f"
+		xmlns:layout="sap.ui.layout"
+		height="100%">
+		<f:DynamicPage id="dynamicPageId" headerExpanded="{/headerExpanded}" toggleHeaderOnTitleClick="{/titleClickable}">
+			<!-- DynamicPage Title -->
+			<f:title>
+				<f:DynamicPageTitle>
+					<f:heading>
+						<Title text="가자! 집으로!"/>
+					</f:heading>
+				</f:DynamicPageTitle>
+			</f:title>
+			<!-- DynamicPage Header -->
+			<f:header>
+				<f:DynamicPageHeader pinnable="true">
+					<layout:HorizontalLayout allowWrapping="true">
+						<layout:VerticalLayout class="sapUiMediumMarginEnd">
+									<Input id="Input" showValueHelp="true" valueHelpRequest="onValueHelpRequest"/>
+						</layout:VerticalLayout>
+									
+						<layout:VerticalLayout>
+							<ObjectAttribute title="Availability"/>
+							<ObjectStatus text="In Stock" state="Success" />
+						</layout:VerticalLayout>
+					</layout:HorizontalLayout>
+				</f:DynamicPageHeader>
+			</f:header>
+			<f:content>
+				<Table id="idProductsTable" mode="SingleSelectMaster" inset="false"
+				selectionChange="onSelectionChange"
+                    items="{/Orders}">
+                        <headerToolbar>
+						<Toolbar>
+							<Title text="Products" level="H2"/>
+						</Toolbar>
+					</headerToolbar>
+					<columns>
+						<Column>
+							<Text text="OrderID" />
+						</Column>
+						<Column>
+							<Text text="CustomerID" />
+						</Column>
+						<Column>
+							<Text text="EmployeeID" />
+						</Column>
+						<Column>
+							<Text text="OrderDate" />
+						</Column>
+                        <Column>
+							<Text text="RequiredDate" />
+						</Column>
+                        <Column>
+							<Text text="ShippedDate" />
+						</Column>
+					</columns>
+					<items>
+						<ColumnListItem>
+							<cells>
+								<Text text="{OrderID}"/>
+								<Text text="{CustomerID}" />
+								<Text text="{EmployeeID}" />
+                                <Text text="{
+						path : 'OrderDate',
+						formatter : '.formatter.dateTime'
+						}" />
+                                <Text text="{
+						path : 'RequiredDate',
+						formatter : '.formatter.dateTime'
+						}" />
+                                <Text text="{
+						path : 'ShippedDate',
+						formatter : '.formatter.dateTime'
+						}" />
+
+							</cells>
+						</ColumnListItem>
+					</items>
+				</Table>
+			</f:content>
+			<!-- DynamicPage Footer -->
+			<f:footer>
+				<OverflowToolbar>
+					<Button icon="sap-icon://message-popup"
+							text="{/messagesLength}"
+							type="Emphasized"
+							press="onMessageButtonPress"
+							visible="{= !!${/messagesLength}}"/>
+					<ToolbarSpacer/>
+					<Button type="Accept" text="Accept"/>
+					<Button type="Reject" text="Reject"/>
+				</OverflowToolbar>
+			</f:footer>
+		</f:DynamicPage>
+</mvc:View>

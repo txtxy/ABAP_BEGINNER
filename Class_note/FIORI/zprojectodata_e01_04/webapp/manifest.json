@@ -92,12 +92,18 @@
         "controlId": "app",
         "clearControlAggregation": false
       },
-      "routes": [
+"routes": [
         {
           "name": "RouteMain",
           "pattern": ":?query:",
           "target": [
             "TargetMain"
+          ]
+        }, {
+          "name": "RouteDetail",
+          "pattern": "detail/{key}",
+          "target": [
+            "TargetDetail"
           ]
         }
       ],

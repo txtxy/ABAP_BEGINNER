@@ -7,7 +7,7 @@ sap.ui.define([
 function (Controller) {
 "use strict";
 
-return Controller.extend("zprojectodatae1004.controller.Main", {
+return Controller.extend("zprojectodatae0104.controller.Main", {
 formatter: {
     onSum: function (a, b) {
         return a + b;
@@ -38,15 +38,13 @@ onRowPress: function (oEvent) {
 },
 onValueHelpRequest: function() {
     /*
-
         CustomerDialog.fragment.xml 오픈
 
         해당 Dialog 안에 sap.ui.table.Table 세팅 후,
         /Customers 바인딩한다. 표시한 필드는 CustomerID, CompanyName
         팝업에 close 버튼을 구성하여 클릭 시 팝업이 닫히도록 한다.
-
+        sap.m.MessageToast.show("input value help 실행!");
     */
-    // sap.m.MessageToast.show("input value help 실행!");
     var oDialog = this.byId("Dialog");
     if (oDialog) {
         oDialog.open();
@@ -54,11 +52,11 @@ onValueHelpRequest: function() {
     }
 
     this.loadFragment({
-        name: "zprojectodatae0104.controller.Main"
+        name: "zprojectodatae0104.view.CustomerDialog"
     }).then(function(oDialog) {
         oDialog.open();
     }, this); // this는 현재컨트롤러를 바라보게
-
+    
 },
 onClose: function(){
     this.byId("Dialog").close();

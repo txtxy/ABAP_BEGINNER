@@ -7,7 +7,7 @@ sap.ui.define([
     function (Controller) {
         "use strict";
 
-        return Controller.extend("zprojectodatae1004.controller.Main", {
+        return Controller.extend("zprojectodatae0104.controller.Detail", {
             onInit: function () {
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute("RouteDetail").attachPatternMatched(this._onPatternMatched, this)
