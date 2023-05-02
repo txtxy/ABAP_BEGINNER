@@ -31,10 +31,11 @@ onRowPress: function (oEvent) {
     var oRouter = this.getOwnerComponent().getRouter();
     var sPath = oEvent.getParameters().listItem.getBindingContextPath();
     var sKey = this.getView().getModel().getProperty(sPath+'/OrderID')
-
+    debugger;
     oRouter.navTo("RouteDetail",{
         "key": sKey
     });
+
 },
 onValueHelpRequest: function() {
     /*

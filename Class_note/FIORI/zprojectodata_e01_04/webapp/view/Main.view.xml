@@ -19,7 +19,7 @@ xmlns:mvc="sap.ui.core.mvc"
 					<layout:HorizontalLayout allowWrapping="true">
 						<layout:VerticalLayout class="sapUiMediumMarginEnd">
 							
-                            <Input showValueHelp="true" valueHelpRequest="onValueHelpRequest" />        
+                            <Input showValueHelp="true" valueHelpRequest = "onValueHelpRequest" />        
                         </layout:VerticalLayout>
 
 						<layout:VerticalLayout>

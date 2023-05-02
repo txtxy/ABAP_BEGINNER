@@ -8,7 +8,7 @@
             resizable="true">
         <content>
             <t:Table rows="{/Customers}"
-                selectionMode="MultiToggle"
+                selectionMode="Single"
                 visibleRowCount="7"
                 paste="onPaste"
                 ariaLabelledBy="title"
