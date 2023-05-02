@@ -48,5 +48,13 @@ console.log(F['name']);
 
 // console.log(list.drink);
 
-var count = prompt("숫자를 입력하세요");
-for (let i = Number(count); i > 0; i--) {console.log("*".repeat(i));}
+var count = Number(prompt("숫자를 입력하세요"));
+for (let i = 1; i < (count/2); i++) {
+  let j =  count - i;
+    console.log("*".repeat(j)," ".repeat(i),"*".repeat(j) );
+}
+
+for (let i = (count/2); i > 0; i--) {
+  let j =  count - i;
+console.log("*".repeat(j)," ".repeat(i),"*".repeat(j) );
+}
