@@ -12,9 +12,11 @@ sap.ui.define([
                 var oRouter = this.getOwnerComponent().getRouter();
                 oRouter.getRoute("RouteDetail").attachPatternMatched(this._onPatternMatched, this) // URL 패턴이 맞으면 _onPatternMatched 함수 호출
             },
+            // 패턴이 맞을 떄마다 실행해라!
             _onPatternMatched : function (oEvent) {
                 // oEvent.getParameters().arguments
-                var oArgu = oEvent.getParameter("arguments");    // aa, bb가 담겨있다.
+                var oArgu = oEvent.getParameter("arguments");  
+                 //파라미터 내부 arguments 내부에 URL 파라미터정보인 aa, bb가 담겨있다.
                 console.log(oArgu);
             },
             onNavButtonPress : function () {

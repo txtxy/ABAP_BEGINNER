@@ -1,9 +1,42 @@
 <mvc:View controllerName="projecte0107.controller.Main"
-    xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
+    xmlns:t="sap.ui.table"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:u="sap.ui.unified"
+    xmlns:l="sap.ui.layout"
+    xmlns:c="sap.ui.core"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
-            <Button text="go detail" press="onButtonPress" />
+            <l:Grid defaultSpan="XL3 L4 M6 S12">
+                <Input value="test1" placeholder="Productno"/> <!--회색 연한 색으로 설명문 보여주기 -->
+                <Input value="test1" placeholder="Productname" />
+                <Input value="test1" placeholder="Fname"/>
+                <Input value="test1" placeholder="Lname"/>
+                <Input value="test1" placeholder="Memo"/>
+
+
+            </l:Grid>
+
+            <t:Table
+                rows="{/ProductCollection}"
+                selectionMode="MultiToggle"
+                visibleRowCount="7"
+                paste="onPaste"
+                ariaLabelledBy="title">
+                <t:extension>
+                    <OverflowToolbar style="Clear">
+                        <Title id="title" text="Products" />
+                    </OverflowToolbar>
+                </t:extension>
+                <t:columns>
+                    <t:Column width="11rem">
+                        <Label text="Product Name" />
+                        <t:template>
+                            <Text text="{Name}" wrapping="false" />
+                        </t:template>
+                    </t:Column>
+                </t:columns>
+            </t:Table>
         </content>
     </Page>
 </mvc:View>

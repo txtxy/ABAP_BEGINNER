@@ -1,68 +1,19 @@
  <mvc:View controllerName="zprojectodatae0104.controller.Detail"
  xmlns:mvc="sap.ui.core.mvc" displayBlock="true"
     xmlns="sap.m"
-    xmlns:t="sap.ui.table">
+    xmlns:l="sap.ui.layout">
     <Page id="page" title="Detail" showNavButton="true" navButtonPress = "onNavButtonPress">
         <content>
-           <Table id="idProductsTable"
-						sticky="HeaderToolbar,ColumnHeaders"
-						items="{/Orders}">
-					<headerToolbar>
-						<Toolbar>
-							<Title text="Orders" level="H2"/>
-						</Toolbar>
-					</headerToolbar>
-					<columns>
-						<Column>
-                            <Text text="Order ID" />
-                        </Column>
-                        <Column>
-                            <Text text="Customer ID" />
-                        </Column>
-                        <Column>
-                            <Text text="Employee ID" />
-                        </Column>                        
-                        <Column>
-                            <Text text="Order Date"/>
-                        </Column>
-                        <Column>
-                            <Text text="Required Date"/>
-                        </Column>
-                        <Column>
-                            <Text text="Shipped Date"/>
-                        </Column>
-					</columns>
-					<items>
-						<ColumnListItem>
-							<cells>
-								<ObjectIdentifier text="{OrderID}"/>
-                                <Text text="{CustomerID}" />
-                                <Text text="{EmployeeID}" />                                
-                                <Text
-                                    text="{
-                                        parts : [
-                                        {path : 'OrderDate'}
-                                        ],
-                                        formatter : '.formatter.dateTime'
-                                        }" />
-                                <Text
-                                    text="{
-                                        parts : [
-                                        {path : 'RequiredDate'}
-                                        ],
-                                        formatter : '.formatter.dateTime'
-                                        }" />
-                                <Text
-                                    text="{
-                                        parts : [
-                                        {path : 'ShippedDate'}
-                                        ],
-                                        formatter : '.formatter.dateTime'
-                                        }" />                                                                                
-							</cells>
-						</ColumnListItem>
-					</items>
-				</Table>
+          <l:VerticalLayout id="vlayout">P
+            <Input value="{detail>/data/OrderID}" description="OrderID" />
+            <!-- 배열이었다면   ...>/data/0/OderID  와 같이 구헝해야함.-->
+            <Input value="{detail>/data/CustomerID}" description="CustomerID" />
+            <Input value="{detail>/data/ShipAddress}" description="ShipAddress" />
+            <Input value="{detail>/data/ShipCountry}" description="ShipCountry" />
+            <Input value="{detail>/data/ShipName}" description="ShipName" />
+          
+          
+          </l:VerticalLayout>
         </content>
     </Page>
 </mvc:View>
