@@ -8,6 +8,7 @@ sap.ui.define(
   
       return Controller.extend("test0001.controller.Main", {
         onInit: function () {
+          this.oRouter = this.getOwnerComponent().getRouter();
         },
   
         /**
