@@ -28,9 +28,17 @@ sap.ui.define([
             },
             onCreate: function () {
                 let oData = this.oMainModel.getData();
-
+                        /* OData=>{ 
+                            Productno : 
+                            Productname : 
+                            Fname : 
+                            Lname : 
+                            Memo : 
+                        }
+                        */
                 oData.Productno = Number(oData.Productno)
-
+                        // HTTP 리퀘스트를 위한 BODY 생성
+                        // create 요청은 POST 요청임.
                 this.oModel.create("/Products", oData, {
                     success: function () {
                         sap.m.MessageToast.show("Create Success!")
@@ -48,6 +56,9 @@ sap.ui.define([
                 let sFullPath = this.oModel.createKey("/Products", {
                     Productno: jsonData.Productno
                 });
+                //sFullPath ==> "/Produycts(poroductno =jsonData.Productno"
+                //sFullPath는 문자열과 변수로 생성할 수도 있음
+                // 예시 ) sFullPath = /Produycts("poroductno ="+ 변수)
                 this.oModel.update(sFullPath, jsonData, {
                     success: function () {
                         sap.m.MessageToast.show("변경되었습니다.");
@@ -85,15 +96,28 @@ sap.ui.define([
                 //     console.log("READ ALL : ",oReturn);
                 //     }
                 //     })
+                // ODataMode v2 => read(); 메쏘드를 활용한 것임
+                // 다건 조회를 위해서는 sPath 대신에 "/Products"로 변경하면 됨.
                 this.oModel.read(sPath, {
+                    // filter : [필터 모델 객체],
                     success: function (oReturn) {
+
                         // console.log("READ : ",oReturn);
                         this.byId("grid").getContent(oReturn);
-                        // this.oMainModel().setProperty("/", oReturn);
+                        // this.oMainModel().setProperty("/", oReturn);  
+                        // 조회 데이터는 JSON으로 받아진다.
                         this.oMainModel.setData(oReturn);
-                        // 
+                        /*
+                        oReturn =>{ 
+                            Productno : 
+                            Productname : 
+                            Fname : 
+                            Lname : 
+                            Memo : 
+                        }
+                        */
 
-                        // }.bind(this)
+                        //현재 사용하고 싶은 Controller 객체로 this를 활용핫기위해 }.bind(this)
                     }.bind(this)
                 })
             },

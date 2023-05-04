@@ -1,0 +1,46 @@
+<mvc:View controllerName="zprojecte0108.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds"
+    xmlns:viz.data="sap.viz.ui5.data"
+    height="100%">
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <viz:VizFrame id="idViewChart"
+                vizType="column"
+                width="50%"
+                height="50%"
+                vizProperties="{
+                    'title' : {text: 'Chat Practice',visible : true},
+                    'plotArea' : {
+                        colorPalette : ['#EF0000','#00FFFF']
+                    }
+                }"><!--
+                차트 제일 껍데기-->
+                <viz:dataset><!-- 차트 데이터 정보 세팅하기-->
+                    <!-- 컨트롤에 생성한 뷰 데이터안의 리스트를 바인딩함. -->
+                    <viz.data:FlattenedDataset data="{view>/list}"><!-- 데이터 바인딩-->
+                        <!-- X축(dimensions)과 Y축(measures) 세팅 -->
+
+                        <viz.data:dimensions><!-- X축 세팅-->
+                            <viz.data:DimensionDefinition name="과목" value="{view>name}" />
+                        </viz.data:dimensions>
+
+                        <viz.data:measures><!-- Y축 세팅-->
+                            <viz.data:MeasureDefinition name="점수" value="{view>rate}" />
+                        </viz.data:measures>
+
+                    </viz.data:FlattenedDataset>
+                </viz:dataset>
+
+
+                <viz:feeds><!-- UI에 그려지는 모습을 세팅하기 -->
+                    <viz.feeds:FeedItem type="Dimension" uid="categoryAxis" values="과목" />
+                    <viz.feeds:FeedItem type="Measure" uid="valueAxis" values="점수" />
+                </viz:feeds>
+
+            </viz:VizFrame>
+        </content>
+    </Page>
+</mvc:View>  

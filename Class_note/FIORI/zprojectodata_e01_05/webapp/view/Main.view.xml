@@ -7,12 +7,12 @@
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
         <content>
-            <l:Grid id="grid"  defaultSpan="XL3 L4 M6 S12">
-                <Input id = "input1" value="{main>/Productno}" placeholder="Productno" /> <!--회색 연한 색으로 설명문 보여주기 -->
-                <Input id = "input2" value="{main>/Productname}" placeholder="Productname" />
-                <Input id = "input3" value="{main>/Fname}" placeholder="Fname" />
-                <Input id = "input4" value="{main>/Lname}" placeholder="Lname" />
-                <Input id = "input5" value="{main>/Memo}" placeholder="Memo" />
+            <l:Grid id="grid" defaultSpan="XL3 L4 M6 S12">
+                <Input value="{main>/Productno}" placeholder="Productno" /> <!--회색 연한 색으로 설명문 보여주기 -->
+                <Input value="{main>/Productname}" placeholder="Productname" />
+                <Input value="{main>/Fname}" placeholder="Fname" />
+                <Input value="{main>/Lname}" placeholder="Lname" />
+                <Input value="{main>/Memo}" placeholder="Memo" />
             </l:Grid>
             <t:Table
                 id="idTable"
@@ -24,12 +24,12 @@
                 ariaLabelledBy="title">
                 <t:extension>
                     <OverflowToolbar style="Clear">
-                        <Title  text="Products" />
+                        <Title text="Products" />
                         <ToolbarSpacer />
-                        <Button text="Create" press="onCreate" type="Emphasized"/>
-                        <Button text="Update" press="onUpdate" type="Emphasized"/>
-                        <Button text="Delete" press="onDelete" type="Emphasized"/>
-                        <Button text="Read Entity" press="onReadEntity" type="Emphasized"/>
+                        <Button text="Create" press="onCreate" type="Emphasized" />
+                        <Button text="Update" press="onUpdate" type="Emphasized" />
+                        <Button text="Delete" press="onDelete" type="Emphasized" />
+                        <Button text="Read Entity" press="onReadEntity" type="Emphasized" />
                     </OverflowToolbar>
                 </t:extension>
                 <t:columns>
