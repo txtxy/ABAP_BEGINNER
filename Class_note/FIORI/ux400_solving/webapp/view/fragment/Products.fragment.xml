@@ -71,8 +71,8 @@
                                         formatter : '.formatter.transformDiscontinued' 
                                         }" />
                             <core:Icon
-                                src="{=(${UnitPrice}) > 15 ? 'sap-icon://thumb-up' : 'sap-icon://thumb-down'}"
-                                color="{=(${UnitPrice}) > 15 ? 'rgb(27, 234, 33)' : 'rgb(234, 52, 27 )'}" />
+                                src="{=(${UnitPrice}) >= 15 ? 'sap-icon://thumb-up' : 'sap-icon://thumb-down'}"
+                                color="{=(${UnitPrice}) >= 15 ? 'rgb(27, 234, 33)' : 'rgb(234, 52, 27 )'}" />
                         </cells>
                     </ColumnListItem>
                 </items>

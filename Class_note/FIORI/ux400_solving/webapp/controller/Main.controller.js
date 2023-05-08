@@ -80,15 +80,16 @@ sap.ui.define([
                 oDialog.close();
             },
             onValueChange: function () {
-                debugger;
                 var nInputNumber = Number(this.byId("idInput").getValue());
 
                 if (nInputNumber < 100 && nInputNumber > 1) {
 
                         this.byId("idInput").setValueState(sap.ui.core.ValueState.None)
+                        this.byId("inButton").setEnabled();
 
                 } else {
                     this.byId("idInput").setValueState(sap.ui.core.ValueState.Error)
+                    this.byId("inButton").setEnabled(false);
                 }
 
 

@@ -17,7 +17,7 @@
                 <!-- valueState="{=(${UnitPrice}) > 1 || (${UnitPrice}) &lt; 100 ? 
                         'None' : 'Error'}" -->
 
-                <Button text="Random" press="onRandomPress" />
+                <Button id="inButton" text="Random" press="onRandomPress" />
 
 
                 <Panel width="50%" class="sapUiLargeMargin">
