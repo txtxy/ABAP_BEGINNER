@@ -31,7 +31,7 @@ sap.ui.define([
             },
             onInit: function () {
                 var oData = {
-                    value: [{ text: 0 }]
+                    value: []
                 };
                 var oModel = new JSONModel(oData);
                 this.getView().setModel(oModel, "List");
