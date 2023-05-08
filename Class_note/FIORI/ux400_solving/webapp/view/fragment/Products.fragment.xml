@@ -38,23 +38,23 @@
                     </Column>
                     <Column>
                         <Text text="Units On Order" />
-                    </Column>                    
+                    </Column>
                     <Column>
                         <Text text="Reorder Level" />
-                    </Column>                    
+                    </Column>
                     <Column>
                         <Text text="Discontinued" />
-                    </Column>                                                            
+                    </Column>
                     <Column>
                         <Text text="Status" />
-                    </Column>                                                            
+                    </Column>
                 </columns>
                 <items>
                     <ColumnListItem>
                         <cells>
                             <ObjectIdentifier text="{ProductID}" />
                             <Text text="{ProductName}" />
-                            <Text text="{SupplierID}" />  
+                            <Text text="{SupplierID}" />
                             <Text text="{CategoryID}" />
                             <Text
                                 text="{path : 'QuantityPerUnit'}" />
@@ -70,8 +70,9 @@
                                 text="{path : 'Discontinued',
                                         formatter : '.formatter.transformDiscontinued' 
                                         }" />
-                            <core:Icon src="{=(${UnitPrice}) > 15 ? 'sap-icon://thumb-up' : 'sap-icon://thumb-down'}"
-                                        color="{=(${UnitPrice}) > 15 ? 'rgb(27, 234, 33)' : 'rgb(234, 52, 27 )'}"/>
+                            <core:Icon
+                                src="{=(${UnitPrice}) > 15 ? 'sap-icon://thumb-up' : 'sap-icon://thumb-down'}"
+                                color="{=(${UnitPrice}) > 15 ? 'rgb(27, 234, 33)' : 'rgb(234, 52, 27 )'}" />
                         </cells>
                     </ColumnListItem>
                 </items>
