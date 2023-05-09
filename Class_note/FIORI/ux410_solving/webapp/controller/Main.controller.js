@@ -1,14 +1,13 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-    "sap/viz/ui5/controls/VizFrame"
+    "sap/ui/model/Filter"
 
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, Filter, VizFrame) {
+    function (Controller, JSONModel, Filter, ) {
         "use strict";
 
         return Controller.extend("ux410solving.controller.Main", {
@@ -54,7 +53,7 @@ sap.ui.define([
                     oData = oEvent.getParameter("data")[0].data,
                     oVizFrame = this.byId("idViewChart");
 
-                oVizFrame.vizSelection(oData, { clearSelection: true });
+                oVizFrame.vizSelection( oData, { clearSelection: true });
                 oRouter.navTo("RouteDetail", {
                     OrderID: oData.OrderID,
                     ProductID: oData.ProductID
