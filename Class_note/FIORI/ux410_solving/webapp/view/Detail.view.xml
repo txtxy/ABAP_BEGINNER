@@ -1,0 +1,67 @@
+<mvc:XMLView xmlns:mvc="sap.ui.core.mvc"
+    controllerName="ux410solving.controller.Detail"
+    xmlns="sap.uxap"
+    xmlns:layout="sap.ui.layout"
+    xmlns:m="sap.m"
+    xmlns:f="sap.ui.layout.form"
+    height="100%">
+
+    <ObjectPageLayout id="ObjectPageLayout"
+        showTitleInHeaderContent="false"
+        showEditHeaderButton="true"
+        editHeaderButtonPress="handleEditBtnPress"
+        upperCaseAnchorBar="false">
+
+        <headerTitle>
+            <ObjectPageHeader objectTitle="OrderID : {OrderID}">
+            </ObjectPageHeader>
+        </headerTitle>
+
+        <headerContent>
+            <m:ObjectAttribute title="" text="Order Detail View Details" />
+        </headerContent>
+
+        <sections>
+            <ObjectPageSection titleUppercase="false" title="Info">
+                <subSections>
+                    <ObjectPageSubSection titleUppercase="false">
+                        <blocks />
+
+                        <f:SimpleForm id="SimpleFormDisPlay354"
+                            editable="false"
+                            layout="ResponsiveLayout"
+                            title="Address"
+                            labelSpanXL="3"
+                            labelSpanL="3"
+                            labelSpanM="3"
+                            labelSpanS="12"
+                            adjustLabelSpan="false"
+                            emptySpanXL="4"
+                            emptySpanL="3"
+                            emptySpanM="4"
+                            emptySpanS="0"
+                            columnsXL="1"
+                            columnsL="1"
+                            columnsM="1"
+                            singleContainerFullSize="false"
+                            >
+
+                            <f:content>
+                                <m:Label text="OrderID" />
+                                <m:Text text="{OrderID}" />
+                                <m:Label text="ProductID" />
+                                <m:Text text="{ProductID}" />
+                                <m:Label text="Discount" />
+                                <m:Text text="{Discount}" />
+
+
+                            </f:content>
+                        </f:SimpleForm>
+                    </ObjectPageSubSection>
+                </subSections>
+
+
+            </ObjectPageSection>
+        </sections>
+    </ObjectPageLayout>
+</mvc:XMLView>

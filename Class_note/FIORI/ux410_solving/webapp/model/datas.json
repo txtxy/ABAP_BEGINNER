@@ -1,0 +1,16 @@
+{
+    "datas": [
+        {
+            "type": "bar"
+        },
+        {
+            "type": "column"
+        },
+        {
+            "type": "line"
+        },
+        {
+            "type": "donut"
+        }
+    ]
+}
