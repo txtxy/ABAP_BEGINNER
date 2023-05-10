@@ -1,4 +1,5 @@
 # 배포 순서
+
 1.
  npm run build 
  패키지 빌드
@@ -20,11 +21,12 @@ PACKAGE -> $TMP
 Transport Request ->  MANUALLY 
 무지성 엔터 하면 끝
 
-이렇게 디플로이하면 SAP gui 해당하는 페키지에 빌드 패키지가 업로드됨.
+이렇게 Deploy하면 SAP gui 해당하는 페키지에 빌드 패키지가 업로드됨.
 
 
 ## 런치 패드 띄우기
 Tcode : /n/ui2/flp (원하는 BSP 디렉토리에서)
+
 ## 런치패드 만들기
 Tcode : /n/ui2/flpd_cust (원하는 BSP 디렉토리에서)
 ### 타일 생성
