@@ -31,7 +31,7 @@ sap.ui.define([
             },
             onSearch: function () {
 
-                debugger;
+
                 let oOrderDate = this.byId("idOrderDate").getDateValue();
                 let sInputValue = Number(this.byId("idOrderID").getValue());
 
