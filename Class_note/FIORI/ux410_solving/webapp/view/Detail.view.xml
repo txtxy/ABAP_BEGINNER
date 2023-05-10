@@ -25,7 +25,7 @@
             <ObjectPageSection titleUppercase="false" title="Info">
                 <subSections>
                     <ObjectPageSubSection titleUppercase="false">
-                        <blocks />
+                        <blocks >
 
                         <f:SimpleForm id="SimpleFormDisPlay354"
                             editable="false"
@@ -51,12 +51,16 @@
                                 <m:Text text="{OrderID}" />
                                 <m:Label text="ProductID" />
                                 <m:Text text="{ProductID}" />
+                                <m:Label text="UnitPrice" />
+                                <m:Text text="{UnitPrice}" />
+                                <m:Label text="Quantity" />
+                                <m:Text text="{Quantity}" />
                                 <m:Label text="Discount" />
                                 <m:Text text="{Discount}" />
 
-
                             </f:content>
                         </f:SimpleForm>
+</blocks>
                     </ObjectPageSubSection>
                 </subSections>
 
