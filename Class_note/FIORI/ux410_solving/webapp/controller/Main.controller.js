@@ -8,7 +8,7 @@ sap.ui.define([
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
     function (Controller, JSONModel, Filter,) {
-        "use strict";
+        "use strict";`                                          `
 
         return Controller.extend("ux410solving.controller.Main", {
             onInit: function () {
@@ -67,9 +67,8 @@ sap.ui.define([
                     OrderID: oData.OrderID,
                     ProductID: oData.ProductID
                 })
-
                 //oEvent.getParameter() 에서 데이터 배열을 확인할수 있고
-                // oEvent.getParameter("data")[0].data에서 선택한 데이터의 값을 알 ㅅ ㅜ있다,
+                // oEvent.getParameter("data")[0].data에서 선택한 데이터의 값을 알 수 있다,
             }
         })
     });
