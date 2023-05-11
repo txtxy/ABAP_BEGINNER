@@ -62,7 +62,7 @@ sap.ui.define([
             },
 
             onDetail: function (oEvent) {
-                
+
                 var oDialog = this.byId("openDetail");
 
                 var sPath = oEvent.getSource().getBindingContext().getPath();
@@ -71,30 +71,30 @@ sap.ui.define([
                 oModel.read(sPath, {
                     urlParameters: { $expand: "to_Item" },
                     success: function (oData) {
-                      if (oDialog) {
+                        if (oDialog) {
 
-                        oDialog.setModel(oModel);
-                        oDialog.bindElement({
-                          path: sPath,
-                          model: oModel
-                        });
-                        oDialog.open();
-                      } else {
-                        this.loadFragment({
-                          name: "exprograme01.view.fragment.Detail"
-                        }).then(function (oDialog) {
+                            oDialog.setModel(oModel);
+                            oDialog.bindElement({
+                                path: sPath,
+                                model: oModel
+                            });
+                            oDialog.open();
+                        } else {
+                            this.loadFragment({
+                                name: "exprograme01.view.fragment.Detail"
+                            }).then(function (oDialog) {
 
-                          oDialog.setModel(oModel);
-                          oDialog.bindElement({
-                            path: sPath,
-                            model: oModel
-                          });
-                          oDialog.open();
-                        }.bind(this));
-                      }
+                                oDialog.setModel(oModel);
+                                oDialog.bindElement({
+                                    path: sPath,
+                                    model: oModel
+                                });
+                                oDialog.open();
+                            }.bind(this));
+                        }
                     }.bind(this)
                 })
-               
+
 
             },
 
@@ -102,9 +102,6 @@ sap.ui.define([
                 var oDialog = oEvent.getSource().getParent();
 
                 oDialog.close();
-            },
-            onBeforeOpen: function (oEvent) {
-
             }
         });
     });

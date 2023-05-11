@@ -1,6 +1,7 @@
-<core:FragmentDefinition 
+<core:FragmentDefinition
     xmlns:core="sap.ui.core"
     xmlns="sap.m"
+    xmlns:t="sap.ui.table"
     xmlns:viz="sap.viz.ui5.controls"
     xmlns:viz.data="sap.viz.ui5.data"
     xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
@@ -8,36 +9,34 @@
         <content>
             <HBox>
                 <VBox>
-                    <Table id="idDetailTable"
-                        inset="false"
-                        items="{/to_Item}"
+                    <t:Table id="idDetailTable"
+                        rows="{/carrierSet}"
                         width="50%"
-                        mode="SingleSelectMaster">
-                        <columns>
-                            <Column>
-                                <Text text="Carrid" />
-                            </Column>
-                            <Column>
-                                <Text text="Connid" />
-                            </Column>
-                            <Column>
-                                <Text text="Seatsmax" />
-                            </Column>
-                            <Column>
-                                <Text text="Seatsocc" />
-                            </Column>
-                        </columns>
-                        <items>
-                            <ColumnListItem>
-                                <cells>
-                                    <ObjectIdentifier text="{Carrid}" />
-                                    <Text text="{Connid}" />
-                                    <Text text="{Seatsmax}" />
-                                    <Text text="{Seatsocc}" />
-                                </cells>
-                            </ColumnListItem>
-                        </items>
-                    </Table>
+                        selectionMode="Single">
+                        <t:columns>
+                            <t:Column width="11rem">
+                                <Label text="Connid" />
+                                <t:template>
+                                    <Text text="{to_Item>/Connid}" wrapping="false" />
+                                </t:template>
+                            </t:Column>
+                            <t:Column width="11rem">
+                                <Label text="Seatsmax" />
+                                <t:template>
+                                    <Text text="{Seatsmax}" wrapping="false" />
+                                </t:template>
+                            </t:Column>
+                            <t:Column width="11rem">
+                                <Label text="Seatsocc" />
+                                <t:template>
+                                    <Text text="{Seatsocc}" wrapping="false" />
+                                </t:template>
+                            </t:Column>
+
+
+                        </t:columns>
+
+                    </t:Table>
                 </VBox>
                 <VBox>
                     <viz:VizFrame vizType='stacked_column'
@@ -52,7 +51,7 @@
                                         }
                                         }">
                         <viz:dataset>
-                            <viz.data:FlattenedDataset data="{/to_Item}">
+                            <viz.data:FlattenedDataset data="{/carrierSet}">
                                 <viz.data:dimensions>
                                     <viz.data:DimensionDefinition name="항공편번호" value="{Connid}" />
                                 </viz.data:dimensions>
