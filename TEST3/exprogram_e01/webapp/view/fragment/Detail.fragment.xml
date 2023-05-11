@@ -1,51 +1,83 @@
-<core:FragmentDefinition
+<core:FragmentDefinition 
     xmlns:core="sap.ui.core"
-    xmlns="sap.m">
-    <Dialog id="openDetail" beforeOpen="onBeforeOpen">
+    xmlns="sap.m"
+    xmlns:viz="sap.viz.ui5.controls"
+    xmlns:viz.data="sap.viz.ui5.data"
+    xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
+    <Dialog id="openDetail" beforeOpen="onBeforeOpen" title="{Carrname}">
         <content>
-        <HBox >
-            <Table id="idProductsTable"
-                sticky="HeaderToolbar,ColumnHeaders"
-                inset="false"
-                items="{/to_Item}"
-                mode="SingleSelectMaster"
-                selectionChange="onRowPress">
-                <headerToolbar>
-                    <Toolbar>
-                        <Title text="to_Item" level="H2" />
-                    </Toolbar>
-                </headerToolbar>
-                <columns>
-                    <Column>
-                        <Text text="Carrid" />
-                    </Column>
-                    <Column>
-                        <Text text="Connid" />
-                    </Column>
-                    <Column>
-                        <Text text="Seatsmax" />
-                    </Column>
-                    <Column>
-                        <Text text="Seatsocc" />
-                    </Column>
-                </columns>
-                <items>
-                    <ColumnListItem>
-                        <cells>
-                            <ObjectIdentifier text="{ProductID}" />
-                            <Text text="{Connid}" />
-                            <Text text="{Seatsmax}" />
-                            <Text text="{Seatsocc}" />
-                         </cells>
-                    </ColumnListItem>
-                </items>
-            </Table>
+            <HBox>
+                <VBox>
+                    <Table id="idDetailTable"
+                        inset="false"
+                        items="{/to_Item}"
+                        width="50%"
+                        mode="SingleSelectMaster">
+                        <columns>
+                            <Column>
+                                <Text text="Carrid" />
+                            </Column>
+                            <Column>
+                                <Text text="Connid" />
+                            </Column>
+                            <Column>
+                                <Text text="Seatsmax" />
+                            </Column>
+                            <Column>
+                                <Text text="Seatsocc" />
+                            </Column>
+                        </columns>
+                        <items>
+                            <ColumnListItem>
+                                <cells>
+                                    <ObjectIdentifier text="{Carrid}" />
+                                    <Text text="{Connid}" />
+                                    <Text text="{Seatsmax}" />
+                                    <Text text="{Seatsocc}" />
+                                </cells>
+                            </ColumnListItem>
+                        </items>
+                    </Table>
+                </VBox>
+                <VBox>
+                    <viz:VizFrame vizType='stacked_column'
+                        width="50%"
+                        uiConfig="{applicationSet:'fiori'}"
+                        vizProperties="{
+                                        'title' : { 'visible' : true , text : 'Title Name'},
+                                        'legendGroup':{layout:{position: 'left'}},
+                                        'plotArea': {
+                                        drawingEffect: 'glossy',
+                                        dataLabel: { visible: true, type:'value'}
+                                        }
+                                        }">
+                        <viz:dataset>
+                            <viz.data:FlattenedDataset data="{/to_Item}">
+                                <viz.data:dimensions>
+                                    <viz.data:DimensionDefinition name="항공편번호" value="{Connid}" />
+                                </viz.data:dimensions>
 
-</HBox>
+                                <viz.data:measures>
+                                    <viz.data:MeasureDefinition name="Seatsmax" value="{Seatsmax}" />
+                                    <viz.data:MeasureDefinition name="Seatsocc" value="{Seatsocc}" />
+                                </viz.data:measures>
+                            </viz.data:FlattenedDataset>
+                        </viz:dataset>
+
+                        <viz:feeds>
+                            <!-- categoryAxis, valueAxis / color, size -->
+                            <viz.feeds:FeedItem type="Measure" uid="valueAxis"
+                                values="Seatsmax,Seatsocc" />
+                            <viz.feeds:FeedItem type="Dimension" uid="categoryAxis" values="항공편번호" />
+                        </viz:feeds>
+                    </viz:VizFrame>
+
+                </VBox>
+
+            </HBox>
         </content>
         <endButton>
-            <Button text="닫기" press=".onClose"></Button>
-            <!--앞에 점 찍힌것은 내가바라보는 컨트롤러에 해당한다는의미 -->
+            <Button text="Close" press=".onClose"></Button>
         </endButton>
     </Dialog>
 </core:FragmentDefinition>

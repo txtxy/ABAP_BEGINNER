@@ -8,8 +8,11 @@
 >
     <Page id="page" title="{i18n>title}">
         <content>
-            <HBox >
-                <VBox justifyContent="Center">
+            <HBox displayInline="true" >
+                <VBox justifyContent="Start"
+                    fitContainer="true"
+                    wrap="Wrap"
+                >
                     <Label text="Currency Code " bindingContexts="comboCurrency" />
                     <ComboBox id="comboCurrency">
                         <items>
@@ -26,8 +29,9 @@
                     <Input id="inpurCarrier" />
                     <Button text="Search" press="onSearch" type="Emphasized" width="100%" />
                 </VBox>
-
+                <VBox fitContainer="true" wrap="Wrap" width="80%">
                     <t:Table id="carrTable"
+                    
                         rows="{
                                 path: '/carrierSet',
                                 parameters: {
@@ -36,7 +40,9 @@
                                 }"
                         selectionMode="None"
                         visibleRowCount="10"
-                        ariaLabelledBy="title">
+                        ariaLabelledBy="title"
+
+                    >
                         <!-- 하위 테이블은 로우즈 바인딩에 연결된다.-->
                         <t:extension>
                             <OverflowToolbar style="Clear">
@@ -77,12 +83,14 @@
                             <t:Column>
                                 <Label text="Detail" />
                                 <t:template>
-                                  <Button text="예약현황" type="Ghost" enabled='{=Number(${to_Item}.length) > 0 ? true : false}' press="onDetail"/>
+                                    <Button id="idButton" text="예약현황" type="Ghost"
+                                        enabled='{=Number(${to_Item}.length) > 0 ? true : false}'
+                                        press="onDetail" />
                                 </t:template>
                             </t:Column>
                         </t:columns>
                     </t:Table>
-
+                </VBox>
 
             </HBox>
         </content>

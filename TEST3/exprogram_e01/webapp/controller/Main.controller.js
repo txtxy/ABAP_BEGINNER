@@ -1,12 +1,13 @@
 sap.ui.define([
     "sap/ui/core/mvc/Controller",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter"
+    "sap/ui/model/Filter",
+    "sap/m/Dialog",
 ],
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller, JSONModel, Filter) {
+    function (Controller, JSONModel, Filter, Dialog) {
         "use strict";
 
         return Controller.extend("exprograme01.controller.Main", {
@@ -30,9 +31,7 @@ sap.ui.define([
 
                         path: 'Carrname',
                         operator: "Contains",
-                        value1: oInputname
-
-                        ,
+                        value1: oInputname,
                         and: true
                     });
                     this.byId("carrTable").getBinding("rows").filter([oFilter]);
@@ -61,25 +60,51 @@ sap.ui.define([
 
                 }
             },
-            onDetail : function () {
+
+            onDetail: function (oEvent) {
+                
                 var oDialog = this.byId("openDetail");
 
-                if (oDialog) {
-                    oDialog.open();
-                } else {
+                var sPath = oEvent.getSource().getBindingContext().getPath();
+                var oModel = oEvent.getSource().getBindingContext().getModel();
 
-                    this.loadFragment({
-                        name: "exprograme01.view.fragment.Detail"
-                    }).then((oDialog) => {
+                oModel.read(sPath, {
+                    urlParameters: { $expand: "to_Item" },
+                    success: function (oData) {
+                      if (oDialog) {
+
+                        oDialog.setModel(oModel);
+                        oDialog.bindElement({
+                          path: sPath,
+                          model: oModel
+                        });
                         oDialog.open();
-                    }, this) // this를 넣어 준것은 현재 바라보고있는 컨트롤러를 바라보도록한것,
-                }
+                      } else {
+                        this.loadFragment({
+                          name: "exprograme01.view.fragment.Detail"
+                        }).then(function (oDialog) {
+
+                          oDialog.setModel(oModel);
+                          oDialog.bindElement({
+                            path: sPath,
+                            model: oModel
+                          });
+                          oDialog.open();
+                        }.bind(this));
+                      }
+                    }.bind(this)
+                })
+               
 
             },
+
             onClose: function (oEvent) {
                 var oDialog = oEvent.getSource().getParent();
 
                 oDialog.close();
+            },
+            onBeforeOpen: function (oEvent) {
+
             }
         });
     });

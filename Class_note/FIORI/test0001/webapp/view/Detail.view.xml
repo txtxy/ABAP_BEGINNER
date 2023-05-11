@@ -19,7 +19,7 @@
                                 }
                             }">
                 <viz:dataset>
-                    <viz.data:FlattenedDataset data="{view>/list}">
+                    <viz.data:FlattenedDataset data="{/list}">
                         <viz.data:dimensions>
                             <viz.data:DimensionDefinition name="과목" value="{view>name}" />
                         </viz.data:dimensions>
