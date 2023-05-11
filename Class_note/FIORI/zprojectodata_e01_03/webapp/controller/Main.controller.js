@@ -37,16 +37,16 @@ sap.ui.define([
 
                 let oFilter = new Filter({
                     filters: [
-                        {
+                        new Filter({
                             path: 'OderID',
                             operator: "EQ",
                             value1: sInputValue
-                        },
-                        {
+                        }),
+                        new Filter({
                             path: 'OrderDate',
                             operator: "GE",
                             value1: oOrderDate
-                        }
+                        })
                     ],
                     and: true
                 });

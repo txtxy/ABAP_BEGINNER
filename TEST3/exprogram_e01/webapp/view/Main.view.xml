@@ -1,0 +1,91 @@
+<mvc:View
+    xmlns:core="sap.ui.core"
+    controllerName="exprograme01.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:t="sap.ui.table"
+>
+    <Page id="page" title="{i18n>title}">
+        <content>
+            <HBox>
+                <VBox justifyContent="Center">
+                    <Label text="Currency Code " bindingContexts="comboCurrency" />
+                    <ComboBox id="comboCurrency">
+                        <items>
+                            <core:Item text="USD"
+                                key="USD" />
+                            <core:Item text="EUR"
+                                key="EUR" />
+                            <core:Item text="KRW"
+                                key="KRW" />
+                        </items>
+                    </ComboBox>
+
+                    <Label text="Carrier Name " bindingContexts="inpurCarrier" />
+                    <Input id="inpurCarrier" />
+                    <Button text="Search" press="onSearch" type="Emphasized" width="100%" />
+                </VBox>
+                <VBox>
+                    <t:Table id="carrTable"
+                        rows="{
+                                path: '/carrierSet',
+                                parameters: {
+                                            'expand' : 'to_Item'
+                                            }
+                                }"
+                        selectionMode="None"
+                        visibleRowCount="10"
+                        ariaLabelledBy="title">
+                        <!-- 하위 테이블은 로우즈 바인딩에 연결된다.-->
+                        <t:extension>
+                            <OverflowToolbar style="Clear">
+                                <Title text="Carrier List" />
+                            </OverflowToolbar>
+                        </t:extension>
+                        <t:columns>
+                            <t:Column>
+                                <Label text="Carrier ID" />
+                                <t:template>
+                                    <Text text="{Carrid}" wrapping="false" />
+                                </t:template>
+                            </t:Column>
+                            <t:Column>
+                                <Label text="Carrier Name" />
+                                <t:template>
+                                    <Text text="{Carrname}" wrapping="false" />
+                                </t:template>
+                            </t:Column>
+                            <t:Column>
+                                <Label text="Currency Code" />
+                                <t:template>
+                                    <Text text="{Currcode}" wrapping="false" />
+                                </t:template>
+                            </t:Column>
+                            <t:Column>
+                                <Label text="URI" />
+                                <t:template>
+                                    <Text text="{Url}" wrapping="false" />
+                                </t:template>
+                            </t:Column>
+                            <t:Column>
+                                <Label text="Lenth" />
+                                <t:template>
+                                    <Text text="{=Math.sum(${to_Item})}" wrapping="false" />
+                                </t:template>
+                            </t:Column>
+                            <t:Column>
+                                <Label text="Dtail" />
+                                <t:template>
+                                  <Button text="예약현황" type="Ghost"/>
+                                </t:template>
+                            </t:Column>
+                        </t:columns>
+                    </t:Table>
+                </VBox>
+
+
+            </HBox>
+        </content>
+    </Page>
+</mvc:View>
