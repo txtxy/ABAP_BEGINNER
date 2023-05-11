@@ -6,7 +6,7 @@ sap.ui.define([
     /**
      * @param {typeof sap.ui.core.mvc.Controller} Controller
      */
-    function (Controller,JSONModel,Filter) {
+    function (Controller, JSONModel, Filter) {
         "use strict";
 
         return Controller.extend("exprograme01.controller.Main", {
@@ -17,48 +17,69 @@ sap.ui.define([
 
 
             },
-            onSearch : function () {
+            onSearch: function () {
                 var sInputValue = this.byId("comboCurrency").getSelectedKey(),
-                oInputname = this.byId("inpurCarrier").getValue(),
-                oFilter;
+                    oInputname = this.byId("inpurCarrier").getValue(),
+                    oFilter;
 
                 // setValueState 를 사용해서 벨리데이트 처리할 것
 
-            if (!sInputValue) {
-                
-            oFilter = new Filter({
-                
-                    path: 'Carrname',
-                    operator: "Contains",
-                    value1: oInputname
-                
-            ,
-            and: true});
-            this.byId("carrTable").getBinding("rows").filter([oFilter]);
-        }else{
-            
+                if (!sInputValue) {
 
-            oFilter = new Filter({
-                filters: [
-                    new Filter( {
-                        path: 'Currcode',
-                        operator: "EQ",
-                        value1: sInputValue
-                    }),
-                    new Filter( {
+                    oFilter = new Filter({
+
                         path: 'Carrname',
                         operator: "Contains",
                         value1: oInputname
-                    })
-                ],
-                and: true
-            });
 
-            this.byId("carrTable").getBinding("rows").filter([oFilter]);
+                        ,
+                        and: true
+                    });
+                    this.byId("carrTable").getBinding("rows").filter([oFilter]);
+                } else {
+
+
+                    oFilter = new Filter({
+                        filters: [
+                            new Filter({
+                                path: 'Currcode',
+                                operator: "EQ",
+                                value1: sInputValue
+                            }),
+                            new Filter({
+                                path: 'Carrname',
+                                operator: "Contains",
+                                value1: oInputname
+                            })
+                        ],
+                        and: true
+                    });
+
+                    this.byId("carrTable").getBinding("rows").filter([oFilter]);
 
 
 
-        }
+                }
+            },
+            onDetail : function () {
+                var oDialog = this.byId("openDetail");
+
+                if (oDialog) {
+                    oDialog.open();
+                } else {
+
+                    this.loadFragment({
+                        name: "exprograme01.view.fragment.Detail"
+                    }).then((oDialog) => {
+                        oDialog.open();
+                    }, this) // this를 넣어 준것은 현재 바라보고있는 컨트롤러를 바라보도록한것,
+                }
+
+            },
+            onClose: function (oEvent) {
+                var oDialog = oEvent.getSource().getParent();
+
+                oDialog.close();
             }
         });
     });

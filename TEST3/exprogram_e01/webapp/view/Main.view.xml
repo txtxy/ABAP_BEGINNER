@@ -8,7 +8,7 @@
 >
     <Page id="page" title="{i18n>title}">
         <content>
-            <HBox>
+            <HBox >
                 <VBox justifyContent="Center">
                     <Label text="Currency Code " bindingContexts="comboCurrency" />
                     <ComboBox id="comboCurrency">
@@ -26,7 +26,7 @@
                     <Input id="inpurCarrier" />
                     <Button text="Search" press="onSearch" type="Emphasized" width="100%" />
                 </VBox>
-                <VBox>
+
                     <t:Table id="carrTable"
                         rows="{
                                 path: '/carrierSet',
@@ -69,20 +69,19 @@
                                 </t:template>
                             </t:Column>
                             <t:Column>
-                                <Label text="Lenth" />
+                                <Label text="Length" />
                                 <t:template>
-                                    <Text text="{=Math.sum(${to_Item})}" wrapping="false" />
+                                    <Text id="idLength" text="{=${to_Item}.length}" wrapping="false" />
                                 </t:template>
                             </t:Column>
                             <t:Column>
-                                <Label text="Dtail" />
+                                <Label text="Detail" />
                                 <t:template>
-                                  <Button text="예약현황" type="Ghost"/>
+                                  <Button text="예약현황" type="Ghost" enabled='{=Number(${to_Item}.length) > 0 ? true : false}' press="onDetail"/>
                                 </t:template>
                             </t:Column>
                         </t:columns>
                     </t:Table>
-                </VBox>
 
 
             </HBox>
