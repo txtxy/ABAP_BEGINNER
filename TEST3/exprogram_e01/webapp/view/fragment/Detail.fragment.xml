@@ -5,19 +5,18 @@
     xmlns:viz="sap.viz.ui5.controls"
     xmlns:viz.data="sap.viz.ui5.data"
     xmlns:viz.feeds="sap.viz.ui5.controls.common.feeds">
-    <Dialog id="openDetail" beforeOpen="onBeforeOpen" title="{Carrname}">
+    <Dialog id="openDetail" beforeOpen="onBeforeOpen" title="{dModel>/Carrname}">
         <content>
             <HBox>
                 <VBox>
                     <t:Table id="idDetailTable"
-                        rows="{/carrierSet}"
-                        width="50%"
+                        rows="{dModel>/to_Item/results}"
                         selectionMode="Single">
                         <t:columns>
                             <t:Column width="11rem">
                                 <Label text="Connid" />
                                 <t:template>
-                                    <Text text="{to_Item>/Connid}" wrapping="false" />
+                                    <Text text="{Connid}" wrapping="false" />
                                 </t:template>
                             </t:Column>
                             <t:Column width="11rem">
@@ -32,15 +31,11 @@
                                     <Text text="{Seatsocc}" wrapping="false" />
                                 </t:template>
                             </t:Column>
-
-
                         </t:columns>
-
                     </t:Table>
                 </VBox>
                 <VBox>
                     <viz:VizFrame vizType='stacked_column'
-                        width="50%"
                         uiConfig="{applicationSet:'fiori'}"
                         vizProperties="{
                                         'title' : { 'visible' : true , text : 'Title Name'},
@@ -51,14 +46,14 @@
                                         }
                                         }">
                         <viz:dataset>
-                            <viz.data:FlattenedDataset data="{/carrierSet}">
+                            <viz.data:FlattenedDataset data="{dModel>/to_Item/results}">
                                 <viz.data:dimensions>
-                                    <viz.data:DimensionDefinition name="항공편번호" value="{Connid}" />
+                                    <viz.data:DimensionDefinition name="항공편번호" value="{dModel>Connid}" />
                                 </viz.data:dimensions>
 
                                 <viz.data:measures>
-                                    <viz.data:MeasureDefinition name="Seatsmax" value="{Seatsmax}" />
-                                    <viz.data:MeasureDefinition name="Seatsocc" value="{Seatsocc}" />
+                                    <viz.data:MeasureDefinition name="Seatsmax" value="{dModel>Seatsmax}" />
+                                    <viz.data:MeasureDefinition name="Seatsocc" value="{dModel>Seatsocc}" />
                                 </viz.data:measures>
                             </viz.data:FlattenedDataset>
                         </viz:dataset>
