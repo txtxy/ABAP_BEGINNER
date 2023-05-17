@@ -38,7 +38,7 @@ sap.ui.define([
                 let oFilter = new Filter({
                     filters: [
                         new Filter({
-                            path: 'OderID',
+                            path: 'OrderID',
                             operator: "EQ",
                             value1: sInputValue
                         }),

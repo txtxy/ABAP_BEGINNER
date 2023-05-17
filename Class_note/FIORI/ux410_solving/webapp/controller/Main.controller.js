@@ -17,7 +17,6 @@ sap.ui.define([
                 // //Url경로는 Root Path에서 상대경로임 "Model/data.json"
                 this.getView().setModel(oModel, 'typeList');
                 // //   모델객처생성,   모델이름 설정
-                debugger;
                 this.byId("idViewChart").setVizType("bar");
             },
             onSearch: function () {

@@ -160,7 +160,7 @@ sap.ui.define([
                                 width: "100%",
                                 placeholder: "Add note (required)",
                                 liveChange: function (oEvent) {
-                                    var sText = oEvent.getParameter("value");
+                                    var sText = oEvent.getParameters();
                                     this.oSubmitDialog.getBeginButton().setEnabled(sText.length > 0);
                                 }.bind(this)
                             })
