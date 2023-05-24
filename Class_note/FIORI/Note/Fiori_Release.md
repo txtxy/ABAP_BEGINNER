@@ -10,6 +10,7 @@
     npm install -g yo
 
 
+
 3. npm run deploy
 Target  -> ABAP
 Target System -> http://edu.bgis.co.kr:8001 [SYNC-e-01]
